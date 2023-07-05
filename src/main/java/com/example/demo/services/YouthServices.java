@@ -16,7 +16,6 @@ public class YouthServices {
                 .college(personDTO.college)
                 .collegeLevel(personDTO.collegeLevel)
                 .gradLevel(personDTO.gradLevel)
-                .meetingLevel(personDTO.meetingLevel)
                 .build();
         youth.setFirstName(personDTO.firstName);
         youth.setLastName(personDTO.lastName);
