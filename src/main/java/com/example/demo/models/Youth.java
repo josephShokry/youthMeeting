@@ -1,6 +1,5 @@
 package com.example.demo.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,7 +15,7 @@ public class Youth extends Person{
 //    @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    private int id;
-    private String University;
+    private String university;
     private String college;
     private int collegeLevel;
     private int gradLevel;
