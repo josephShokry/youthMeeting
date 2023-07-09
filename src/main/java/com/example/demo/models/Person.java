@@ -12,7 +12,7 @@ import java.sql.Timestamp;
 //@Builder
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@Table(name = "person")
+@Table(name = "persons")
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,7 +21,6 @@ public class Person {
     private String lastName;
 //    private Timestamp dayOfBirth;
     private String phoneNumber;
-
 //    private Address address;
 
 }

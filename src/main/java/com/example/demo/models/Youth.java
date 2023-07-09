@@ -13,15 +13,15 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 public class Youth extends Person{
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private int id;
+   @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     private String University;
     private String college;
     private int collegeLevel;
     private int gradLevel;
  //  private Family family;
-//    private int meetingLevel; // TODO check if we need 2 levels
+    private int meetingLevel; // TODO check if we need 2 levels
 //    private Father father;
     private String notes;
 }

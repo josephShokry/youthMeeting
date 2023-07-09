@@ -11,5 +11,6 @@ public class FamilyDTO {
     public List<Youth> youthList;
     public List<Servant> servantList;
     public int joiningYear;
+    public int Id;
 
 }
