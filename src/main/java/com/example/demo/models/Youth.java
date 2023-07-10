@@ -20,7 +20,11 @@ public class Youth extends Person{
     private String college;
     private int collegeLevel;
     private int gradLevel;
- //  private Family family;
+
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(referencedColumnName = "id")
+    @JsonIgnore
+    private Family family;
     private int meetingLevel; // TODO check if we need 2 levels
 //    private Father father;
     private String notes;

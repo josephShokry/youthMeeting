@@ -19,7 +19,8 @@ public class Family {
     private int id;
     private String familyName;
     private int familyLevel;
- //   private List<Youth> youthList;
+    @OneToMany(mappedBy = "family",orphanRemoval = true)
+    private List<Youth> youthList;
  //   private List<Servant> servantList;
     private int joiningYear;
 }

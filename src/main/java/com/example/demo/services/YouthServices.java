@@ -12,22 +12,22 @@ import org.springframework.stereotype.Service;
 public class YouthServices {
     @Autowired
     private YouthRepository youthRepository;
+    @Autowired
+    private FamilyServices familyServices;
 
     public boolean addYouth(PersonDTO personDTO) {
         EntityMappers youthMapper = Mappers.getMapper(EntityMappers.class);
         Youth youth = new Youth();
-        youthRepository.save(youthMapper.getYouthFromDto(personDTO, youth));
-        System.out.println("**************************");
-        System.out.println(youth.getFirstName());
-//        Youth youth = Youth.builder()
-//                .college(personDTO.college)
-//                .collegeLevel(personDTO.collegeLevel)
-//                .gradLevel(personDTO.gradLevel)
-//                .build();
-//        youth.setFirstName(personDTO.firstName);
-//        youth.setLastName(personDTO.lastName);
-//        youth.setPhoneNumber(personDTO.phoneNumber);
-//        youthRepository.save(youth);
+        youthMapper.getYouthFromDto(personDTO, youth);
+        youth.setFamily(familyServices.getById(personDTO.familyId));
+        youthRepository.save(youth);
         return true;
+    }
+    public Youth getYouthById(int youthId){
+        return youthRepository.findById(youthId).get();
+    }
+
+    public String getFamilyName(int youthId) {
+        return getYouthById(youthId).getFamily().getFamilyName();
     }
 }
