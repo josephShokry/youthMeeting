@@ -16,7 +16,7 @@ public class Youth extends Person{
    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String University;
+    private String university;
     private String college;
     private int collegeLevel;
     private int gradLevel;

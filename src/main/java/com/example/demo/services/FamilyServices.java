@@ -13,12 +13,12 @@ public class FamilyServices {
 
 
     public boolean addFamily(FamilyDTO familyDTO) {
-        Family family= Family.builder()
-                .familyLevel(familyDTO.familyLevel)
-                .familyName(familyDTO.familyName)
-                .joiningYear(familyDTO.joiningYear)
-                .build();
-        familyRepository.save(family);
+//        Family family= Family.builder()
+//                .familyLevel(familyDTO.familyLevel)
+//                .familyName(familyDTO.familyName)
+//                .joiningYear(familyDTO.joiningYear)
+//                .build();
+//        familyRepository.save(family);
         return true;
     }
 }
