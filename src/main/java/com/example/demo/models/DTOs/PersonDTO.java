@@ -1,5 +1,7 @@
 package com.example.demo.models.DTOs;
 
+import com.example.demo.models.Family;
+
 import java.sql.Timestamp;
 
 public class PersonDTO {
@@ -16,5 +18,6 @@ public class PersonDTO {
     public String notes;
     public int Id;
     public int familyId;
+    public Family family;
 
 }

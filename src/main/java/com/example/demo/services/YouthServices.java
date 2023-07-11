@@ -28,13 +28,18 @@ public class YouthServices {
         youthRepository.save(youth);
         return true;
     }
-    public Youth getYouthById(int youthId){
+    private Youth getYouthEntityById(int youthId){
         return youthRepository.findById(youthId).get();
     }
-
-    public String getFamilyName(int youthId) {
-        return getYouthById(youthId).getFamily().getFamilyName();
+    public PersonDTO getYouthById(int youthId){
+        Youth youth  = youthRepository.findById(youthId).get();
+        return youthMapper.getPersonDTOFromYouth(youthRepository.findById(youthId).get(),new PersonDTO());
     }
+//
+//
+//    public String getFamilyName(int youthId) {
+//        return getYouthById(youthId).getFamily().getFamilyName();
+//    }
 
     public List<LightDTO> getAll() {
         Iterable<Youth> youths = youthRepository.findAll();
@@ -42,5 +47,13 @@ public class YouthServices {
                 .map(entity -> youthMapper.getLightDTOFromYouth(entity,new LightDTO()))
                 .collect(Collectors.toList());
         return dtos;
+    }
+
+    public boolean editYouth(int youthId, PersonDTO personDTO) {
+        Youth youth = getYouthEntityById(youthId);
+        youthMapper.getYouthFromDto(personDTO, youth);
+        youthRepository.save(youth);
+        // TODO: what if the change was in the family or any foreign key i think this will not work
+        return true;
     }
 }

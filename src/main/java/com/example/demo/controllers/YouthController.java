@@ -22,8 +22,18 @@ public class YouthController {
     public List<LightDTO> getAll(){
         return youthServices.getAll();
     }
-    @GetMapping("get_family_name")
-    public String getFamilyName(@RequestParam int youthId){
-        return youthServices.getFamilyName(youthId);
+    @GetMapping("get")// TODO: the id, family id and the family object not return after calling the api don't know why
+    public PersonDTO getYouth(@RequestParam int youthId){
+        return youthServices.getYouthById(youthId);
     }
+    @PatchMapping("edit")
+    public boolean editYouth(@RequestParam int youthId, @RequestBody PersonDTO personDTO){
+        return youthServices.editYouth(youthId, personDTO);
+    }
+
+
+//    @GetMapping("get_family_name")
+//    public String getFamilyName(@RequestParam int youthId){
+//        return youthServices.getFamilyName(youthId);
+//    }
 }
