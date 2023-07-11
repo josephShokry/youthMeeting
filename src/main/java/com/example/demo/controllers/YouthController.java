@@ -26,4 +26,12 @@ public class YouthController {
     public String getFamilyName(@RequestParam int youthId){
         return youthServices.getFamilyName(youthId);
     }
+    @GetMapping("get_area")
+    public String getAreaName(@RequestParam int youthId){
+        return youthServices.getArea(youthId);
+    }
+    @GetMapping("get_street")
+    public String getStreetName(@RequestParam int youthId){
+        return youthServices.getStreet(youthId);
+    }
 }

@@ -19,12 +19,21 @@ public class YouthServices {
     private YouthRepository youthRepository;
     @Autowired
     private FamilyServices familyServices;
+    @Autowired
+
+    private AreaServices areaServices;
+    @Autowired
+
+    private StreetServices streetServices;
+
     private final EntityMappers youthMapper = Mappers.getMapper(EntityMappers.class);
 
     public boolean addYouth(PersonDTO personDTO) {
         Youth youth = new Youth();
         youthMapper.getYouthFromDto(personDTO, youth);
         youth.setFamily(familyServices.getById(personDTO.familyId));
+        youth.setArea(areaServices.getById(personDTO.areaId));
+        youth.setStreet(streetServices.getById(personDTO.streetId));
         youthRepository.save(youth);
         return true;
     }
@@ -35,6 +44,11 @@ public class YouthServices {
     public String getFamilyName(int youthId) {
         return getYouthById(youthId).getFamily().getFamilyName();
     }
+    public String getArea (int youthId) {return getYouthById(youthId).getArea().getAreaName();}
+    public String getStreet(int youthId) {
+        return getYouthById(youthId).getStreet().getStreetName();
+    }
+
 
     public List<LightDTO> getAll() {
         Iterable<Youth> youths = youthRepository.findAll();

@@ -1,5 +1,6 @@
 package com.example.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,6 +22,14 @@ public class Person {
     private String lastName;
 //    private Timestamp dayOfBirth;
     private String phoneNumber;
-//    private Address address;
+    private int buildingNumber;
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(referencedColumnName = "id")
+    @JsonIgnore
+    private Street street;
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(referencedColumnName = "id")
+    @JsonIgnore
+    private Area area;
 
 }
