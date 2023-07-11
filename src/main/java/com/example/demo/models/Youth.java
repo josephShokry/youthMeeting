@@ -13,9 +13,6 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 public class Youth extends Person{
-   @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
     private String university;
     private String college;
     private int collegeLevel;
