@@ -17,7 +17,7 @@ public class FamilyServices {
     public boolean addFamily(FamilyDTO familyDTO) {
         EntityMappers familyMapper = Mappers.getMapper(EntityMappers.class);
         Family family = new Family();
-        familyRepository.save(familyMapper.getFamilyFromDto(familyDTO, family));
+        familyRepository.save(familyMapper.familyDtoToFamily(familyDTO, family));
         return true;
     }
 

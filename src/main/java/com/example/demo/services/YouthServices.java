@@ -10,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Service
 public class YouthServices {
@@ -23,7 +21,7 @@ public class YouthServices {
 
     public boolean addYouth(PersonDTO personDTO) {
         Youth youth = new Youth();
-        youthMapper.getYouthFromDto(personDTO, youth);
+        youthMapper.youthDtoToYouth(personDTO, youth);
         youth.setFamily(familyServices.getFamilyById(personDTO.familyId));
         youthRepository.save(youth);
         return true;
@@ -33,7 +31,7 @@ public class YouthServices {
     }
     public PersonDTO getYouthById(int youthId){
         Youth youth  = youthRepository.findById(youthId).get();
-        PersonDTO dto = youthMapper.getPersonDTOFromYouth(youthRepository.findById(youthId).get(),new PersonDTO());
+        PersonDTO dto = youthMapper.youthsToYouthLightDto(youthRepository.findById(youthId).get(),new PersonDTO());
         return dto;
     }
 //
@@ -44,15 +42,12 @@ public class YouthServices {
 
     public List<YouthLightDTO> getAll() {
         Iterable<Youth> youths = youthRepository.findAll();
-        List<YouthLightDTO> dtos = StreamSupport.stream(youthRepository.findAll().spliterator(), false)
-                .map(entity -> youthMapper.getLightDTOFromYouth(entity,new YouthLightDTO()))
-                .collect(Collectors.toList());
-        return dtos;
+        return (List<YouthLightDTO>) youthMapper.youthsToYouthLightDto(youths);
     }
 
     public boolean editYouth(int youthId, PersonDTO personDTO) {
         Youth youth = getYouthEntityById(youthId);
-        youthMapper.getYouthFromDto(personDTO, youth);
+        youthMapper.youthDtoToYouth(personDTO, youth);
         youthRepository.save(youth);
         // TODO: what if the change was in the family or any foreign key i think this will not work
         return true;
