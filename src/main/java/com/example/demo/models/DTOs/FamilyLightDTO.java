@@ -1,6 +1,6 @@
 package com.example.demo.models.DTOs;
 
-public class LightDTO {
-    public String name;
+public class FamilyLightDTO {
     public int id;
+    public String familyName;
 }

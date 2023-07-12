@@ -1,23 +1,19 @@
 package com.example.demo.models.DTOs;
 
-import com.example.demo.models.Family;
-
-import java.sql.Timestamp;
-
 public class PersonDTO {
+    public int id;
     public String firstName;
     public String lastName;
     public String phoneNumber;
 //    public Timestamp dayOfBirth;
-    public String University;
+    public String university;
     public String college;
     public int collegeLevel;
     public int gradLevel;
     public int meetingLevel; // TODO check if we need 2 levels
     //    public Father father;
     public String notes;
-    public int Id;
     public int familyId;
-    public Family family;
+    public FamilyLightDTO family;
 
 }

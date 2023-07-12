@@ -1,7 +1,7 @@
 package com.example.demo.services;
 
 import com.example.demo.models.DTOs.EntityMappers;
-import com.example.demo.models.DTOs.LightDTO;
+import com.example.demo.models.DTOs.YouthLightDTO;
 import com.example.demo.models.DTOs.PersonDTO;
 import com.example.demo.models.Youth;
 import com.example.demo.repositories.YouthRepository;
@@ -24,7 +24,7 @@ public class YouthServices {
     public boolean addYouth(PersonDTO personDTO) {
         Youth youth = new Youth();
         youthMapper.getYouthFromDto(personDTO, youth);
-        youth.setFamily(familyServices.getById(personDTO.familyId));
+        youth.setFamily(familyServices.getFamilyById(personDTO.familyId));
         youthRepository.save(youth);
         return true;
     }
@@ -33,7 +33,8 @@ public class YouthServices {
     }
     public PersonDTO getYouthById(int youthId){
         Youth youth  = youthRepository.findById(youthId).get();
-        return youthMapper.getPersonDTOFromYouth(youthRepository.findById(youthId).get(),new PersonDTO());
+        PersonDTO dto = youthMapper.getPersonDTOFromYouth(youthRepository.findById(youthId).get(),new PersonDTO());
+        return dto;
     }
 //
 //
@@ -41,10 +42,10 @@ public class YouthServices {
 //        return getYouthById(youthId).getFamily().getFamilyName();
 //    }
 
-    public List<LightDTO> getAll() {
+    public List<YouthLightDTO> getAll() {
         Iterable<Youth> youths = youthRepository.findAll();
-        List<LightDTO> dtos = StreamSupport.stream(youthRepository.findAll().spliterator(), false)
-                .map(entity -> youthMapper.getLightDTOFromYouth(entity,new LightDTO()))
+        List<YouthLightDTO> dtos = StreamSupport.stream(youthRepository.findAll().spliterator(), false)
+                .map(entity -> youthMapper.getLightDTOFromYouth(entity,new YouthLightDTO()))
                 .collect(Collectors.toList());
         return dtos;
     }
