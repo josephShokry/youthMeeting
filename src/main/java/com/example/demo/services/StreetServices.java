@@ -1,11 +1,8 @@
 package com.example.demo.services;
 
-import com.example.demo.models.Area;
-import com.example.demo.models.DTOs.AreaDTO;
-import com.example.demo.models.DTOs.EntityMappers;
+import com.example.demo.models.mappers.EntityMappers;
 import com.example.demo.models.DTOs.StreetDTO;
 import com.example.demo.models.Street;
-import com.example.demo.repositories.AreaRepository;
 import com.example.demo.repositories.StreetRepository;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;

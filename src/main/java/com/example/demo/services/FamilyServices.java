@@ -1,15 +1,12 @@
 package com.example.demo.services;
 
-import com.example.demo.models.DTOs.EntityMappers;
 import com.example.demo.models.DTOs.FamilyDTO;
 import com.example.demo.models.Family;
-import com.example.demo.models.Youth;
+import com.example.demo.models.mappers.FamilyMapper;
 import com.example.demo.repositories.FamilyRepository;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class FamilyServices {
@@ -18,13 +15,13 @@ public class FamilyServices {
 
 
     public boolean addFamily(FamilyDTO familyDTO) {
-        EntityMappers familyMapper = Mappers.getMapper(EntityMappers.class);
+        FamilyMapper familyMapper = Mappers.getMapper(FamilyMapper.class);
         Family family = new Family();
-        familyRepository.save(familyMapper.getFamilyFromDto(familyDTO, family));
+        familyRepository.save(familyMapper.familyDtoToFamily(familyDTO, family));
         return true;
     }
 
-    public Family getById(int familyId) {
+    public Family getFamilyById(int familyId) {
         return familyRepository.findById(familyId).get();
     }
 }
