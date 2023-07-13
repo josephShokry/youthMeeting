@@ -1,6 +1,7 @@
 package com.example.demo.services;
 
-import com.example.demo.models.DTOs.EntityMappers;
+import com.example.demo.models.mappers.LightYouthMapper;
+import com.example.demo.models.mappers.YouthMapper;
 import com.example.demo.models.DTOs.YouthLightDTO;
 import com.example.demo.models.DTOs.PersonDTO;
 import com.example.demo.models.Youth;
@@ -17,12 +18,13 @@ public class YouthServices {
     private YouthRepository youthRepository;
     @Autowired
     private FamilyServices familyServices;
-    private final EntityMappers youthMapper = Mappers.getMapper(EntityMappers.class);
+    private final YouthMapper youthMapper = Mappers.getMapper(YouthMapper.class);
+    private final LightYouthMapper lightYouthMapper = Mappers.getMapper(LightYouthMapper.class);
 
     public boolean addYouth(PersonDTO personDTO) {
         Youth youth = new Youth();
-        youthMapper.youthDtoToYouth(personDTO, youth);
-        youth.setFamily(familyServices.getFamilyById(personDTO.familyId));
+        youthMapper.youthDtoToYouth(personDTO, youth, familyServices);
+//        youth.setFamily(familyServices.getFamilyById(personDTO.familyId));
         youthRepository.save(youth);
         return true;
     }
@@ -42,14 +44,13 @@ public class YouthServices {
 
     public List<YouthLightDTO> getAll() {
         Iterable<Youth> youths = youthRepository.findAll();
-        return (List<YouthLightDTO>) youthMapper.youthsToYouthLightDto(youths);
+        return (List<YouthLightDTO>) lightYouthMapper.youthsToYouthLightDto(youths);
     }
 
     public boolean editYouth(int youthId, PersonDTO personDTO) {
         Youth youth = getYouthEntityById(youthId);
-        youthMapper.youthDtoToYouth(personDTO, youth);
+        youthMapper.youthDtoToYouth(personDTO, youth, familyServices);
         youthRepository.save(youth);
-        // TODO: what if the change was in the family or any foreign key i think this will not work
         return true;
     }
 }
