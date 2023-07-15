@@ -24,7 +24,7 @@ public class YouthController {
     }
     @GetMapping("get")
     public PersonDTO getYouth(@RequestParam int youthId){
-        return youthServices.getYouthById(youthId);
+        return youthServices.getYouthDtoById(youthId);
     }
     @PatchMapping("edit")
     public boolean editYouth(@RequestParam int youthId, @RequestBody PersonDTO personDTO){

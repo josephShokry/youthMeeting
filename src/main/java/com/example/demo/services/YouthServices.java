@@ -37,19 +37,13 @@ public class YouthServices {
         youthRepository.save(youth);
         return true;
     }
-    private Youth getYouthById(int youthId){
+    public Youth getYouthById(int youthId){
         return youthRepository.findById(youthId).get();
     }
-//    public PersonDTO getYouthById(int youthId){
-//        Youth youth  = youthRepository.findById(youthId).get();
-//        PersonDTO dto = youthMapper.youthsToYouthLightDto(youthRepository.findById(youthId).get(),new PersonDTO());
-//        return dto;
-//    }
-//
-//
-//    public String getFamilyName(int youthId) {
-//        return getYouthById(youthId).getFamily().getFamilyName();
-//    }
+    public PersonDTO getYouthDtoById(int youthId){
+        return youthMapper.youthToYouthDto(getYouthById(youthId), new PersonDTO());
+    }
+
     public String getArea (int youthId) {return getYouthById(youthId).getArea().getAreaName();}
     public String getStreet(int youthId) {
         return getYouthById(youthId).getStreet().getStreetName();

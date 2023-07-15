@@ -27,31 +27,8 @@ public interface YouthMapper {
     @Mapping(source = "family", target = "family")
     PersonDTO youthsToYouthLightDto(Youth youth, @MappingTarget PersonDTO personDTO);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    @Mapping(source = "family", target = "family")
+    PersonDTO youthToYouthDto(Youth youth, PersonDTO personDTO);
 
 
 ////////////////////////////////////////////
