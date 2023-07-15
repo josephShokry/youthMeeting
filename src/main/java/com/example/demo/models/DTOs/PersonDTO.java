@@ -14,7 +14,7 @@ public class PersonDTO {
     //    public Father father;
     public String notes;
     public int familyId;
-    public FamilyLightDTO family;
+//    public FamilyLightDTO family;
     public int streetId;
     public int areaId;
     public int buildingNumber;

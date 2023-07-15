@@ -30,10 +30,9 @@ public class YouthServices {
 
     public boolean addYouth(PersonDTO personDTO) {
         Youth youth = new Youth();
-        youthMapper.youthDtoToYouth(personDTO, youth, familyServices);
+        youthMapper.youthDtoToYouth(personDTO, youth, familyServices, areaServices, streetServices);
         //TODO: do the following 2 lines as the family using the mapper
-        youth.setArea(areaServices.getById(personDTO.areaId));
-        youth.setStreet(streetServices.getById(personDTO.streetId));
+
         youthRepository.save(youth);
         return true;
     }
@@ -57,7 +56,7 @@ public class YouthServices {
 
     public boolean editYouth(int youthId, PersonDTO personDTO) {
         Youth youth = getYouthById(youthId);
-        youthMapper.youthDtoToYouth(personDTO, youth, familyServices);
+        youthMapper.youthDtoToYouth(personDTO, youth, familyServices, areaServices, streetServices);
         youthRepository.save(youth);
         return true;
     }

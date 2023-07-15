@@ -1,5 +1,6 @@
 package com.example.demo.models.mappers;
 
+import com.example.demo.models.DTOs.PersonDTO;
 import com.example.demo.models.DTOs.YouthLightDTO;
 import com.example.demo.models.Youth;
 import org.mapstruct.*;
