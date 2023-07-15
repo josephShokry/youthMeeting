@@ -4,15 +4,16 @@ import com.example.demo.models.DTOs.YouthIntermediateDTO;
 import com.example.demo.models.mappers.LightYouthMapper;
 import com.example.demo.models.mappers.YouthIntermediateMapper;
 import com.example.demo.models.mappers.YouthMapper;
-import com.example.demo.models.DTOs.YouthLightDTO;
 import com.example.demo.models.DTOs.PersonDTO;
 import com.example.demo.models.Youth;
 import com.example.demo.repositories.YouthRepository;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 @Service
 public class YouthServices {
@@ -35,8 +36,6 @@ public class YouthServices {
     public boolean addYouth(PersonDTO personDTO) {
         Youth youth = new Youth();
         youthMapper.youthDtoToYouth(personDTO, youth, familyServices, areaServices, streetServices);
-        //TODO: do the following 2 lines as the family using the mapper
-
         youthRepository.save(youth);
         return true;
     }
@@ -53,9 +52,12 @@ public class YouthServices {
     }
 
 
-    public List<YouthIntermediateDTO> getAll() {
-        Iterable<Youth> youths = youthRepository.findAll();
-        return (List<YouthIntermediateDTO>) youthIntermediateMapper.youthsToYouthIntermediateDtos(youths);
+    public Page<YouthIntermediateDTO> getAll(int page, int size) {
+        Pageable paging = PageRequest.of(page, size);
+        Page<Youth> youths = youthRepository.findAll(paging);
+//        youths.stream().map(youth -> {return youthIntermediateMapper.youthToYouthIntermediateDto(youth,new YouthIntermediateDTO());});
+        return youthIntermediateMapper.youthsToPageYouthIntermediateDtos(youths);
+//        return youths;
     }
 
     public boolean editYouth(int youthId, PersonDTO personDTO) {

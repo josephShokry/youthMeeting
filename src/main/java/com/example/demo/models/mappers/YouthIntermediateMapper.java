@@ -4,7 +4,10 @@ import com.example.demo.models.DTOs.YouthIntermediateDTO;
 import com.example.demo.models.DTOs.YouthLightDTO;
 import com.example.demo.models.Youth;
 import org.mapstruct.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -18,5 +21,9 @@ public interface YouthIntermediateMapper {
         return StreamSupport.stream(youths.spliterator(), false)
                 .map(entity -> youthToYouthIntermediateDto(entity,new YouthIntermediateDTO()))
                 .collect(Collectors.toList());
+    }
+    default Page<YouthIntermediateDTO> youthsToPageYouthIntermediateDtos(Page<Youth> YouthsPage) {
+        List<YouthIntermediateDTO> dtoList = (List<YouthIntermediateDTO>) youthsToYouthIntermediateDtos(YouthsPage.getContent());
+        return new PageImpl<>(dtoList, YouthsPage.getPageable(), YouthsPage.getTotalElements());
     }
 }

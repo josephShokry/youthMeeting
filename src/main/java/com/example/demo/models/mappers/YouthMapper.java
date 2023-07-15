@@ -25,8 +25,8 @@ public interface YouthMapper {
                      @Context AreaServices areaServices,
                      @Context StreetServices streetServices){
         youth.setFamily(familyServices.getFamilyById(personDTO.familyId));
-        youth.setArea(areaServices.getById(personDTO.areaId));
-        youth.setStreet(streetServices.getById(personDTO.streetId));
+//        youth.setArea(areaServices.getById(personDTO.areaId));
+//        youth.setStreet(streetServices.getById(personDTO.streetId));
     }
 
     @Mapping(target = "familyId", source = "family.id")
