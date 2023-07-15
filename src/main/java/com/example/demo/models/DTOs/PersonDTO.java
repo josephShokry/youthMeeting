@@ -10,7 +10,7 @@ public class PersonDTO {
     public String college;
     public int collegeLevel;
     public int gradLevel;
-    public int meetingLevel; // TODO check if we need 2 levels
+    public int meetingLevel;
     //    public Father father;
     public String notes;
     public int familyId;

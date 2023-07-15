@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import com.example.demo.models.DTOs.YouthIntermediateDTO;
 import com.example.demo.models.DTOs.YouthLightDTO;
 import com.example.demo.models.DTOs.PersonDTO;
 import com.example.demo.services.YouthServices;
@@ -19,7 +20,7 @@ public class YouthController {
     }
 
     @GetMapping("get_all")
-    public List<YouthLightDTO> getAll(){
+    public List<YouthIntermediateDTO> getAll(){
         return youthServices.getAll();
     }
     @GetMapping("get")

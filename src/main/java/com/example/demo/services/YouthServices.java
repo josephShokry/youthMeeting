@@ -1,6 +1,8 @@
 package com.example.demo.services;
 
+import com.example.demo.models.DTOs.YouthIntermediateDTO;
 import com.example.demo.models.mappers.LightYouthMapper;
+import com.example.demo.models.mappers.YouthIntermediateMapper;
 import com.example.demo.models.mappers.YouthMapper;
 import com.example.demo.models.DTOs.YouthLightDTO;
 import com.example.demo.models.DTOs.PersonDTO;
@@ -26,6 +28,8 @@ public class YouthServices {
     private StreetServices streetServices;
     private final YouthMapper youthMapper = Mappers.getMapper(YouthMapper.class);
     private final LightYouthMapper lightYouthMapper = Mappers.getMapper(LightYouthMapper.class);
+    private final YouthIntermediateMapper youthIntermediateMapper = Mappers.getMapper(YouthIntermediateMapper.class);
+
 
 
     public boolean addYouth(PersonDTO personDTO) {
@@ -49,9 +53,9 @@ public class YouthServices {
     }
 
 
-    public List<YouthLightDTO> getAll() {
+    public List<YouthIntermediateDTO> getAll() {
         Iterable<Youth> youths = youthRepository.findAll();
-        return (List<YouthLightDTO>) lightYouthMapper.youthsToYouthLightDto(youths);
+        return (List<YouthIntermediateDTO>) youthIntermediateMapper.youthsToYouthIntermediateDtos(youths);
     }
 
     public boolean editYouth(int youthId, PersonDTO personDTO) {
