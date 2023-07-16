@@ -28,7 +28,7 @@ public class Youth extends Person{
     private Family family;
     @Column(name = "meeting_level")
     private int meetingLevel; // TODO check if we need 2 levels
-    //    private Father father;
+//    private Father father;
     @Column(name = "notes")
     private String notes;
 }
