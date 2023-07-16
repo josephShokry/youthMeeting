@@ -4,13 +4,10 @@ import com.example.demo.models.DTOs.FamilyDTO;
 import com.example.demo.models.DTOs.LightDTO;
 import com.example.demo.models.Family;
 import com.example.demo.models.mappers.FamilyMapper;
-import com.example.demo.models.mappers.YouthMapper;
 import com.example.demo.repositories.FamilyRepository;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class FamilyServices {
@@ -31,6 +28,6 @@ public class FamilyServices {
     }
 
     public Iterable<LightDTO> getAll() {
-        return familyMapper.FamiliesToLightDtos(familyRepository.findAll());
+        return familyMapper.familiesToLightDtos(familyRepository.findAll());
     }
 }

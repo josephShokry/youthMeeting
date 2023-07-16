@@ -2,9 +2,7 @@ package com.example.demo.models.mappers;
 
 import com.example.demo.models.DTOs.FamilyDTO;
 import com.example.demo.models.DTOs.LightDTO;
-import com.example.demo.models.DTOs.YouthIntermediateDTO;
 import com.example.demo.models.Family;
-import com.example.demo.models.Youth;
 import org.mapstruct.*;
 
 import java.util.stream.Collectors;
@@ -18,7 +16,7 @@ public interface FamilyMapper {
     @Mapping(source = "familyName", target = "name")
     LightDTO familyToLightDto(Family family, @MappingTarget LightDTO lightDTO);
 
-    default Iterable<LightDTO> FamiliesToLightDtos(Iterable<Family> families){
+    default Iterable<LightDTO> familiesToLightDtos(Iterable<Family> families){
         return StreamSupport.stream(families.spliterator(), false)
                 .map(entity -> familyToLightDto(entity,new LightDTO()))
                 .collect(Collectors.toList());
