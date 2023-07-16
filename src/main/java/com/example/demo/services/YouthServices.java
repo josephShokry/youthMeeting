@@ -1,10 +1,10 @@
 package com.example.demo.services;
 
+import com.example.demo.models.DTOs.YouthDTO;
 import com.example.demo.models.DTOs.YouthIntermediateDTO;
 import com.example.demo.models.mappers.LightYouthMapper;
 import com.example.demo.models.mappers.YouthIntermediateMapper;
 import com.example.demo.models.mappers.YouthMapper;
-import com.example.demo.models.DTOs.PersonDTO;
 import com.example.demo.models.Youth;
 import com.example.demo.repositories.YouthRepository;
 import org.mapstruct.factory.Mappers;
@@ -33,17 +33,17 @@ public class YouthServices {
 
 
 
-    public boolean addYouth(PersonDTO personDTO) {
+    public boolean addYouth(YouthDTO youthDTO) {
         Youth youth = new Youth();
-        youthMapper.youthDtoToYouth(personDTO, youth, familyServices, areaServices, streetServices);
+        youthMapper.youthDtoToYouth(youthDTO, youth, familyServices, areaServices, streetServices);
         youthRepository.save(youth);
         return true;
     }
     public Youth getYouthById(int youthId){
         return youthRepository.findById(youthId).get();
     }
-    public PersonDTO getYouthDtoById(int youthId){
-        return youthMapper.youthToYouthDto(getYouthById(youthId), new PersonDTO());
+    public YouthDTO getYouthDtoById(int youthId){
+        return youthMapper.youthToYouthDto(getYouthById(youthId), new YouthDTO());
     }
 
     public String getArea (int youthId) {return getYouthById(youthId).getArea().getAreaName();}
@@ -60,9 +60,9 @@ public class YouthServices {
 //        return youths;
     }
 
-    public boolean editYouth(int youthId, PersonDTO personDTO) {
+    public boolean editYouth(int youthId, YouthDTO youthDTO) {
         Youth youth = getYouthById(youthId);
-        youthMapper.youthDtoToYouth(personDTO, youth, familyServices, areaServices, streetServices);
+        youthMapper.youthDtoToYouth(youthDTO, youth, familyServices, areaServices, streetServices);
         youthRepository.save(youth);
         return true;
     }

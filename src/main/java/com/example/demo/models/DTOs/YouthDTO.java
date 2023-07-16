@@ -2,7 +2,7 @@ package com.example.demo.models.DTOs;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class PersonDTO {
+public class YouthDTO {
     @JsonProperty("id")
     public int id;
     @JsonProperty("firstName")
