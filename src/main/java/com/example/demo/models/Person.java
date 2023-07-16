@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
 
 @Setter
 @Getter
@@ -22,7 +23,8 @@ public class Person {
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
-    //    private Timestamp dayOfBirth;
+    @Column(name = "day_of_birth")
+    private LocalDate dayOfBirth;
     @Column(name = "phone_number")
     private String phoneNumber;
     @Column(name = "building number")
