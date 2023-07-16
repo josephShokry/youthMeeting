@@ -17,6 +17,7 @@ public class Street {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Id;
+    @Column(name = "street_name")
     private String streetName;
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(referencedColumnName = "id")
