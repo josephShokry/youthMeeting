@@ -1,7 +1,6 @@
 package com.example.demo.models.mappers;
 
-import com.example.demo.models.DTOs.PersonDTO;
-import com.example.demo.models.DTOs.YouthLightDTO;
+import com.example.demo.models.DTOs.LightDTO;
 import com.example.demo.models.Youth;
 import org.mapstruct.*;
 
@@ -12,11 +11,11 @@ import java.util.stream.StreamSupport;
 public interface LightYouthMapper {
     @Mapping(expression = "java(youth.getFirstName() + ' ' + youth.getLastName())", target = "name")
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    YouthLightDTO youthToYouthLightDto(Youth youth, @MappingTarget YouthLightDTO youthLightDTO);
+    LightDTO youthToYouthLightDto(Youth youth, @MappingTarget LightDTO lightDTO);
     //    @Mapping(expression = "java(youth.getFirstName() + ' ' + youth.getLastName())", target = "name")
-    default Iterable<YouthLightDTO> youthsToYouthLightDto(Iterable<Youth> youths){
+    default Iterable<LightDTO> youthsToYouthLightDto(Iterable<Youth> youths){
         return StreamSupport.stream(youths.spliterator(), false)
-                .map(entity -> youthToYouthLightDto(entity,new YouthLightDTO()))
+                .map(entity -> youthToYouthLightDto(entity,new LightDTO()))
                 .collect(Collectors.toList());
     }
 }
