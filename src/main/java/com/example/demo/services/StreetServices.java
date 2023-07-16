@@ -1,5 +1,6 @@
 package com.example.demo.services;
 
+import com.example.demo.models.DTOs.LightDTO;
 import com.example.demo.models.DTOs.StreetDTO;
 import com.example.demo.models.Street;
 import com.example.demo.models.mappers.StreetMapper;
@@ -23,5 +24,10 @@ public class StreetServices {
 
     public Street getById(int streetId) {
         return streetRepository.findById(streetId).get();
+    }
+
+    public Iterable<LightDTO> getAll() {
+        return streetMapper.streetsToLightDtos(streetRepository.findAll());
+
     }
 }
