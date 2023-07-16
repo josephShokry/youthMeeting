@@ -15,7 +15,7 @@ import java.util.List;
 public class Area {
     @jakarta.persistence.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Id;
+    private int id;
     @Column(name = "area_name")
     private String areaName;
     @OneToMany(mappedBy = "area",orphanRemoval = true)

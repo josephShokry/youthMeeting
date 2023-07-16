@@ -1,16 +1,13 @@
 package com.example.demo.models.DTOs;
 
-import com.example.demo.models.Area;
 import com.example.demo.models.Youth;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.*;
 
 import java.util.List;
 
 public class StreetDTO {
     @JsonProperty("id")
-    public int Id;
+    public int id;
     @JsonProperty("streetName")
     public String streetName;
     @JsonProperty("areaId")

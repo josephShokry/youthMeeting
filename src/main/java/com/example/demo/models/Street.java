@@ -16,7 +16,7 @@ import java.util.List;
 public class Street {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int Id;
+    private int id;
     @Column(name = "street_name")
     private String streetName;
     @ManyToOne(cascade = CascadeType.PERSIST)

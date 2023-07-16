@@ -16,6 +16,6 @@ public class FamilyDTO {
     @JsonProperty("joiningYear")
     public int joiningYear;
     @JsonProperty("Id")
-    public int Id;
+    public int id;
 
 }
