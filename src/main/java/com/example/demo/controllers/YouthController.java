@@ -1,6 +1,6 @@
 package com.example.demo.controllers;
 
-import com.example.demo.models.DTOs.PersonDTO;
+import com.example.demo.models.DTOs.YouthDTO;
 import com.example.demo.models.DTOs.YouthIntermediateDTO;
 import com.example.demo.services.YouthServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +16,8 @@ public class YouthController {
     @Autowired
     private YouthServices youthServices;
     @PostMapping("add")
-    public ResponseEntity<String> addYouth(@RequestBody PersonDTO personDTO){
-        youthServices.addYouth(personDTO);
+    public ResponseEntity<String> addYouth(@RequestBody YouthDTO youthDTO){
+        youthServices.addYouth(youthDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body("youth added!");
     }
 
@@ -27,13 +27,13 @@ public class YouthController {
         return ResponseEntity.status(HttpStatus.OK).body(youthServices.getAll(page, size));
     }
     @GetMapping("get")
-    public ResponseEntity<PersonDTO> getYouth(@RequestParam int youthId){
+    public ResponseEntity<YouthDTO> getYouth(@RequestParam int youthId){
         return ResponseEntity.status(HttpStatus.OK).body(youthServices.getYouthDtoById(youthId));
 
     }
     @PatchMapping("edit")
-    public ResponseEntity<String> editYouth(@RequestParam int youthId, @RequestBody PersonDTO personDTO){
-        youthServices.editYouth(youthId, personDTO);
+    public ResponseEntity<String> editYouth(@RequestParam int youthId, @RequestBody YouthDTO youthDTO){
+        youthServices.editYouth(youthId, youthDTO);
         return ResponseEntity.status(HttpStatus.OK).body("youth edited successfully!!");
     }
 
