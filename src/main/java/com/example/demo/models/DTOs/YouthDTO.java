@@ -24,17 +24,14 @@ public class YouthDTO {
     public int gradLevel;
     @JsonProperty("meetingLevel")
     public int meetingLevel;
-    //    public Father father;
     @JsonProperty("notes")
     public String notes;
     @JsonProperty("familyId")
     public int familyId;
-//    public FamilyLightDTO family;
     @JsonProperty("streetId")
     public int streetId;
     @JsonProperty("areaId")
     public int areaId;
     @JsonProperty("buildingNumber")
     public int buildingNumber;
-
 }

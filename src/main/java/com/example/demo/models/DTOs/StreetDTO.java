@@ -10,7 +10,5 @@ public class StreetDTO {
     public int id;
     @JsonProperty("streetName")
     public String streetName;
-    @JsonProperty("areaId")
-    public int areaId;
     public List<Youth> youthList;
 }

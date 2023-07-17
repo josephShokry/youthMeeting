@@ -31,6 +31,8 @@ public interface YouthMapper {
     }
 
     @Mapping(target = "familyId", source = "family.id")
+    @Mapping(target = "areaId", source = "area.id")
+    @Mapping(target = "streetId", source = "street.id")
     YouthDTO youthToYouthDto(Youth youth, @MappingTarget YouthDTO youthDTO);
 
 }

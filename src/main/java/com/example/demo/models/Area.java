@@ -19,7 +19,5 @@ public class Area {
     @Column(name = "area_name")
     private String areaName;
     @OneToMany(mappedBy = "area",orphanRemoval = true)
-    private List<Street> streetList;
-    @OneToMany(mappedBy = "area",orphanRemoval = true)
     private List<Youth> youthList;
 }
