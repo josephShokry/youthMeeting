@@ -2,6 +2,8 @@ package com.example.demo.models.DTOs;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.time.LocalDate;
+
 public class PersonDTO {
     @JsonProperty("id")
     public int id;
@@ -11,7 +13,7 @@ public class PersonDTO {
     public String lastName;
     @JsonProperty("phoneNumber")
     public String phoneNumber;
-//    public Timestamp dayOfBirth;
+    public String dayOfBirth;
     @JsonProperty("university")
     public String university;
     @JsonProperty("college")

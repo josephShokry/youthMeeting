@@ -13,6 +13,7 @@ public interface YouthMapper {
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "dayOfBirth",expression = "java(java.time.LocalDate.parse(personDTO.dayOfBirth))")
     Youth youthDtoToYouth(PersonDTO personDTO, @MappingTarget Youth youth,
                           @Context FamilyServices familyServices,
                           @Context AreaServices areaServices,
