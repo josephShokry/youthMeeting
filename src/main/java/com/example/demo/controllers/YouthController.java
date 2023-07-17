@@ -23,8 +23,10 @@ public class YouthController {
 
     @GetMapping("get_all")
     public ResponseEntity<Page<YouthIntermediateDTO>> getAll(@RequestParam(defaultValue = "0") int page,
-                                                             @RequestParam(defaultValue = "10") int size){
-        return ResponseEntity.status(HttpStatus.OK).body(youthServices.getAll(page, size));
+                                                             @RequestParam(defaultValue = "10") int size,
+                                                             @RequestParam(required = false) Integer familyId,
+                                                             @RequestParam(required = false) Integer streetId){
+        return ResponseEntity.status(HttpStatus.OK).body(youthServices.getAll(page, size, familyId, streetId));
     }
     @GetMapping("get")
     public ResponseEntity<YouthDTO> getYouth(@RequestParam int youthId){

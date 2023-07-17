@@ -7,11 +7,13 @@ import com.example.demo.models.mappers.YouthIntermediateMapper;
 import com.example.demo.models.mappers.YouthMapper;
 import com.example.demo.models.Youth;
 import com.example.demo.repositories.YouthRepository;
+import com.example.demo.repositories.YouthSpecificationImpl;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 
@@ -52,12 +54,11 @@ public class YouthServices {
     }
 
 
-    public Page<YouthIntermediateDTO> getAll(int page, int size) {
+    public Page<YouthIntermediateDTO> getAll(int page, int size, Integer familyId, Integer streetId) {
         Pageable paging = PageRequest.of(page, size);
-        Page<Youth> youths = youthRepository.findAll(paging);
-//        youths.stream().map(youth -> {return youthIntermediateMapper.youthToYouthIntermediateDto(youth,new YouthIntermediateDTO());});
+        Specification<Youth> specification = new YouthSpecificationImpl(familyId, streetId);
+        Page<Youth> youths = youthRepository.findAll(specification, paging);
         return youthIntermediateMapper.youthsToPageYouthIntermediateDtos(youths);
-//        return youths;
     }
 
     public boolean editYouth(int youthId, YouthDTO youthDTO) {
