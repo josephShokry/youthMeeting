@@ -1,6 +1,7 @@
 package com.example.demo.controllers;
 
 import com.example.demo.models.DTOs.YouthDTO;
+import com.example.demo.models.DTOs.YouthFiltersDTO;
 import com.example.demo.models.DTOs.YouthIntermediateDTO;
 import com.example.demo.services.YouthServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +25,8 @@ public class YouthController {
     @GetMapping("get_all")
     public ResponseEntity<Page<YouthIntermediateDTO>> getAll(@RequestParam(defaultValue = "0") int page,
                                                              @RequestParam(defaultValue = "10") int size,
-                                                             @RequestParam(required = false) Integer familyId,
-                                                             @RequestParam(required = false) Integer streetId,
-                                                             @RequestParam(required = false) String namePart){
-        return ResponseEntity.status(HttpStatus.OK).body(youthServices.getAll(page, size, familyId, streetId, namePart));
+                                                             @RequestBody(required = false)YouthFiltersDTO youthFiltersDTO){
+        return ResponseEntity.status(HttpStatus.OK).body(youthServices.getAll(page, size, youthFiltersDTO));
     }
     @GetMapping("get")
     public ResponseEntity<YouthDTO> getYouth(@RequestParam int youthId){

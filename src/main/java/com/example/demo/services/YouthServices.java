@@ -1,6 +1,7 @@
 package com.example.demo.services;
 
 import com.example.demo.models.DTOs.YouthDTO;
+import com.example.demo.models.DTOs.YouthFiltersDTO;
 import com.example.demo.models.DTOs.YouthIntermediateDTO;
 import com.example.demo.models.mappers.LightYouthMapper;
 import com.example.demo.models.mappers.YouthIntermediateMapper;
@@ -54,9 +55,9 @@ public class YouthServices {
     }
 
 
-    public Page<YouthIntermediateDTO> getAll(int page, int size, Integer familyId, Integer streetId, String namePart) {
+    public Page<YouthIntermediateDTO> getAll(int page, int size, YouthFiltersDTO youthFiltersDTO) {
         Pageable paging = PageRequest.of(page, size);
-        Specification<Youth> specification = new YouthSpecificationImpl(familyId, streetId, namePart);
+        Specification<Youth> specification = new YouthSpecificationImpl(youthFiltersDTO);
         Page<Youth> youths = youthRepository.findAll(specification, paging);
         return youthIntermediateMapper.youthsToPageYouthIntermediateDtos(youths);
     }
