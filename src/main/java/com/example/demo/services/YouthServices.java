@@ -54,9 +54,9 @@ public class YouthServices {
     }
 
 
-    public Page<YouthIntermediateDTO> getAll(int page, int size, Integer familyId, Integer streetId) {
+    public Page<YouthIntermediateDTO> getAll(int page, int size, Integer familyId, Integer streetId, String namePart) {
         Pageable paging = PageRequest.of(page, size);
-        Specification<Youth> specification = new YouthSpecificationImpl(familyId, streetId);
+        Specification<Youth> specification = new YouthSpecificationImpl(familyId, streetId, namePart);
         Page<Youth> youths = youthRepository.findAll(specification, paging);
         return youthIntermediateMapper.youthsToPageYouthIntermediateDtos(youths);
     }
