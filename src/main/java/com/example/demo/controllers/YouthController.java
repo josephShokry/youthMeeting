@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/youth")
+@CrossOrigin
 public class YouthController {
     @Autowired
     private YouthServices youthServices;
