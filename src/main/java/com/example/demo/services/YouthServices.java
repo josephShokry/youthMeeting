@@ -37,8 +37,7 @@ public class YouthServices {
 
 
     public boolean addYouth(YouthDTO youthDTO) {
-        Youth youth = new Youth();
-        youthMapper.youthDtoToYouth(youthDTO, youth, familyServices, areaServices, streetServices);
+        Youth youth = youthMapper.youthDtoToYouth(youthDTO, new Youth(), familyServices, areaServices, streetServices);
         youthRepository.save(youth);
         return true;
     }

@@ -1,8 +1,13 @@
 package com.example.demo.models.DTOs;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 import java.time.LocalDate;
 
+@AllArgsConstructor
+@NoArgsConstructor
 public class YouthDTO {
 
     @JsonProperty("id")
