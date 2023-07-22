@@ -31,12 +31,17 @@ class ErrorHandlingControllerAdvice {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
-    Map<String, String> onMethodArgumentNotValidException(
+    Map<String,String> onMethodArgumentNotValidException(
+            //TODO change this shit
             MethodArgumentNotValidException e) {
         Map<String, String> error = new HashMap<>();
+        String errorMessage = "";
         for (FieldError fieldError : e.getBindingResult().getFieldErrors()) {
-            error.put("message",fieldError.getDefaultMessage());
+            errorMessage += fieldError.getDefaultMessage();
+            errorMessage+=" & ";
         }
+        errorMessage = errorMessage.substring(0,errorMessage.length()-2);
+            error.put("message",errorMessage);
         return error;
     }
 

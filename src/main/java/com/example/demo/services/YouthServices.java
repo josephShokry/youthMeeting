@@ -54,8 +54,10 @@ public class YouthServices {
     }
 
 
-    public Page<YouthIntermediateDTO> getAll(Integer page, Integer size, YouthFiltersDTO youthFiltersDTO) {
-        Pageable paging = PageRequest.of(page, size);
+    public Page<YouthIntermediateDTO> getAll(YouthFiltersDTO youthFiltersDTO) {
+        //todo= fix this shit
+        Pageable paging = PageRequest.of(youthFiltersDTO.page == null?0:youthFiltersDTO.page-1,
+                youthFiltersDTO.size == null?10: youthFiltersDTO.size);
         Specification<Youth> specification = new YouthSpecificationImpl(youthFiltersDTO);
         Page<Youth> youths = youthRepository.findAll(specification, paging);
         return youthIntermediateMapper.youthsToPageYouthIntermediateDtos(youths);

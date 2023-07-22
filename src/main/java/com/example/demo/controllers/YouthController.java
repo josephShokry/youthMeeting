@@ -24,11 +24,10 @@ public class YouthController {
         return ResponseEntity.status(HttpStatus.CREATED).body("youth added!");
     }
 
-    @GetMapping("get_all")
-    public ResponseEntity<Page<YouthIntermediateDTO>> getAll(@RequestParam(defaultValue = "0") Integer page,
-                                                             @RequestParam(defaultValue = "10") Integer size,
-                                                             @RequestBody(required = false)YouthFiltersDTO youthFiltersDTO){
-        return ResponseEntity.status(HttpStatus.OK).body(youthServices.getAll(page, size, youthFiltersDTO));
+    @PostMapping("get_all")
+    public ResponseEntity<Page<YouthIntermediateDTO>> getAll(@RequestBody(required = false)
+                                                                 YouthFiltersDTO youthFiltersDTO){
+        return ResponseEntity.status(HttpStatus.OK).body(youthServices.getAll(youthFiltersDTO));
     }
     @GetMapping("get")
     public ResponseEntity<YouthDTO> getYouth(@RequestParam Integer youthId){

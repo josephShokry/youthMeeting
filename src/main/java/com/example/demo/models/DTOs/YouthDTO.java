@@ -1,10 +1,8 @@
 package com.example.demo.models.DTOs;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -23,6 +21,8 @@ public class YouthDTO {
     @NotBlank(message = "please specify the last name")
     public String lastName;
     @JsonProperty("phoneNumber")
+    @Size(min = 11,max = 11)
+    @NotBlank(message = "please specify the phone number")
     @Pattern(regexp = "01[0-2,5]{1}[0-9]{8}", message = "please specify a valid phone number")
     public String phoneNumber;
     @JsonProperty("dayOfBirth")
