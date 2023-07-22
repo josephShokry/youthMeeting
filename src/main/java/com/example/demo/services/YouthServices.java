@@ -41,27 +41,27 @@ public class YouthServices {
         youthRepository.save(youth);
         return true;
     }
-    public Youth getYouthById(int youthId){
+    public Youth getYouthById(Integer youthId){
         return youthRepository.findById(youthId).get();
     }
-    public YouthDTO getYouthDtoById(int youthId){
+    public YouthDTO getYouthDtoById(Integer youthId){
         return youthMapper.youthToYouthDto(getYouthById(youthId), new YouthDTO());
     }
 
-    public String getArea (int youthId) {return getYouthById(youthId).getArea().getAreaName();}
-    public String getStreet(int youthId) {
+    public String getArea (Integer youthId) {return getYouthById(youthId).getArea().getAreaName();}
+    public String getStreet(Integer youthId) {
         return getYouthById(youthId).getStreet().getStreetName();
     }
 
 
-    public Page<YouthIntermediateDTO> getAll(int page, int size, YouthFiltersDTO youthFiltersDTO) {
+    public Page<YouthIntermediateDTO> getAll(Integer page, Integer size, YouthFiltersDTO youthFiltersDTO) {
         Pageable paging = PageRequest.of(page, size);
         Specification<Youth> specification = new YouthSpecificationImpl(youthFiltersDTO);
         Page<Youth> youths = youthRepository.findAll(specification, paging);
         return youthIntermediateMapper.youthsToPageYouthIntermediateDtos(youths);
     }
 
-    public boolean editYouth(int youthId, YouthDTO youthDTO) {
+    public boolean editYouth(Integer youthId, YouthDTO youthDTO) {
         Youth youth = getYouthById(youthId);
         youthMapper.youthDtoToYouth(youthDTO, youth, familyServices, areaServices, streetServices);
         youthRepository.save(youth);

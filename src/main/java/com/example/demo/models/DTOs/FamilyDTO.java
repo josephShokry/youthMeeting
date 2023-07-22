@@ -10,12 +10,12 @@ public class FamilyDTO {
     @JsonProperty("familyName")
     public String familyName;
     @JsonProperty("familyLevel")
-    public int familyLevel;
+    public Integer familyLevel;
     public List<Youth> youthList;
     public List<Servant> servantList;
     @JsonProperty("joiningYear")
-    public int joiningYear;
+    public Integer joiningYear;
     @JsonProperty("Id")
-    public int id;
+    public Integer id;
 
 }

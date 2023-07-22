@@ -24,28 +24,28 @@ public class YouthController {
     }
 
     @GetMapping("get_all")
-    public ResponseEntity<Page<YouthIntermediateDTO>> getAll(@RequestParam(defaultValue = "0") int page,
-                                                             @RequestParam(defaultValue = "10") int size,
+    public ResponseEntity<Page<YouthIntermediateDTO>> getAll(@RequestParam(defaultValue = "0") Integer page,
+                                                             @RequestParam(defaultValue = "10") Integer size,
                                                              @RequestBody(required = false)YouthFiltersDTO youthFiltersDTO){
         return ResponseEntity.status(HttpStatus.OK).body(youthServices.getAll(page, size, youthFiltersDTO));
     }
     @GetMapping("get")
-    public ResponseEntity<YouthDTO> getYouth(@RequestParam int youthId){
+    public ResponseEntity<YouthDTO> getYouth(@RequestParam Integer youthId){
         return ResponseEntity.status(HttpStatus.OK).body(youthServices.getYouthDtoById(youthId));
 
     }
     @PatchMapping("edit")
-    public ResponseEntity<String> editYouth(@RequestParam int youthId, @RequestBody YouthDTO youthDTO){
+    public ResponseEntity<String> editYouth(@RequestParam Integer youthId, @RequestBody YouthDTO youthDTO){
         youthServices.editYouth(youthId, youthDTO);
         return ResponseEntity.status(HttpStatus.OK).body("youth edited successfully!!");
     }
 
     @GetMapping("get_area")
-    public String getAreaName(@RequestParam int youthId){
+    public String getAreaName(@RequestParam Integer youthId){
         return youthServices.getArea(youthId);
     }
     @GetMapping("get_street")
-    public String getStreetName(@RequestParam int youthId){
+    public String getStreetName(@RequestParam Integer youthId){
         return youthServices.getStreet(youthId);
     }
 }

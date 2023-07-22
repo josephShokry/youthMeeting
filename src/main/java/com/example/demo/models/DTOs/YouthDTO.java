@@ -11,7 +11,7 @@ import java.time.LocalDate;
 public class YouthDTO {
 
     @JsonProperty("id")
-    public int id;
+    public Integer id;
     @JsonProperty("firstName")
     public String firstName;
     @JsonProperty("lastName")
@@ -24,19 +24,19 @@ public class YouthDTO {
     @JsonProperty("college")
     public String college;
     @JsonProperty("collegeLevel")
-    public int collegeLevel;
+    public Integer collegeLevel;
     @JsonProperty("gradLevel")
-    public int gradLevel;
+    public Integer gradLevel;
     @JsonProperty("meetingLevel")
-    public int meetingLevel;
+    public Integer meetingLevel;
     @JsonProperty("notes")
     public String notes;
     @JsonProperty("familyId")
-    public int familyId;
+    public Integer familyId;
     @JsonProperty("streetId")
-    public int streetId;
+    public Integer streetId;
     @JsonProperty("areaId")
-    public int areaId;
+    public Integer areaId;
     @JsonProperty("buildingNumber")
-    public int buildingNumber;
+    public Integer buildingNumber;
 }

@@ -24,8 +24,6 @@ public class YouthSpecificationImpl implements YouthSpecification{
         if(youthFiltersDTO != null && youthFiltersDTO.streetId != null)
             predicates.add(criteriaBuilder.equal(root.join("street", JoinType.LEFT).get("id"), youthFiltersDTO.streetId));
 
-//        LocalDate localDate = LocalDate.parse("2202-15-15");
-//        localDate.getMonthValue()
 
         if(youthFiltersDTO != null && youthFiltersDTO.namePart != null)
             predicates.add(criteriaBuilder.like(criteriaBuilder.concat(root.get("firstName"), root.get("lastName")),
@@ -33,8 +31,13 @@ public class YouthSpecificationImpl implements YouthSpecification{
         if(youthFiltersDTO != null && youthFiltersDTO.fullDOB != null)
             predicates.add(criteriaBuilder.equal(root.get("dayOfBirth"),LocalDate.parse(youthFiltersDTO.fullDOB)));
 
-//        if(youthFiltersDTO != null && youthFiltersDTO.month != null)
-//            predicates.add(criteriaBuilder.equal((root.get("dayOfBirth")), youthFiltersDTO.month));
+//        if(youthFiltersDTO != null && youthFiltersDTO.month != null){
+////            LocalDate localDate = LocalDate.parse("*-*-*");
+////            localDate = localDate.withMonth(youthFiltersDTO.month);
+////            localDate.getMonthValue()
+//            Path<Object> localDate = root.get("dayOfBirth");
+//            predicates.add(criteriaBuilder.equal((LocalDate)(localDate, youthFiltersDTO.month));
+//        }
 
         return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
     }

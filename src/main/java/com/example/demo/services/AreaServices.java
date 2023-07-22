@@ -21,7 +21,7 @@ public class AreaServices {
         return true;
     }
 
-    public Area getById(int areaId) {
+    public Area getById(Integer areaId) {
         return areaRepository.findById(areaId).get();
     }
 

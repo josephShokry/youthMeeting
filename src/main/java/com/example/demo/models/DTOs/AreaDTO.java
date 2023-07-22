@@ -8,7 +8,7 @@ import java.util.List;
 
 public class AreaDTO {
     @JsonProperty("Id")
-    public int id;
+    public Integer id;
     @JsonProperty("areaName")
     public String areaName;
     public List<Street> streetList;

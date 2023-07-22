@@ -4,13 +4,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class YouthIntermediateDTO {
     @JsonProperty("id")
-    public int id;
+    public Integer id;
     @JsonProperty("firstName")
     public String firstName;
     @JsonProperty("lastName")
     public String lastName;
     @JsonProperty("meetingLevel")
-    public int meetingLevel;
+    public Integer meetingLevel;
     @JsonProperty("familyId")
-    public int familyId;
+    public Integer familyId;
 }

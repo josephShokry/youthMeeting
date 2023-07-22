@@ -7,7 +7,7 @@ import java.util.List;
 
 public class StreetDTO {
     @JsonProperty("id")
-    public int id;
+    public Integer id;
     @JsonProperty("streetName")
     public String streetName;
     public List<Youth> youthList;

@@ -16,14 +16,14 @@ import java.util.List;
 public class Family {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     @Column(name = "family_name")
     private String familyName;
     @Column(name = "family_level")
-    private int familyLevel;
+    private Integer familyLevel;
     @OneToMany(mappedBy = "family",orphanRemoval = true)
     private List<Youth> youthList;
  //   private List<Servant> servantList;
     @Column(name = "joining_year")
-    private int joiningYear;
+    private Integer joiningYear;
 }

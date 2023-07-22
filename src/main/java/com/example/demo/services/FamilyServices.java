@@ -23,7 +23,7 @@ public class FamilyServices {
         return true;
     }
 
-    public Family getFamilyById(int familyId) {
+    public Family getFamilyById(Integer familyId) {
         return familyRepository.findById(familyId).get();
     }
 

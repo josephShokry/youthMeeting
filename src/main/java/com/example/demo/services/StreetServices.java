@@ -22,7 +22,7 @@ public class StreetServices {
         return true;
     }
 
-    public Street getById(int streetId) {
+    public Street getById(Integer streetId) {
         return streetRepository.findById(streetId).get();
     }
 

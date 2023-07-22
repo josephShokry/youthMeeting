@@ -18,16 +18,16 @@ public class Youth extends Person{
     @Column(name = "college")
     private String college;
     @Column(name = "college_level")
-    private int collegeLevel;
+    private Integer collegeLevel;
     @Column(name = "grad_level")
-    private int gradLevel;
+    private Integer gradLevel;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(referencedColumnName = "id")
     @JsonIgnore
     private Family family;
     @Column(name = "meeting_level")
-    private int meetingLevel; // TODO check if we need 2 levels
+    private Integer meetingLevel; // TODO check if we need 2 levels
 //    private Father father;
     @Column(name = "notes")
     private String notes;

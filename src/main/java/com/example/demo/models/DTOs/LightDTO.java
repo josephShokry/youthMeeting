@@ -6,5 +6,5 @@ public class LightDTO {
     @JsonProperty("name")
     public String name;
     @JsonProperty("Id")
-    public int id;
+    public Integer id;
 }
