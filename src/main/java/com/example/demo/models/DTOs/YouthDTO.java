@@ -1,12 +1,11 @@
 package com.example.demo.models.DTOs;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import org.antlr.v4.runtime.misc.NotNull;
-import org.springframework.validation.annotation.Validated;
 
 import java.time.LocalDate;
 
@@ -16,14 +15,14 @@ public class YouthDTO {
 
     @JsonProperty("id")
     public Integer id;
-    @NotEmpty(message = "you have to specify the youth first name")
     @JsonProperty("firstName")
+    @NotBlank(message = "please specify the first name")
     public String firstName;
-    @NotEmpty(message = "you have to specify the youth last name")
     @JsonProperty("lastName")
+    @NotBlank(message = "please specify the last name")
     public String lastName;
-    @NotEmpty(message = "you have to specify the youth phone number")
     @JsonProperty("phoneNumber")
+    @NotBlank(message = "please specify the phone number")
     public String phoneNumber;
     public String dayOfBirth;
     @JsonProperty("university")
@@ -35,15 +34,20 @@ public class YouthDTO {
     @JsonProperty("gradLevel")
     public Integer gradLevel;
     @JsonProperty("meetingLevel")
+    @Min(1)
     public Integer meetingLevel;
     @JsonProperty("notes")
     public String notes;
     @JsonProperty("familyId")
+    @Min(1)
     public Integer familyId;
     @JsonProperty("streetId")
+    @Min(1)
     public Integer streetId;
     @JsonProperty("areaId")
+    @Min(1)
     public Integer areaId;
     @JsonProperty("buildingNumber")
+    @Min(1)
     public Integer buildingNumber;
 }
