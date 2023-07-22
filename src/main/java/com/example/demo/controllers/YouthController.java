@@ -4,6 +4,7 @@ import com.example.demo.models.DTOs.YouthDTO;
 import com.example.demo.models.DTOs.YouthFiltersDTO;
 import com.example.demo.models.DTOs.YouthIntermediateDTO;
 import com.example.demo.services.YouthServices;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -18,7 +19,7 @@ public class YouthController {
     @Autowired
     private YouthServices youthServices;
     @PostMapping("add")
-    public ResponseEntity<String> addYouth(@RequestBody YouthDTO youthDTO){
+    public ResponseEntity<String> addYouth(@Valid @RequestBody YouthDTO youthDTO){
         youthServices.addYouth(youthDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body("youth added!");
     }

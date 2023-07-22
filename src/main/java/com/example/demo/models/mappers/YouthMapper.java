@@ -5,7 +5,6 @@ import com.example.demo.services.AreaServices;
 import com.example.demo.services.FamilyServices;
 import com.example.demo.services.StreetServices;
 import org.mapstruct.*;
-import org.springframework.stereotype.Component;
 
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
@@ -13,7 +12,8 @@ public interface YouthMapper {
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "dayOfBirth",expression = "java(java.time.LocalDate.parse(youthDTO.dayOfBirth))")
+    @Mapping(target = "dayOfBirth",expression = "java(youthDTO.dayOfBirth != null ?" +
+            " java.time.LocalDate.parse(youthDTO.dayOfBirth) : null)")
     Youth youthDtoToYouth(YouthDTO youthDTO, @MappingTarget Youth youth,
                           @Context FamilyServices familyServices,
                           @Context AreaServices areaServices,
@@ -25,9 +25,12 @@ public interface YouthMapper {
                      @Context FamilyServices familyServices,
                      @Context AreaServices areaServices,
                      @Context StreetServices streetServices){
-        youth.setFamily(familyServices.getFamilyById(youthDTO.familyId));
-        youth.setArea(areaServices.getById(youthDTO.areaId));
-        youth.setStreet(streetServices.getById(youthDTO.streetId));
+        if(youthDTO.familyId != null)
+            youth.setFamily(familyServices.getFamilyById(youthDTO.familyId));
+        if(youthDTO.areaId != null)
+            youth.setArea(areaServices.getById(youthDTO.areaId));
+        if(youthDTO.streetId != null)
+            youth.setStreet(streetServices.getById(youthDTO.streetId));
     }
 
     @Mapping(target = "familyId", source = "family.id")
