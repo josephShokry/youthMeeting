@@ -31,13 +31,11 @@ public class YouthSpecificationImpl implements YouthSpecification{
         if(youthFiltersDTO != null && youthFiltersDTO.fullDOB != null)
             predicates.add(criteriaBuilder.equal(root.get("dayOfBirth"),LocalDate.parse(youthFiltersDTO.fullDOB)));
 
-//        if(youthFiltersDTO != null && youthFiltersDTO.month != null){
-////            LocalDate localDate = LocalDate.parse("*-*-*");
-////            localDate = localDate.withMonth(youthFiltersDTO.month);
-////            localDate.getMonthValue()
-//            Path<Object> localDate = root.get("dayOfBirth");
-//            predicates.add(criteriaBuilder.equal((LocalDate)(localDate, youthFiltersDTO.month));
-//        }
+        if(youthFiltersDTO != null && youthFiltersDTO.month != null){
+            Expression<Integer> monthExpression = criteriaBuilder.function("MONTH", Integer.class, root.get("dayOfBirth"));
+            predicates.add(criteriaBuilder.equal(monthExpression, youthFiltersDTO.month));
+        }
+
 
         return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
     }

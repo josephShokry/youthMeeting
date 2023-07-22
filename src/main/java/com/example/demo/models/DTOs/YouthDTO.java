@@ -23,7 +23,7 @@ public class YouthDTO {
     @JsonProperty("phoneNumber")
     @Size(min = 11,max = 11)
     @NotBlank(message = "please specify the phone number")
-    @Pattern(regexp = "01[0-2,5]{1}[0-9]{8}", message = "please specify a valid phone number")
+    @Pattern(regexp = "01[0-2,5]\\d{8}", message = "please specify a valid phone number")
     public String phoneNumber;
     @JsonProperty("dayOfBirth")
     @Pattern(regexp = "^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2]\\d|3[0-1])$",
