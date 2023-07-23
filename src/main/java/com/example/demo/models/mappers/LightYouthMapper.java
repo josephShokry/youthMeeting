@@ -12,7 +12,6 @@ public interface LightYouthMapper {
     @Mapping(expression = "java(youth.getFirstName() + ' ' + youth.getLastName())", target = "name")
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     LightDTO youthToYouthLightDto(Youth youth, @MappingTarget LightDTO lightDTO);
-    //    @Mapping(expression = "java(youth.getFirstName() + ' ' + youth.getLastName())", target = "name")
     default Iterable<LightDTO> youthsToYouthLightDto(Iterable<Youth> youths){
         return StreamSupport.stream(youths.spliterator(), false)
                 .map(entity -> youthToYouthLightDto(entity,new LightDTO()))

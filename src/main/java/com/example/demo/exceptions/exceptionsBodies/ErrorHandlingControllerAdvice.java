@@ -15,7 +15,6 @@ import java.util.Map;
 
 @ControllerAdvice
 class ErrorHandlingControllerAdvice {
-
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
@@ -27,22 +26,21 @@ class ErrorHandlingControllerAdvice {
         }
         return error;
     }
-
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
-    Map<String,String> onMethodArgumentNotValidException(
-            //TODO change this shit
-            MethodArgumentNotValidException e) {
-        Map<String, String> error = new HashMap<>();
-        String errorMessage = "";
+    Map<String,String> onMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+        //TODO: Alternative solutions which is better
+        Map<String, String> errors = new HashMap<>();
+//        String errorMessage = "";
         for (FieldError fieldError : e.getBindingResult().getFieldErrors()) {
-            errorMessage += fieldError.getDefaultMessage();
-            errorMessage+=" & ";
+            errors.put(fieldError.getField(),fieldError.getDefaultMessage());
+//            errorMessage += fieldError.getDefaultMessage();
+//            errorMessage+=" & ";
         }
-        errorMessage = errorMessage.substring(0,errorMessage.length()-2);
-            error.put("message",errorMessage);
-        return error;
+//        errorMessage = errorMessage.substring(0,errorMessage.length()-2);
+//            errors.put("message",errorMessage);
+        return errors;
     }
 
 }

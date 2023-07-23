@@ -1,5 +1,6 @@
 package com.example.demo.services;
 
+import com.example.demo.exceptions.DataNotFoundException;
 import com.example.demo.models.DTOs.LightDTO;
 import com.example.demo.models.DTOs.StreetDTO;
 import com.example.demo.models.Street;
@@ -16,14 +17,14 @@ public class StreetServices {
     private StreetRepository streetRepository;
     final private StreetMapper streetMapper = Mappers.getMapper(StreetMapper.class);
 
-    public boolean addStreet(StreetDTO streetDTO) {
-        Street street = new Street();
-        streetRepository.save(streetMapper.getStreetFromDto(streetDTO, street));
-        return true;
+    public void addStreet(StreetDTO streetDTO) {
+        streetRepository.save(streetMapper.getStreetFromDto(streetDTO, new Street()));
     }
 
     public Street getById(Integer streetId) {
-        return streetRepository.findById(streetId).get();
+        Street street = streetRepository.findById(streetId).orElseThrow(
+                () ->new DataNotFoundException("the required street not present"));
+        return street;
     }
 
     public Iterable<LightDTO> getAll() {

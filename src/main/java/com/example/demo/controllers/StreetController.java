@@ -1,9 +1,7 @@
 package com.example.demo.controllers;
 
-import com.example.demo.models.DTOs.AreaDTO;
 import com.example.demo.models.DTOs.LightDTO;
 import com.example.demo.models.DTOs.StreetDTO;
-import com.example.demo.services.FamilyServices;
 import com.example.demo.services.StreetServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,8 +14,9 @@ public class StreetController {
     @Autowired
     private StreetServices streetServices;
     @PostMapping("add_street")
-    public boolean addStreet(@RequestBody StreetDTO streetDTO){
-        return streetServices.addStreet(streetDTO);
+    public ResponseEntity<String> addStreet(@RequestBody StreetDTO streetDTO){
+        streetServices.addStreet(streetDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body("street created!");
     }
     @GetMapping("get_all")
     public ResponseEntity<Iterable<LightDTO>> getAll(){

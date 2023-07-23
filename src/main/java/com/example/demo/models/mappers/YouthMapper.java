@@ -6,6 +6,8 @@ import com.example.demo.services.FamilyServices;
 import com.example.demo.services.StreetServices;
 import org.mapstruct.*;
 
+import java.util.Optional;
+
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface YouthMapper {
@@ -25,12 +27,12 @@ public interface YouthMapper {
                      @Context FamilyServices familyServices,
                      @Context AreaServices areaServices,
                      @Context StreetServices streetServices){
-        if(youthDTO.familyId != null)
-            youth.setFamily(familyServices.getFamilyById(youthDTO.familyId));
-        if(youthDTO.areaId != null)
-            youth.setArea(areaServices.getById(youthDTO.areaId));
-        if(youthDTO.streetId != null)
-            youth.setStreet(streetServices.getById(youthDTO.streetId));
+        Optional.ofNullable(youthDTO.familyId).ifPresent(
+                youthId -> youth.setFamily(familyServices.getFamilyById(youthId)));
+        Optional.ofNullable(youthDTO.areaId).ifPresent(
+                areaId -> youth.setArea(areaServices.getById(areaId)));
+        Optional.ofNullable(youthDTO.streetId).ifPresent(
+                streetId -> youth.setStreet(streetServices.getById(streetId)));
     }
 
     @Mapping(target = "familyId", source = "family.id")

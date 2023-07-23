@@ -1,5 +1,6 @@
 package com.example.demo.services;
 
+import com.example.demo.exceptions.DataNotFoundException;
 import com.example.demo.models.Area;
 import com.example.demo.models.DTOs.AreaDTO;
 import com.example.demo.models.DTOs.LightDTO;
@@ -9,20 +10,21 @@ import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 @Service
 public class AreaServices {
     @Autowired
     private AreaRepository areaRepository;
     final private AreaMapper areaMapper = Mappers.getMapper(AreaMapper.class);
 
-    public boolean addArea(AreaDTO areaDTO) {
-        Area area = new Area();
-        areaRepository.save(areaMapper.getAreaFromDto(areaDTO, area));
-        return true;
+    public void addArea(AreaDTO areaDTO) {
+        areaRepository.save(areaMapper.getAreaFromDto(areaDTO, new Area()));
     }
 
     public Area getById(Integer areaId) {
-        return areaRepository.findById(areaId).get();
+         Area area = areaRepository.findById(areaId).orElseThrow(
+                 () -> new DataNotFoundException("the required area is not present"));
+        return area;
     }
 
     public Iterable<LightDTO> getAll() {

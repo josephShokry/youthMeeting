@@ -25,14 +25,13 @@ public class YouthController {
     }
 
     @PostMapping("get_all")
-    public ResponseEntity<Page<YouthIntermediateDTO>> getAll(@RequestBody(required = false)
+    public ResponseEntity<Page<YouthIntermediateDTO>> getAll(@Valid @RequestBody(required = false)
                                                                  YouthFiltersDTO youthFiltersDTO){
         return ResponseEntity.status(HttpStatus.OK).body(youthServices.getAll(youthFiltersDTO));
     }
     @GetMapping("get")
     public ResponseEntity<YouthDTO> getYouth(@RequestParam Integer youthId){
         return ResponseEntity.status(HttpStatus.OK).body(youthServices.getYouthDtoById(youthId));
-
     }
     @PatchMapping("edit")
     public ResponseEntity<String> editYouth(@RequestParam Integer youthId, @RequestBody YouthDTO youthDTO){
@@ -40,12 +39,12 @@ public class YouthController {
         return ResponseEntity.status(HttpStatus.OK).body("youth edited successfully!!");
     }
 
-    @GetMapping("get_area")
-    public String getAreaName(@RequestParam Integer youthId){
-        return youthServices.getArea(youthId);
-    }
-    @GetMapping("get_street")
-    public String getStreetName(@RequestParam Integer youthId){
-        return youthServices.getStreet(youthId);
-    }
+//    @GetMapping("get_area")
+//    public String getAreaName(@RequestParam Integer youthId){
+//        return youthServices.getArea(youthId);
+//    }
+//    @GetMapping("get_street")
+//    public String getStreetName(@RequestParam Integer youthId){
+//        return youthServices.getStreet(youthId);
+//    }
 }

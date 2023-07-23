@@ -1,5 +1,6 @@
 package com.example.demo.services;
 
+import com.example.demo.exceptions.DataNotFoundException;
 import com.example.demo.models.DTOs.FamilyDTO;
 import com.example.demo.models.DTOs.LightDTO;
 import com.example.demo.models.Family;
@@ -15,16 +16,14 @@ public class FamilyServices {
     private FamilyRepository familyRepository;
     final private FamilyMapper familyMapper = Mappers.getMapper(FamilyMapper.class);
 
-
-    public boolean addFamily(FamilyDTO familyDTO) {
-        FamilyMapper familyMapper = Mappers.getMapper(FamilyMapper.class);
-        Family family = new Family();
-        familyRepository.save(familyMapper.familyDtoToFamily(familyDTO, family));
-        return true;
+    public void addFamily(FamilyDTO familyDTO) {
+        familyRepository.save(familyMapper.familyDtoToFamily(familyDTO, new Family()));
     }
 
     public Family getFamilyById(Integer familyId) {
-        return familyRepository.findById(familyId).get();
+        Family family = familyRepository.findById(familyId).orElseThrow(
+                ()-> new DataNotFoundException("the required family is not present"));
+        return family;
     }
 
     public Iterable<LightDTO> getAll() {

@@ -1,12 +1,12 @@
 package com.example.demo.services;
 
+import com.example.demo.exceptions.DataNotFoundException;
 import com.example.demo.models.DTOs.YouthDTO;
 import com.example.demo.models.DTOs.YouthFiltersDTO;
 import com.example.demo.models.DTOs.YouthIntermediateDTO;
-import com.example.demo.models.mappers.LightYouthMapper;
+import com.example.demo.models.Youth;
 import com.example.demo.models.mappers.YouthIntermediateMapper;
 import com.example.demo.models.mappers.YouthMapper;
-import com.example.demo.models.Youth;
 import com.example.demo.repositories.YouthRepository;
 import com.example.demo.repositories.YouthSpecificationImpl;
 import org.mapstruct.factory.Mappers;
@@ -16,8 +16,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 
 @Service
@@ -33,31 +31,31 @@ public class YouthServices {
 
     private StreetServices streetServices;
     private final YouthMapper youthMapper = Mappers.getMapper(YouthMapper.class);
-    private final LightYouthMapper lightYouthMapper = Mappers.getMapper(LightYouthMapper.class);
     private final YouthIntermediateMapper youthIntermediateMapper = Mappers.getMapper(YouthIntermediateMapper.class);
 
 
 
-    public boolean addYouth(YouthDTO youthDTO) {
+    public void addYouth(YouthDTO youthDTO) {
         Youth youth = youthMapper.youthDtoToYouth(youthDTO, new Youth(), familyServices, areaServices, streetServices);
         youthRepository.save(youth);
-        return true;
     }
     public Youth getYouthById(Integer youthId){
-        return youthRepository.findById(youthId).get();
+        Youth youth = youthRepository.findById(youthId).orElseThrow(
+                () -> new DataNotFoundException("the required youth is not present"));
+        return youth;
     }
     public YouthDTO getYouthDtoById(Integer youthId){
         return youthMapper.youthToYouthDto(getYouthById(youthId), new YouthDTO());
     }
 
-    public String getArea (Integer youthId) {return getYouthById(youthId).getArea().getAreaName();}
-    public String getStreet(Integer youthId) {
-        return getYouthById(youthId).getStreet().getStreetName();
-    }
+//    public String getArea (Integer youthId) {return getYouthById(youthId).getArea().getAreaName();}
+//    public String getStreet(Integer youthId) {
+//        return getYouthById(youthId).getStreet().getStreetName();
+//    }
 
 
     public Page<YouthIntermediateDTO> getAll(YouthFiltersDTO youthFiltersDTO) {
-
+        //TODO: Alternative solutions which is better
 //        youthFiltersDTO.setPage(Optional.ofNullable(youthFiltersDTO.getPage()).orElse(0));
 //        youthFiltersDTO.setSize(Optional.ofNullable(youthFiltersDTO.getSize()).orElse(10));
         youthFiltersDTO.page = (youthFiltersDTO.page == null || youthFiltersDTO.page == 0)? 0 : youthFiltersDTO.page - 1;
@@ -68,10 +66,9 @@ public class YouthServices {
         return youthIntermediateMapper.youthsToPageYouthIntermediateDtos(youths);
     }
 
-    public boolean editYouth(Integer youthId, YouthDTO youthDTO) {
+    public void editYouth(Integer youthId, YouthDTO youthDTO) {
         Youth youth = getYouthById(youthId);
         youthMapper.youthDtoToYouth(youthDTO, youth, familyServices, areaServices, streetServices);
         youthRepository.save(youth);
-        return true;
     }
 }

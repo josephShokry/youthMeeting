@@ -5,7 +5,6 @@ import com.example.demo.models.Youth;
 import jakarta.persistence.criteria.*;
 import lombok.AllArgsConstructor;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,8 +22,6 @@ public class YouthSpecificationImpl implements YouthSpecification{
             predicates.add(criteriaBuilder.equal(root.join("family", JoinType.LEFT).get("id"), youthFiltersDTO.familyId));
         if(youthFiltersDTO != null && youthFiltersDTO.streetId != null)
             predicates.add(criteriaBuilder.equal(root.join("street", JoinType.LEFT).get("id"), youthFiltersDTO.streetId));
-
-
         if(youthFiltersDTO != null && youthFiltersDTO.namePart != null)
             predicates.add(criteriaBuilder.like(criteriaBuilder.concat(root.get("firstName"), root.get("lastName")),
                 "%" + youthFiltersDTO.namePart.toLowerCase() + "%"));
@@ -35,8 +32,6 @@ public class YouthSpecificationImpl implements YouthSpecification{
             Expression<Integer> monthExpression = criteriaBuilder.function("MONTH", Integer.class, root.get("dayOfBirth"));
             predicates.add(criteriaBuilder.equal(monthExpression, youthFiltersDTO.month));
         }
-
-
         return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
     }
 }
