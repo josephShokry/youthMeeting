@@ -48,18 +48,12 @@ public class YouthServices {
         return youthMapper.youthToYouthDto(getYouthById(youthId), new YouthDTO());
     }
 
-//    public String getArea (Integer youthId) {return getYouthById(youthId).getArea().getAreaName();}
-//    public String getStreet(Integer youthId) {
-//        return getYouthById(youthId).getStreet().getStreetName();
-//    }
-
-
     public Page<YouthIntermediateDTO> getAll(YouthFiltersDTO youthFiltersDTO) {
         //TODO: Alternative solutions which is better
 //        youthFiltersDTO.setPage(Optional.ofNullable(youthFiltersDTO.getPage()).orElse(0));
 //        youthFiltersDTO.setSize(Optional.ofNullable(youthFiltersDTO.getSize()).orElse(10));
-        youthFiltersDTO.page = (youthFiltersDTO.page == null || youthFiltersDTO.page == 0)? 0 : youthFiltersDTO.page - 1;
-        youthFiltersDTO.size = (youthFiltersDTO.size == null || youthFiltersDTO.size == 0)? 0 : youthFiltersDTO.size;
+        youthFiltersDTO.page = (youthFiltersDTO.page == null || youthFiltersDTO.page == 0)? 0 : youthFiltersDTO.page-1 ;
+        youthFiltersDTO.size = (youthFiltersDTO.size == null || youthFiltersDTO.size == 0)? 10 : youthFiltersDTO.size;
         Pageable paging = PageRequest.of(youthFiltersDTO.page, youthFiltersDTO.size);
         Specification<Youth> specification = new YouthSpecificationImpl(youthFiltersDTO);
         Page<Youth> youths = youthRepository.findAll(specification, paging);
