@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
+
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Table(name = "youths")
@@ -31,4 +33,7 @@ public class Youth extends Person{
 //    private Father father;
     @Column(name = "notes")
     private String notes;
+    public Youth(Integer id, String firstName, String lastName, String dayOfBirth, String phoneNumber) {
+        super(id, firstName, lastName, LocalDate.parse(dayOfBirth), phoneNumber, null, null, null);
+    }
 }

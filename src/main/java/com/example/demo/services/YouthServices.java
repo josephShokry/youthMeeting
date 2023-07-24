@@ -9,7 +9,6 @@ import com.example.demo.models.mappers.YouthIntermediateMapper;
 import com.example.demo.models.mappers.YouthMapper;
 import com.example.demo.repositories.YouthRepository;
 import com.example.demo.repositories.YouthSpecificationImpl;
-import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -30,9 +29,12 @@ public class YouthServices {
     @Autowired
 
     private StreetServices streetServices;
-    private final YouthMapper youthMapper = Mappers.getMapper(YouthMapper.class);
-    private final YouthIntermediateMapper youthIntermediateMapper = Mappers.getMapper(YouthIntermediateMapper.class);
-
+//    private final YouthMapper youthMapper = Mappers.getMapper(YouthMapper.class);
+    @Autowired
+    private YouthMapper youthMapper;
+    //private final YouthIntermediateMapper youthIntermediateMapper = Mappers.getMapper(YouthIntermediateMapper.class);
+    @Autowired
+    private  YouthIntermediateMapper youthIntermediateMapper;
 
 
     public void addYouth(YouthDTO youthDTO) {

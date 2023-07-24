@@ -1,20 +1,17 @@
 package com.example.demo.models.mappers;
 
-import com.example.demo.models.*;
+import com.example.demo.models.Area;
 import com.example.demo.models.DTOs.YouthDTO;
+import com.example.demo.models.Family;
+import com.example.demo.models.Street;
+import com.example.demo.models.Youth;
 import com.example.demo.services.AreaServices;
 import com.example.demo.services.FamilyServices;
 import com.example.demo.services.StreetServices;
-import org.aspectj.lang.annotation.Before;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mapstruct.factory.Mappers;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -22,8 +19,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import java.time.LocalDate;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
