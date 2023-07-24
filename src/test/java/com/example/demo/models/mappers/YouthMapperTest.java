@@ -8,6 +8,7 @@ import com.example.demo.models.Youth;
 import com.example.demo.services.AreaServices;
 import com.example.demo.services.FamilyServices;
 import com.example.demo.services.StreetServices;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mapstruct.factory.Mappers;
