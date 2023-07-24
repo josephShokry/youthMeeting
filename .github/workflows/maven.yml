@@ -1,0 +1,27 @@
+name: Java CI
+
+on:
+  push:
+    branches:
+      - main  # Change this to the branch you want to trigger the workflow on
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17'
+
+      - name: Build with Maven
+        run: mvn package -B
+
+      - name: Run tests
+        run: mvn test  # Change this command to the appropriate Maven command for running tests
+
