@@ -29,7 +29,7 @@ public class Youth extends Person{
     @JsonIgnore
     private Family family;
     @Column(name = "meeting_level")
-    private Integer meetingLevel; // TODO check if we need 2 levels
+    private Integer meetingLevel;
 //    private Father father;
     @Column(name = "notes")
     private String notes;

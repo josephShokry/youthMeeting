@@ -12,12 +12,14 @@ import com.example.demo.repositories.YouthRepository;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -147,23 +149,29 @@ class YouthServicesTest {
         verify(youthIntermediateMapper, times(1)).youthsToPageYouthIntermediateDtos(any(Page.class));
     }
 
-//    @Test
-//    void testGetAll2() {
-//        YouthFiltersDTO youthFiltersDTO = new YouthFiltersDTO(null,null,null,null,null,2,2);
-//        List<Youth> mockedYouthList = List.of(youth3, youth4);
-//        Page<Youth> mockedPage = new PageImpl<>(mockedYouthList);
-//
-//        when(youthRepository.findAll(any(Specification.class), any(Pageable.class))).thenReturn(mockedPage);
-//
-//        List<YouthIntermediateDTO> mockedIntermediateDtoList = List.of(youthIntermediateDTO3, youthIntermediateDTO4); // Create a list of mocked YouthIntermediateDTO objects
-//        Page<YouthIntermediateDTO> mockedIntermediateDtoPage = new PageImpl<>(mockedIntermediateDtoList);
-//
-//        when(youthIntermediateMapper.youthsToPageYouthIntermediateDtos(any(Page.class))).thenReturn(mockedIntermediateDtoPage);
-//        Page<YouthIntermediateDTO> result = youthService.getAll(youthFiltersDTO);
-//
-//        assertThat(result).isEqualTo(mockedIntermediateDtoPage);
-//        verify(youthRepository, times(1)).findAll(any(Specification.class), any(Pageable.class));
-//        verify(youthIntermediateMapper, times(1)).youthsToPageYouthIntermediateDtos(any(Page.class));
-//    }
+    @Test
+    void testGetAllCustomPagination() {
+        int pageNumber = 0;
+        int pageSize = 2;
+        YouthFiltersDTO youthFiltersDTO = new YouthFiltersDTO(null, null, null, null, null, 2, 1);
+        ArgumentCaptor<Pageable> pageableCaptor = ArgumentCaptor.forClass(Pageable.class);
+        youthService.getAll(youthFiltersDTO);
+        verify(youthRepository).findAll(any(Specification.class), pageableCaptor.capture());
+        Pageable capturedPageable = pageableCaptor.getValue();
+        assertThat(capturedPageable.getPageNumber()).isEqualTo(pageNumber);
+        assertThat(capturedPageable.getPageSize()).isEqualTo(pageSize);
+    }
 
+    @Test
+    void testGetAllDefaultPagination() {
+        int defaultPageNumber = 0;
+        int defaultPageSize = 10;
+        YouthFiltersDTO youthFiltersDTO = new YouthFiltersDTO(null, null, null, null, null, null, null);
+        ArgumentCaptor<Pageable> pageableCaptor = ArgumentCaptor.forClass(Pageable.class);
+        youthService.getAll(youthFiltersDTO);
+        verify(youthRepository).findAll(any(Specification.class), pageableCaptor.capture());
+        Pageable capturedPageable = pageableCaptor.getValue();
+        assertThat(capturedPageable.getPageNumber()).isEqualTo(defaultPageNumber);
+        assertThat(capturedPageable.getPageSize()).isEqualTo(defaultPageSize);
+    }
 }

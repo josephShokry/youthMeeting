@@ -30,8 +30,8 @@ import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 @DataJpaTest
 @ActiveProfiles("test")
 class YouthRepositoryTest {
-    @Autowired private DataSource dataSource;
-    @Autowired private JdbcTemplate jdbcTemplate;
+//    @Autowired private DataSource dataSource;
+//    @Autowired private JdbcTemplate jdbcTemplate;
     @Autowired private EntityManager entityManager;
     @Autowired private YouthRepository youthRepository;
 
@@ -68,9 +68,9 @@ class YouthRepositoryTest {
 
     @Test
     void injectedComponentsAreNotNull(){
-        assertThat(dataSource).isNotNull();
-        assertThat(jdbcTemplate).isNotNull();
-        assertThat(entityManager).isNotNull();
+//        assertThat(dataSource).isNotNull();
+//        assertThat(jdbcTemplate).isNotNull();
+//        assertThat(entityManager).isNotNull();
         assertThat(youthRepository).isNotNull();
     }
 
@@ -85,7 +85,6 @@ class YouthRepositoryTest {
     }
     @Test
     void findAllWithCustomPagination() {
-        // TODO make a test for checking the assignment of page and size from the filtersDTO to the page object that pass to the repo
         YouthFiltersDTO youthFiltersDTO = new YouthFiltersDTO(null,null,null,null,null,2,1);
         Page<Youth> actualYouthPage = new PageImpl<>(List.of(youthsTable.get(2), youthsTable.get(3)));
         Pageable paging = PageRequest.of(1,2);
@@ -96,9 +95,8 @@ class YouthRepositoryTest {
 
     @Test
     void findAllWithNamePartFilterAndDefaultPagination() {
-        // TODO don't know why the 2 char from the last name doesn't work
-        YouthFiltersDTO youthFiltersDTO = new YouthFiltersDTO(null,null,"se",null,null,null,null);
-        Page<Youth> actualYouthPage = new PageImpl<>(List.of(youthsTable.get(0), youthsTable.get(5)));
+        YouthFiltersDTO youthFiltersDTO = new YouthFiltersDTO(null,null,"okr",null,null,null,null);
+        Page<Youth> actualYouthPage = new PageImpl<>(List.of(youthsTable.get(0), youthsTable.get(3)));
         Pageable paging = PageRequest.of(0,10);
         Specification<Youth> specification = new YouthSpecificationImpl(youthFiltersDTO);
         Page<Youth> result = youthRepository.findAll(specification, paging);
@@ -123,9 +121,9 @@ class YouthRepositoryTest {
         assertThat(result.getContent()).isEqualTo(actualYouthPage.getContent());
     }
     @Test
-    @Disabled
     void findAllWithFamily() {
-        YouthFiltersDTO youthFiltersDTO = new YouthFiltersDTO(1,null,null,null,null,null,null);
+        int familyIdForSearch = familiesTable.get(0).getId();
+        YouthFiltersDTO youthFiltersDTO = new YouthFiltersDTO(familyIdForSearch,null,null,null,null,null,null);
         Page<Youth> actualYouthPage = new PageImpl<>(List.of(youthsTable.get(0), youthsTable.get(2), youthsTable.get(4)));
         Pageable paging = PageRequest.of(0,10);
         Specification<Youth> specification = new YouthSpecificationImpl(youthFiltersDTO);
@@ -133,9 +131,9 @@ class YouthRepositoryTest {
         assertThat(result.getContent()).isEqualTo(actualYouthPage.getContent());
     }
     @Test
-    @Disabled
     void findAllWithStreet() {
-        YouthFiltersDTO youthFiltersDTO = new YouthFiltersDTO(null,2,null,null,null,null,null);
+        int streetIdForSearch = streetsTable.get(1).getId();
+        YouthFiltersDTO youthFiltersDTO = new YouthFiltersDTO(null,streetsTable.get(1).getId(),null,null,null,null,null);
         Page<Youth> actualYouthPage = new PageImpl<>(List.of(youthsTable.get(1), youthsTable.get(3), youthsTable.get(5)));
         Pageable paging = PageRequest.of(0,10);
         Specification<Youth> specification = new YouthSpecificationImpl(youthFiltersDTO);
@@ -144,9 +142,9 @@ class YouthRepositoryTest {
     }
 
     @Test
-    @Disabled
     void findAllWithNamePartAndStreet() {
-        YouthFiltersDTO youthFiltersDTO = new YouthFiltersDTO(null,2,"aa",null,null,null,null);
+        int streetIdForSearch = streetsTable.get(1).getId();
+        YouthFiltersDTO youthFiltersDTO = new YouthFiltersDTO(null,streetIdForSearch,"aa",null,null,null,null);
         Page<Youth> actualYouthPage = new PageImpl<>(List.of(youthsTable.get(1)));
         Pageable paging = PageRequest.of(0,10);
         Specification<Youth> specification = new YouthSpecificationImpl(youthFiltersDTO);

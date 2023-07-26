@@ -54,7 +54,7 @@ public class YouthServices {
         //TODO: Alternative solutions which is better
 //        youthFiltersDTO.setPage(Optional.ofNullable(youthFiltersDTO.getPage()).orElse(0));
 //        youthFiltersDTO.setSize(Optional.ofNullable(youthFiltersDTO.getSize()).orElse(10));
-        youthFiltersDTO.page = (youthFiltersDTO.page == null || youthFiltersDTO.page == 0)? 0 : youthFiltersDTO.page-1 ;
+        youthFiltersDTO.page = (youthFiltersDTO.page == null || youthFiltersDTO.page == 0)? 0 : youthFiltersDTO.page-1;
         youthFiltersDTO.size = (youthFiltersDTO.size == null || youthFiltersDTO.size == 0)? 10 : youthFiltersDTO.size;
         Pageable paging = PageRequest.of(youthFiltersDTO.page, youthFiltersDTO.size);
         Specification<Youth> specification = new YouthSpecificationImpl(youthFiltersDTO);
