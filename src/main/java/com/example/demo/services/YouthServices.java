@@ -16,6 +16,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 
 @Service
 public class YouthServices {
@@ -42,6 +44,8 @@ public class YouthServices {
         youthRepository.save(youth);
     }
     public Youth getYouthById(Integer youthId){
+        // TODO: need something to catch this exceptions
+        Optional.ofNullable(youthId).orElseThrow(() -> new DataNotFoundException("the youth id is null"));
         Youth youth = youthRepository.findById(youthId).orElseThrow(
                 () -> new DataNotFoundException("the required youth is not present"));
         return youth;
@@ -62,8 +66,8 @@ public class YouthServices {
         return youthIntermediateMapper.youthsToPageYouthIntermediateDtos(youths);
     }
 
-    public void editYouth(Integer youthId, YouthDTO youthDTO) {
-        Youth youth = getYouthById(youthId);
+    public void editYouth(YouthDTO youthDTO) {
+        Youth youth = getYouthById(youthDTO.id);
         youthMapper.youthDtoToYouth(youthDTO, youth, familyServices, areaServices, streetServices);
         youthRepository.save(youth);
     }

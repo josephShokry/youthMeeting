@@ -14,9 +14,8 @@ public class StreetController {
     @Autowired
     private StreetServices streetServices;
     @PostMapping("add_street")
-    public ResponseEntity<String> addStreet(@RequestBody StreetDTO streetDTO){
-        streetServices.addStreet(streetDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body("street created!");
+    public ResponseEntity<Integer> addStreet(@RequestBody StreetDTO streetDTO){
+        return ResponseEntity.status(HttpStatus.CREATED).body(streetServices.addStreet(streetDTO));
     }
     @GetMapping("get_all")
     public ResponseEntity<Iterable<LightDTO>> getAll(){

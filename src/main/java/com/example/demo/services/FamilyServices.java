@@ -10,17 +10,22 @@ import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class FamilyServices {
     @Autowired
     private FamilyRepository familyRepository;
     final private FamilyMapper familyMapper = Mappers.getMapper(FamilyMapper.class);
 
-    public void addFamily(FamilyDTO familyDTO) {
-        familyRepository.save(familyMapper.familyDtoToFamily(familyDTO, new Family()));
+    public Integer addFamily(FamilyDTO familyDTO) {
+        Family family = new Family();
+        familyRepository.save(familyMapper.familyDtoToFamily(familyDTO, family));
+        return family.getId();
     }
 
     public Family getFamilyById(Integer familyId) {
+        Optional.ofNullable(familyId).orElseThrow(() -> new DataNotFoundException("the family id is null"));
         Family family = familyRepository.findById(familyId).orElseThrow(
                 ()-> new DataNotFoundException("the required family is not present"));
         return family;

@@ -13,7 +13,7 @@ import java.util.Optional;
 public interface YouthMapper {
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    @Mapping(target = "id", ignore = true)
+//    @Mapping(target = "id", ignore = true)
     @Mapping(target = "dayOfBirth",expression = "java(youthDTO.dayOfBirth != null ?" +
             " java.time.LocalDate.parse(youthDTO.dayOfBirth) : null)")
     Youth youthDtoToYouth(YouthDTO youthDTO, @MappingTarget Youth youth,

@@ -114,24 +114,57 @@ class YouthServicesTest {
     @Test
     void testEditYouth() {
         Youth fullYouth = youth1;
-        Integer youthId = 1;
+        emptyYouthDto.id = 1;
         fullYouth.setFirstName("isaak");
         fullYouth.setLastName("vector");
         Family family = new Family(1,"mark",3,null,2021);
         fullYouth.setFamily(family);
-
         //mock
-        when(youthRepository.findById(youthId)).thenReturn(Optional.of(youth1));
+        when(youthRepository.findById(emptyYouthDto.id)).thenReturn(Optional.of(youth1));
         when(youthMapper.youthDtoToYouth(eq(emptyYouthDto),eq(youth1),any(FamilyServices.class),
                 any(AreaServices.class),any(StreetServices.class))).thenReturn(fullYouth);
         //call
-        youthService.editYouth(youthId, emptyYouthDto);
+        youthService.editYouth(emptyYouthDto);
         //verify
         verify(youthMapper, times(1)).youthDtoToYouth(eq(emptyYouthDto),any(Youth.class)
-
                 ,any(FamilyServices.class), any(AreaServices.class),any(StreetServices.class));
         verify(youthRepository, times(1)).save(fullYouth);
-        verify(youthRepository,times(1)).findById(youthId);
+        verify(youthRepository,times(1)).findById(emptyYouthDto.id);
+    }
+
+    @Test
+    void testEditYouthWithWrongId() {
+        Youth fullYouth = youth1;
+        emptyYouthDto.id = 100;
+        fullYouth.setFirstName("isaak");
+        fullYouth.setLastName("vector");
+        Family family = new Family(1,"mark",3,null,2021);
+        fullYouth.setFamily(family);
+        when(youthRepository.findById(emptyYouthDto.id)).thenReturn(Optional.empty());
+        assertThatThrownBy(() -> youthService.editYouth(emptyYouthDto))
+                .isInstanceOf(DataNotFoundException.class)
+                .hasMessage("the required youth is not present");
+        verify(youthRepository,times(1)).findById(emptyYouthDto.id);
+        verify(youthMapper, times(0)).youthDtoToYouth(eq(emptyYouthDto),any(Youth.class)
+                ,any(FamilyServices.class), any(AreaServices.class),any(StreetServices.class));
+        verify(youthRepository, times(0)).save(fullYouth);
+    }
+
+    @Test
+    void testEditYouthWithNullId() {
+        Youth fullYouth = youth1;
+        emptyYouthDto.id = null;
+        fullYouth.setFirstName("isaak");
+        fullYouth.setLastName("vector");
+        Family family = new Family(1,"mark",3,null,2021);
+        fullYouth.setFamily(family);
+        assertThatThrownBy(() -> youthService.editYouth(emptyYouthDto))
+                .isInstanceOf(DataNotFoundException.class)
+                .hasMessage("the youth id is null");
+        verify(youthRepository,times(0)).findById(emptyYouthDto.id);
+        verify(youthMapper, times(0)).youthDtoToYouth(eq(emptyYouthDto),any(Youth.class)
+                ,any(FamilyServices.class), any(AreaServices.class),any(StreetServices.class));
+        verify(youthRepository, times(0)).save(fullYouth);
     }
 
     @Test

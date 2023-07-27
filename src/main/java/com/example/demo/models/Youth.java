@@ -34,6 +34,6 @@ public class Youth extends Person{
     @Column(name = "notes")
     private String notes;
     public Youth(Integer id, String firstName, String lastName, String dayOfBirth, String phoneNumber) {
-        super(id, firstName, lastName, LocalDate.parse(dayOfBirth), phoneNumber, null, null, null);
+        super(id, firstName, lastName, LocalDate.parse(dayOfBirth), phoneNumber, null, null, null,null);
     }
 }

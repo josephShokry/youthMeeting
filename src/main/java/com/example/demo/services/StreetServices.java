@@ -10,6 +10,8 @@ import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 
 public class StreetServices {
@@ -17,11 +19,14 @@ public class StreetServices {
     private StreetRepository streetRepository;
     final private StreetMapper streetMapper = Mappers.getMapper(StreetMapper.class);
 
-    public void addStreet(StreetDTO streetDTO) {
-        streetRepository.save(streetMapper.getStreetFromDto(streetDTO, new Street()));
+    public Integer addStreet(StreetDTO streetDTO) {
+        Street street = new Street();
+        streetRepository.save(streetMapper.getStreetFromDto(streetDTO, street));
+        return street.getId();
     }
 
     public Street getById(Integer streetId) {
+        Optional.ofNullable(streetId).orElseThrow(() -> new DataNotFoundException("the street id is null"));
         Street street = streetRepository.findById(streetId).orElseThrow(
                 () ->new DataNotFoundException("the required street not present"));
         return street;

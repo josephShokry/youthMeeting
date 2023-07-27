@@ -14,9 +14,9 @@ public class AreaController {
     @Autowired
     private AreaServices areaServices;
     @PostMapping("add_area")
-    public ResponseEntity<String> addArea(@RequestBody AreaDTO areaDTO){
-        areaServices.addArea(areaDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Area created!");
+    public ResponseEntity<Integer> addArea(@RequestBody AreaDTO areaDTO){
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(areaServices.addArea(areaDTO));
     }
     @GetMapping("get_all")
     public ResponseEntity<Iterable<LightDTO>> getAll(){

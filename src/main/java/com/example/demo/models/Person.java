@@ -30,6 +30,8 @@ public class Person {
     private String phoneNumber;
     @Column(name = "building number")
     private Integer buildingNumber;
+    @Column(name = "floor")
+    private String floor;
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(referencedColumnName = "id")
     @JsonIgnore

@@ -37,8 +37,8 @@ public class YouthController {
     }
 
     @PatchMapping("edit")
-    public ResponseEntity<String> editYouth(@RequestParam Integer youthId, @RequestBody YouthDTO youthDTO) {
-        youthServices.editYouth(youthId, youthDTO);
+    public ResponseEntity<String> editYouth(@RequestBody YouthDTO youthDTO) {
+        youthServices.editYouth(youthDTO);
         return ResponseEntity.status(HttpStatus.OK).body("youth edited successfully!!");
     }
 }
