@@ -8,7 +8,6 @@ import com.example.demo.models.Youth;
 import com.example.demo.services.AreaServices;
 import com.example.demo.services.FamilyServices;
 import com.example.demo.services.StreetServices;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mapstruct.factory.Mappers;
@@ -29,7 +28,6 @@ class YouthMapperTest {
     @InjectMocks
     private YouthMapper youthMapper = Mappers.getMapper(YouthMapper.class);
     @MockBean private FamilyServices familyServices;
-    @MockBean private AreaServices areaServices;
     @MockBean private StreetServices streetServices;
 
 
@@ -37,13 +35,12 @@ class YouthMapperTest {
     void TestYouthDtoToYouth() {
         YouthDTO youthDTO = new YouthDTO(1, "Joseph", "Shokry", "01284024832",
                 "2002-09-04", "Alex", "eng", 3, 5, 3,
-                "good person", 1, 1, 1, 16);
+                "good person", 1, 1, 16);
 
         when(familyServices.getFamilyById(1)).thenReturn(new Family(1,"mark",3,null,2020));
-        when(areaServices.getById(1)).thenReturn(new Area(1,"moharm bek",null));
-        when(streetServices.getById(1)).thenReturn(new Street(1,"ishaky", null));
+        when(streetServices.getById(1)).thenReturn(new Street(1,"ishaky", null, null));
 
-        Youth targetYouth = youthMapper.youthDtoToYouth(youthDTO, new Youth(),familyServices,areaServices,streetServices);
+        Youth targetYouth = youthMapper.youthDtoToYouth(youthDTO, new Youth(),familyServices, streetServices);
 
         assertThat(targetYouth.getFirstName()).isEqualTo("Joseph");
         assertThat(targetYouth.getLastName()).isEqualTo("Shokry");
@@ -58,12 +55,9 @@ class YouthMapperTest {
         assertThat(targetYouth.getBuildingNumber()).isEqualTo(16);
         verify(familyServices).getFamilyById(1);
         verify(streetServices).getById(1);
-        verify(areaServices).getById(1);
         assertThat(targetYouth.getFamily()).isNotNull();
-        assertThat(targetYouth.getArea()).isNotNull();
         assertThat(targetYouth.getStreet()).isNotNull();
         assertThat(targetYouth.getFamily().getFamilyName()).isEqualTo("mark");
-        assertThat(targetYouth.getArea().getAreaName()).isEqualTo("moharm bek");
         assertThat(targetYouth.getStreet().getStreetName()).isEqualTo("ishaky");
     }
 
@@ -71,8 +65,7 @@ class YouthMapperTest {
     @Test
     void youthToYouthDto() {
         Family family = new Family(1,"mark",3,null,2020);
-        Street street = new Street(1,"ishaky",null);
-        Area area = new Area(1,"moharm bek",null);
+        Street street = new Street(1,"ishaky",null, null);
         Youth youth = new Youth("Alex","eng",3,5,family,3,"good person");
         youth.setId(1);
         youth.setFirstName("Joseph");
@@ -81,7 +74,6 @@ class YouthMapperTest {
         youth.setPhoneNumber("01284024832");
         youth.setBuildingNumber(16);
         youth.setStreet(street);
-        youth.setArea(area);
         YouthDTO targetYouthDTO = youthMapper.youthToYouthDto(youth,new YouthDTO());
         assertThat(targetYouthDTO.firstName).isEqualTo("Joseph");
         assertThat(targetYouthDTO.lastName).isEqualTo("Shokry");
@@ -95,7 +87,6 @@ class YouthMapperTest {
         assertThat(targetYouthDTO.notes).isEqualTo("good person");
         assertThat(targetYouthDTO.buildingNumber).isEqualTo(16);
         assertThat(targetYouthDTO.familyId).isEqualTo(1);
-        assertThat(targetYouthDTO.areaId).isEqualTo(1);
         assertThat(targetYouthDTO.streetId).isEqualTo(1);
     }
 }

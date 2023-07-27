@@ -19,13 +19,10 @@ public class YouthFiltersDTO {
     public String namePart;
     @JsonProperty("month")
     public Integer month;
-    @JsonProperty("fullDOB")
-    public String fullDOB;
+    @JsonProperty("year")
+    public Integer year;
     @JsonProperty("size")
     public Integer size;
     @JsonProperty("page")
     public Integer page;
-
-
-
 }

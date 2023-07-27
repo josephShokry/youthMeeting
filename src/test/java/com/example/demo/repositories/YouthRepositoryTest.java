@@ -7,7 +7,6 @@ import com.example.demo.models.Street;
 import com.example.demo.models.Youth;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +16,9 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import javax.sql.DataSource;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
@@ -30,8 +27,6 @@ import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 @DataJpaTest
 @ActiveProfiles("test")
 class YouthRepositoryTest {
-//    @Autowired private DataSource dataSource;
-//    @Autowired private JdbcTemplate jdbcTemplate;
     @Autowired private EntityManager entityManager;
     @Autowired private YouthRepository youthRepository;
 
@@ -46,20 +41,20 @@ class YouthRepositoryTest {
             new Family(null,"Mark",3,null,2021),
             new Family(null,"John",1,null,2023));
     List<Street> streetsTable = List.of(
-        new Street(null,"Ishaky",null),
-        new Street(null,"شجره الدر",null));
+        new Street(null,"Ishaky",null, null),
+        new Street(null,"شجره الدر",null, null));
     List<Area> areasTable = List.of(
-        new Area(null,"Moharm bek",null),
-        new Area(null,"غربال",null));
+        new Area(null,"Moharm bek", null),
+        new Area(null,"غربال", null));
 
     @BeforeEach
     void setUp() {
         int counter = 0;
         for(Youth youth: youthsTable){
             int id = counter%2;
-                youth.setFamily(familiesTable.get(id));
-                youth.setStreet(streetsTable.get(id));
-                youth.setArea(areasTable.get(id));
+            youth.setFamily(familiesTable.get(id));
+            streetsTable.get(id).setArea(areasTable.get(id));
+            youth.setStreet(streetsTable.get(id));
             youthRepository.save(youth);
             counter++;
         }
@@ -68,9 +63,6 @@ class YouthRepositoryTest {
 
     @Test
     void injectedComponentsAreNotNull(){
-//        assertThat(dataSource).isNotNull();
-//        assertThat(jdbcTemplate).isNotNull();
-//        assertThat(entityManager).isNotNull();
         assertThat(youthRepository).isNotNull();
     }
 
@@ -112,9 +104,18 @@ class YouthRepositoryTest {
         assertThat(result.getContent()).isEqualTo(actualYouthPage.getContent());
     }
     @Test
-    void findAllWithDOB() {
-        YouthFiltersDTO youthFiltersDTO = new YouthFiltersDTO(null,null,null,null,"1998-10-14",null,null);
+    void findAllWithYear() {
+        YouthFiltersDTO youthFiltersDTO = new YouthFiltersDTO(null,null,null,null,1998,null,null);
         Page<Youth> actualYouthPage = new PageImpl<>(List.of(youthsTable.get(2)));
+        Pageable paging = PageRequest.of(0,10);
+        Specification<Youth> specification = new YouthSpecificationImpl(youthFiltersDTO);
+        Page<Youth> result = youthRepository.findAll(specification, paging);
+        assertThat(result.getContent()).isEqualTo(actualYouthPage.getContent());
+    }
+    @Test
+    void findAllWithMonthAndYear() {
+        YouthFiltersDTO youthFiltersDTO = new YouthFiltersDTO(null,null,null,9,2003,null,null);
+        Page<Youth> actualYouthPage = new PageImpl<>(List.of(youthsTable.get(1)));
         Pageable paging = PageRequest.of(0,10);
         Specification<Youth> specification = new YouthSpecificationImpl(youthFiltersDTO);
         Page<Youth> result = youthRepository.findAll(specification, paging);

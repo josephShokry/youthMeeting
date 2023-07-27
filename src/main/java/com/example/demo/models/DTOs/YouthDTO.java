@@ -48,9 +48,6 @@ public class YouthDTO {
     @JsonProperty("streetId")
     @Min(1)
     public Integer streetId;
-    @JsonProperty("areaId")
-    @Min(1)
-    public Integer areaId;
     @JsonProperty("buildingNumber")
     @Min(1)
     public Integer buildingNumber;

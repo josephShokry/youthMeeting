@@ -5,7 +5,6 @@ import com.example.demo.models.Youth;
 import jakarta.persistence.criteria.*;
 import lombok.AllArgsConstructor;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,8 +24,10 @@ public class YouthSpecificationImpl implements YouthSpecification{
         if(youthFiltersDTO != null && youthFiltersDTO.namePart != null)
             predicates.add(criteriaBuilder.like(criteriaBuilder.concat(root.get("firstName"), root.get("lastName")),
                 "%" + youthFiltersDTO.namePart.toLowerCase() + "%"));
-        if(youthFiltersDTO != null && youthFiltersDTO.fullDOB != null)
-            predicates.add(criteriaBuilder.equal(root.get("dayOfBirth"),LocalDate.parse(youthFiltersDTO.fullDOB)));
+        if(youthFiltersDTO != null && youthFiltersDTO.year != null){
+            Expression<Integer> yearExpression = criteriaBuilder.function("YEAR", Integer.class, root.get("dayOfBirth"));
+            predicates.add(criteriaBuilder.equal(yearExpression, youthFiltersDTO.year));
+        }
 
         if(youthFiltersDTO != null && youthFiltersDTO.month != null){
             Expression<Integer> monthExpression = criteriaBuilder.function("MONTH", Integer.class, root.get("dayOfBirth"));

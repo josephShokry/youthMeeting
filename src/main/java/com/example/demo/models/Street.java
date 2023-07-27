@@ -20,4 +20,9 @@ public class Street {
     private String streetName;
     @OneToMany(mappedBy = "street",orphanRemoval = true)
     private List<Youth> youthList;
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(referencedColumnName = "id")
+//    @JsonIgnore
+    private Area area;
+
 }

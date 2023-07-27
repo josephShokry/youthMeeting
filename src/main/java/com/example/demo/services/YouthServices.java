@@ -31,16 +31,14 @@ public class YouthServices {
     @Autowired
 
     private StreetServices streetServices;
-//    private final YouthMapper youthMapper = Mappers.getMapper(YouthMapper.class);
     @Autowired
     private YouthMapper youthMapper;
-    //private final YouthIntermediateMapper youthIntermediateMapper = Mappers.getMapper(YouthIntermediateMapper.class);
     @Autowired
     private  YouthIntermediateMapper youthIntermediateMapper;
 
 
     public void addYouth(YouthDTO youthDTO) {
-        Youth youth = youthMapper.youthDtoToYouth(youthDTO, new Youth(), familyServices, areaServices, streetServices);
+        Youth youth = youthMapper.youthDtoToYouth(youthDTO, new Youth(), familyServices, streetServices);
         youthRepository.save(youth);
     }
     public Youth getYouthById(Integer youthId){
@@ -68,7 +66,7 @@ public class YouthServices {
 
     public void editYouth(YouthDTO youthDTO) {
         Youth youth = getYouthById(youthDTO.id);
-        youthMapper.youthDtoToYouth(youthDTO, youth, familyServices, areaServices, streetServices);
+        youthMapper.youthDtoToYouth(youthDTO, youth, familyServices, streetServices);
         youthRepository.save(youth);
     }
 }

@@ -9,7 +9,6 @@ import com.example.demo.models.Youth;
 import com.example.demo.models.mappers.YouthIntermediateMapper;
 import com.example.demo.models.mappers.YouthMapper;
 import com.example.demo.repositories.YouthRepository;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -19,7 +18,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -63,12 +61,12 @@ class YouthServicesTest {
     void testAddYouth() {
         //mock
         when(youthMapper.youthDtoToYouth(eq(emptyYouthDto),any(Youth.class),any(FamilyServices.class),
-                any(AreaServices.class),any(StreetServices.class))).thenReturn(youth1);
+                any(StreetServices.class))).thenReturn(youth1);
         //call
         youthService.addYouth(emptyYouthDto);
         //verify
         verify(youthMapper, times(1)).youthDtoToYouth(eq(emptyYouthDto),any(Youth.class)
-                ,any(FamilyServices.class), any(AreaServices.class),any(StreetServices.class));
+                ,any(FamilyServices.class), any(StreetServices.class));
         verify(youthRepository, times(1)).save(youth1);
     }
     @Test
@@ -122,12 +120,12 @@ class YouthServicesTest {
         //mock
         when(youthRepository.findById(emptyYouthDto.id)).thenReturn(Optional.of(youth1));
         when(youthMapper.youthDtoToYouth(eq(emptyYouthDto),eq(youth1),any(FamilyServices.class),
-                any(AreaServices.class),any(StreetServices.class))).thenReturn(fullYouth);
+                any(StreetServices.class))).thenReturn(fullYouth);
         //call
         youthService.editYouth(emptyYouthDto);
         //verify
         verify(youthMapper, times(1)).youthDtoToYouth(eq(emptyYouthDto),any(Youth.class)
-                ,any(FamilyServices.class), any(AreaServices.class),any(StreetServices.class));
+                ,any(FamilyServices.class), any(StreetServices.class));
         verify(youthRepository, times(1)).save(fullYouth);
         verify(youthRepository,times(1)).findById(emptyYouthDto.id);
     }
@@ -146,7 +144,7 @@ class YouthServicesTest {
                 .hasMessage("the required youth is not present");
         verify(youthRepository,times(1)).findById(emptyYouthDto.id);
         verify(youthMapper, times(0)).youthDtoToYouth(eq(emptyYouthDto),any(Youth.class)
-                ,any(FamilyServices.class), any(AreaServices.class),any(StreetServices.class));
+                ,any(FamilyServices.class), any(StreetServices.class));
         verify(youthRepository, times(0)).save(fullYouth);
     }
 
@@ -163,7 +161,7 @@ class YouthServicesTest {
                 .hasMessage("the youth id is null");
         verify(youthRepository,times(0)).findById(emptyYouthDto.id);
         verify(youthMapper, times(0)).youthDtoToYouth(eq(emptyYouthDto),any(Youth.class)
-                ,any(FamilyServices.class), any(AreaServices.class),any(StreetServices.class));
+                ,any(FamilyServices.class), any(StreetServices.class));
         verify(youthRepository, times(0)).save(fullYouth);
     }
 

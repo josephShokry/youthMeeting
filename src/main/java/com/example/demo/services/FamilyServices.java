@@ -6,7 +6,6 @@ import com.example.demo.models.DTOs.LightDTO;
 import com.example.demo.models.Family;
 import com.example.demo.models.mappers.FamilyMapper;
 import com.example.demo.repositories.FamilyRepository;
-import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +15,8 @@ import java.util.Optional;
 public class FamilyServices {
     @Autowired
     private FamilyRepository familyRepository;
-    final private FamilyMapper familyMapper = Mappers.getMapper(FamilyMapper.class);
+    @Autowired
+    private FamilyMapper familyMapper;
 
     public Integer addFamily(FamilyDTO familyDTO) {
         Family family = new Family();

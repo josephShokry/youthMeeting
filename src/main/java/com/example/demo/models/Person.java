@@ -36,9 +36,4 @@ public class Person {
     @JoinColumn(referencedColumnName = "id")
     @JsonIgnore
     private Street street;
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(referencedColumnName = "id")
-    @JsonIgnore
-    private Area area;
-
 }

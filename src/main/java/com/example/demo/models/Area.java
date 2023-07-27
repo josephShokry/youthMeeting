@@ -13,11 +13,11 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class Area {
-    @jakarta.persistence.Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(name = "area_name")
     private String areaName;
     @OneToMany(mappedBy = "area",orphanRemoval = true)
-    private List<Youth> youthList;
+    private List<Street> streets;
 }
