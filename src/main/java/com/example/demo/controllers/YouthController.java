@@ -4,6 +4,11 @@ import com.example.demo.models.DTOs.YouthDTO;
 import com.example.demo.models.DTOs.YouthFiltersDTO;
 import com.example.demo.models.DTOs.YouthIntermediateDTO;
 import com.example.demo.services.YouthServices;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,6 +25,8 @@ public class YouthController {
     private YouthServices youthServices;
 
     @PostMapping("add")
+    @Operation(description = "to add new youth to the database")
+    @ApiResponse(responseCode = "200",useReturnTypeSchema = true,description = "the youth added suceessfully")
     public ResponseEntity<String> addYouth(@Valid @RequestBody YouthDTO youthDTO) {
         youthServices.addYouth(youthDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body("youth added!");

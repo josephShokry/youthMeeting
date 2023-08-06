@@ -15,7 +15,6 @@ public class AreaController {
     private AreaServices areaServices;
     @PostMapping("add_area")
     public ResponseEntity<Integer> addArea(@RequestBody AreaDTO areaDTO){
-
         return ResponseEntity.status(HttpStatus.CREATED).body(areaServices.addArea(areaDTO));
     }
     @GetMapping("get_all")
