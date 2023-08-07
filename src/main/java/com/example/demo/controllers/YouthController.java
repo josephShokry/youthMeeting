@@ -29,7 +29,7 @@ public class YouthController {
             summary = "Use this api to add new youth",
             description = "To add new youth to the database")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "the youth added suceessfully")
+        @ApiResponse(responseCode = "200", description = "the youth added successfully")
     })
     @PostMapping("add")
     public ResponseEntity<String> addYouth(@Valid @RequestBody YouthDTO youthDTO) {
@@ -40,6 +40,9 @@ public class YouthController {
     @Operation(
             summary = "Use this api to list all youths depending on some filters criteria",
             description = "To get all the youths stored in the database")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "The youths retrieved successfully")
+    })
     @PostMapping("get_all")
     public ResponseEntity<Page<YouthIntermediateDTO>> getAll(@Valid @RequestBody(required = false)
                                                              YouthFiltersDTO youthFiltersDTO) {
@@ -49,6 +52,9 @@ public class YouthController {
     @Operation(
             summary = "Use this api to get all the details of a specific youth",
             description = "Get details of a specific youth")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "The youth retrieved successfully")
+    })
     @GetMapping("get")
     public ResponseEntity<YouthDTO> getYouth(@RequestParam Integer youthId) {
         return ResponseEntity.status(HttpStatus.OK).body(youthServices.getYouthDtoById(youthId));
@@ -57,6 +63,9 @@ public class YouthController {
     @Operation(
             summary = "Use this api to edit any detail of a specific youth",
             description = "Edit the details of a specific youth")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "The youth edited successfully")
+    })
     @PatchMapping("edit")
     public ResponseEntity<String> editYouth(@RequestBody YouthDTO youthDTO) {
         youthServices.editYouth(youthDTO);
