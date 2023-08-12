@@ -22,7 +22,9 @@ public class Family {
     private Integer familyLevel;
     @OneToMany(mappedBy = "family",orphanRemoval = true)
     private List<Youth> youthList;
- //   private List<Servant> servantList;
+    @OneToMany(mappedBy = "family",orphanRemoval = true)
+    private List<Servant> servantList;
     @Column(name = "joining_year")
     private Integer joiningYear;
+
 }
