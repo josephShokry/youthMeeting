@@ -33,6 +33,7 @@ public class SecurityConfig {
         http
                 .csrf().disable()
                 .authorizeRequests()
+                .requestMatchers("/youth/get").access("@roleChecker.sameFamily(authentication, T(java.lang.Integer).valueOf(request.getParameter('youthId')))")
                 .requestMatchers("/servant/**").access("@roleChecker.check(authentication,'admin')")
                 .requestMatchers("/**").permitAll()
                 .anyRequest()
@@ -44,6 +45,14 @@ public class SecurityConfig {
     }
 
 }
+
+//authorities
+/*
+    ++ no one can access the details of a specific youth just the servant of the same family of the youth
+    -- no one can edit the details of a specific youth just the servant of the same family of the youth
+
+
+ */
 
 /*
 

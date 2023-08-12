@@ -20,4 +20,8 @@ public class ServantServices {
         serviceRepository.save(servant);
         return servant.getId();
     }
+
+    public Servant getServantById(Integer id) {
+        return serviceRepository.findById(id).get();
+    }
 }
