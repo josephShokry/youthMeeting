@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -21,6 +22,7 @@ import java.util.List;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
     @Bean
@@ -33,15 +35,12 @@ public class SecurityConfig {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .requestMatchers("/youth/get").access("@roleChecker.sameFamily(authentication, T(java.lang.Integer).valueOf(request.getParameter('youthId')))")
-                .requestMatchers("/youth/edit").access("@roleChecker.sameFamily(authentication, request)")
-//                .requestMatchers("/servant/**").access("@roleChecker.check(authentication,'admin')")
+//                .requestMatchers("/youth/get").access("@roleChecker.sameFamily(authentication, T(java.lang.Integer).valueOf(request.getParameter('youthId')))")
+//                .requestMatchers("/youth/edit").access("@roleChecker.sameFamily(authentication, request)")
                 .requestMatchers("/**").permitAll()
-                .anyRequest()
-                .authenticated()
+                .anyRequest().authenticated()
                 .and()
                 .httpBasic(Customizer.withDefaults());
-//                .formLogin(Customizer.withDefaults());
         return http.build();
     }
 
@@ -73,6 +72,8 @@ CREATE TABLE authorities (
 
 .requestMatchers("/youth/**").access("@roleChecker.check(authentication,'admin')")//.hasRole("ADMIN")
 .requestMatchers("/area/**").access("@roleChecker.check(authentication,'user')")//.hasAnyRole("ADMIN","USER")
+.requestMatchers("/servant/**").access("@roleChecker.check(authentication,'admin')")
+.formLogin(Customizer.withDefaults());
 
  */
 

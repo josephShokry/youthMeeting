@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -26,17 +27,20 @@ public class YouthController {
     }
 
     @PostMapping("get_all")
+    @PreAuthorize("hasRole('ROLE_Servant_Head')")
     public ResponseEntity<Page<YouthIntermediateDTO>> getAll(@Valid @RequestBody(required = false)
                                                              YouthFiltersDTO youthFiltersDTO) {
         return ResponseEntity.status(HttpStatus.OK).body(youthServices.getAll(youthFiltersDTO));
     }
 
     @GetMapping("get")
+    @PreAuthorize("@roleChecker.sameFamilyUsingYouthId(authentication, #youthId) or hasRole('ROLE_Servant_Head')")
     public ResponseEntity<YouthDTO> getYouth(@RequestParam Integer youthId) {
         return ResponseEntity.status(HttpStatus.OK).body(youthServices.getYouthDtoById(youthId));
     }
 
     @PatchMapping("edit")
+    @PreAuthorize("@roleChecker.sameFamilyUsingYouthDto(authentication, #youthDTO) or hasRole('ROLE_Servant_Head')")
     public ResponseEntity<String> editYouth(@RequestBody YouthDTO youthDTO) {
         youthServices.editYouth(youthDTO);
         return ResponseEntity.status(HttpStatus.OK).body("youth edited successfully!!");

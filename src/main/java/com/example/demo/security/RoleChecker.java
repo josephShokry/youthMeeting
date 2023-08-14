@@ -1,5 +1,6 @@
 package com.example.demo.security;
 
+import com.example.demo.models.DTOs.YouthDTO;
 import com.example.demo.models.Servant;
 import com.example.demo.models.Youth;
 import com.example.demo.services.ServantServices;
@@ -23,18 +24,17 @@ public class RoleChecker {
     public Boolean check(Authentication authentication, String userName){
         return authentication.getName().equals(userName);
     }
-    public Boolean sameFamily(Authentication authentication, Integer youthId){
+    public Boolean sameFamilyUsingYouthId(Authentication authentication, Integer youthId){
         User principal = (User) authentication.getPrincipal();
-        if(principal.getRoles() == Roles.ROLE_Servant_Head) return true;
+//        if(principal.getRoles() == Roles.ROLE_Servant_Head) return true;
         Servant servant = servantServices.getServantById(principal.getPerson().getId());
         Youth youth = youthServices.getYouthById(youthId);
         return Objects.equals(youth.getFamily().getId(), servant.getFamily().getId());
     }
 
-    public Boolean sameFamily(Authentication authentication, HttpServletRequestWrapper request){
-        System.out.println(request);
-//        request
-//        request.b
-        return true;
+    public Boolean sameFamilyUsingYouthDto(Authentication authentication, YouthDTO youthDTO){
+        User principal = (User) authentication.getPrincipal();
+        Servant servant = servantServices.getServantById(principal.getPerson().getId());
+        return Objects.equals(youthDTO.familyId, servant.getFamily().getId());
     }
 }
