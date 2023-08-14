@@ -27,6 +27,8 @@ public class User implements UserDetails {
 //    private boolean hi = true;
     private boolean enabled;
     private List<GrantedAuthority> authorities;
+    @Enumerated
+    private Roles roles;
     @OneToOne
     private Person person;
 
