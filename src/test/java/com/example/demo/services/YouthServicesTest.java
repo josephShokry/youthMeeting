@@ -115,7 +115,7 @@ class YouthServicesTest {
         emptyYouthDto.id = 1;
         fullYouth.setFirstName("isaak");
         fullYouth.setLastName("vector");
-        Family family = new Family(1,"mark",3,null,2021);
+        Family family = new Family(1,"mark",3,null,null,2021);
         fullYouth.setFamily(family);
         //mock
         when(youthRepository.findById(emptyYouthDto.id)).thenReturn(Optional.of(youth1));
@@ -136,7 +136,7 @@ class YouthServicesTest {
         emptyYouthDto.id = 100;
         fullYouth.setFirstName("isaak");
         fullYouth.setLastName("vector");
-        Family family = new Family(1,"mark",3,null,2021);
+        Family family = new Family(1,"mark",3,null,null,2021);
         fullYouth.setFamily(family);
         when(youthRepository.findById(emptyYouthDto.id)).thenReturn(Optional.empty());
         assertThatThrownBy(() -> youthService.editYouth(emptyYouthDto))
@@ -154,7 +154,7 @@ class YouthServicesTest {
         emptyYouthDto.id = null;
         fullYouth.setFirstName("isaak");
         fullYouth.setLastName("vector");
-        Family family = new Family(1,"mark",3,null,2021);
+        Family family = new Family(1,"mark",3,null,null,2021);
         fullYouth.setFamily(family);
         assertThatThrownBy(() -> youthService.editYouth(emptyYouthDto))
                 .isInstanceOf(DataNotFoundException.class)

@@ -26,11 +26,12 @@ public class User implements UserDetails {
     private String password;
 //    private boolean hi = true;
     private boolean enabled;
-    private List<GrantedAuthority> authorities;
-    @Enumerated
+//    private List<GrantedAuthority> authorities;
+    @Enumerated(EnumType.STRING)
     private Roles roles;
     @OneToOne
     private Person person;
+    private boolean authenticated;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

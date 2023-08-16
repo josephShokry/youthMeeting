@@ -37,7 +37,7 @@ class YouthMapperTest {
                 "2002-09-04", "Alex", "eng", 3, 5, 3,
                 "good person", 1, 1, 16);
 
-        when(familyServices.getFamilyById(1)).thenReturn(new Family(1,"mark",3,null,2020));
+        when(familyServices.getFamilyById(1)).thenReturn(new Family(1,"mark",3,null,null,2020));
         when(streetServices.getById(1)).thenReturn(new Street(1,"ishaky", null, null));
 
         Youth targetYouth = youthMapper.youthDtoToYouth(youthDTO, new Youth(),familyServices, streetServices);
@@ -64,7 +64,7 @@ class YouthMapperTest {
 
     @Test
     void youthToYouthDto() {
-        Family family = new Family(1,"mark",3,null,2020);
+        Family family = new Family(1,"mark",3,null,null,2020);
         Street street = new Street(1,"ishaky",null, null);
         Youth youth = new Youth("Alex","eng",3,5,family,3,"good person");
         youth.setId(1);

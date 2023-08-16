@@ -1,5 +1,6 @@
 package com.example.demo.repositories;
 
+import com.example.demo.controllers.YouthController;
 import com.example.demo.models.Area;
 import com.example.demo.models.DTOs.YouthFiltersDTO;
 import com.example.demo.models.Family;
@@ -11,11 +12,17 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -38,8 +45,8 @@ class YouthRepositoryTest {
                 new Youth(null, "Kiro", "Soliman","2004-11-22","01075471369"),
                 new Youth(null, "Josephine", "Atef","2001-01-30","01578945617"));
     List<Family> familiesTable = List.of(
-            new Family(null,"Mark",3,null,2021),
-            new Family(null,"John",1,null,2023));
+            new Family(null,"Mark",3,null,null,2021),
+            new Family(null,"John",1,null,null,2023));
     List<Street> streetsTable = List.of(
         new Street(null,"Ishaky",null, null),
         new Street(null,"شجره الدر",null, null));
