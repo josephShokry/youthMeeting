@@ -2,14 +2,14 @@ package com.example.demo.services;
 
 import com.example.demo.models.DTOs.ServantDTO;
 import com.example.demo.models.Servant;
-import com.example.demo.repositories.ServiceRepository;
+import com.example.demo.repositories.ServantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ServantServices {
     @Autowired
-    private ServiceRepository serviceRepository;
+    private ServantRepository servantRepository;
     @Autowired
     private FamilyServices familyServices;
 
@@ -17,11 +17,11 @@ public class ServantServices {
         Servant servant = new Servant();
         servant.setFirstName(servantDTO.firstName);
         servant.setFamily(familyServices.getFamilyById(servantDTO.familyId));
-        serviceRepository.save(servant);
+        servantRepository.save(servant);
         return servant.getId();
     }
 
     public Servant getServantById(Integer id) {
-        return serviceRepository.findById(id).get();
+        return servantRepository.findById(id).orElse(null);
     }
 }

@@ -34,7 +34,7 @@ public class Person {
     @Column(name = "floor")
     private String floor;
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(referencedColumnName = "id")
+    @JoinColumn(referencedColumnName = "id", name = "street_id",unique = false)
     @JsonIgnore
     private Street street;
 //    @OneToOne

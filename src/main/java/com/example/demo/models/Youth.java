@@ -8,7 +8,7 @@ import java.time.LocalDate;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@Table(name = "youths")
+//@Table(name = "youths")
 @Setter
 @Getter
 @AllArgsConstructor
@@ -25,7 +25,7 @@ public class Youth extends Person{
     private Integer gradLevel;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(referencedColumnName = "id")
+    @JoinColumn(referencedColumnName = "id", name = "family_id",unique = false)
     @JsonIgnore
     private Family family;
     @Column(name = "meeting_level")

@@ -2,8 +2,19 @@ package com.example.demo.controllers;
 
 import com.example.demo.models.DTOs.YouthDTO;
 import com.example.demo.models.DTOs.YouthFiltersDTO;
+import com.example.demo.models.Family;
+import com.example.demo.models.Person;
+import com.example.demo.models.Servant;
+import com.example.demo.models.Youth;
+import com.example.demo.repositories.ServantRepository;
+import com.example.demo.security.Roles;
 import com.example.demo.security.SecurityConfig;
+import com.example.demo.security.User;
+import com.example.demo.security.UserService;
+import com.example.demo.services.FamilyServices;
+import com.example.demo.services.ServantServices;
 import com.example.demo.services.YouthServices;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -13,13 +24,20 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.test.context.support.WithAnonymousUser;
-import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.test.context.support.WithUserDetails;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.web.bind.WebDataBinder;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -31,37 +49,92 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 //@WebMvcTest(CustomerController.class)
 @Import(SecurityConfig.class)
 //@ContextConfiguration
+@Transactional
+@Sql(scripts = "classpath:databasePreparation/YouthControllerTestDataBase.sql")
 class YouthControllerTest {
-    //TODO: i think there is a problem because i use a custom user class and all this test uses the default user class
+    @Autowired
+    UserService userService;
+    @Autowired
+    FamilyServices familyServices;
+    @Autowired
+    ServantRepository servantRepository;
+    //TODO: remove unnecessary authowireds
     @Autowired
     private MockMvc mockMvc;
-    @MockBean private YouthServices youthServices;
+    @MockBean
+    private YouthServices youthServices;
+    @Autowired
+    private ServantServices servantServices;
+
+    List<Family> families = List.of(
+            new Family(1, "mark",null,null,null,null),
+            new Family(2, "john",null,null,null,null)
+            );
+
+    List<Person> persons = List.of(
+            new Servant(families.get(0)),
+            new Servant(families.get(1))
+    );
+
+    List<User> users = List.of(
+            new User("head","pas",true, Roles.ROLE_Servant_Head,null,true),
+            new User("servant 1","pas",true, Roles.ROLE_Servant,persons.get(0),true),
+            new User("servant 2","pas",true, Roles.ROLE_Servant,persons.get(1),true)
+            );
 
     //test the add youth
     @Test
-    @WithMockUser(roles = "Servant_Head")
+//    @WithUserDetails(value = "joseph head")
+// this servant is a head servant
     void addYouthWithAuthorizedServantHead() throws Exception {
+        // Create a mock CustomUser object
+//        User customUser = new User("joseph head","pas",true, Roles.ROLE_Servant_Head,null,true);
         //TODO: find a way to mock the body validator
         doNothing().when(youthServices).addYouth(any(YouthDTO.class));
         mockMvc.perform(post("/youth/add")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"firstName\":\"مينا\",\n" +
-                                "    \"lastName\":\"اسامه\",\n" +
-                                "    \"phoneNumber\":\"01579435782\"}"))
+                        .content("""
+                                {"firstName":"joseph",
+                                 "lastName":"shokry",
+                                 "phoneNumber":"01579435782"}""")
+                        .with(user(users.get(0))))
                 .andExpect(status().isCreated());
         verify(youthServices,times(1)).addYouth(any(YouthDTO.class));
     }
 
     @Test
-    @WithMockUser(roles = "Servant")
+//    @WithUserDetails(value = "joseph servant")
+        // this servant belongs to the mark family with family id = 1
     void addYouthWithAuthorizedServant() throws Exception {
-
-
+        doNothing().when(youthServices).addYouth(any(YouthDTO.class));
+//        when()
+        mockMvc.perform(post("/youth/add")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {  "firstName":"joseph",
+                                   "lastName":"shokry",
+                                   "familyId":"1",
+                                   "phoneNumber":"01579435782"}""")
+                        .with(user(users.get(1))))
+                .andExpect(status().isCreated());
+        verify(youthServices, times(1)).addYouth(any(YouthDTO.class));
     }
-    @Test
-    @WithMockUser(roles = "Servant_Head")
-    void addYouthWithUnAuthorizedServant() throws Exception {
 
+    @Test
+//    @WithUserDetails(value = "fady servant")
+        // this servant belongs to the john family with family id = 2
+    void addYouthWithUnAuthorizedServant() throws Exception {
+        doNothing().when(youthServices).addYouth(any(YouthDTO.class));
+        mockMvc.perform(post("/youth/add")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {  "firstName":"joseph",
+                                   "lastName":"shokry",
+                                   "familyId":"1",
+                                   "phoneNumber":"01579435782"}""")
+                        .with(user(users.get(2))))
+                .andExpect(status().isForbidden());
+        verify(youthServices, times(0)).addYouth(any(YouthDTO.class));
     }
     @Test
     @WithAnonymousUser
@@ -72,50 +145,76 @@ class YouthControllerTest {
                 .andExpect(status().isUnauthorized());
     }
 /////////////////// test the get all
-    @Test
-    @WithMockUser(roles = "Servant_Head")
+@Test
+//@WithUserDetails(value = "joseph head")
+//@Sql(scripts = "classpath:databasePreparation/YouthControllerTestDataBase.sql")
+
     void getAllWithHeadServant() throws Exception {
         when(youthServices.getAll(any(YouthFiltersDTO.class))).thenReturn(null);
         mockMvc.perform(post("/youth/get_all")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{}"))
+                        .content("{}")
+                        .with(user(users.get(0))))
                 .andExpect(status().isOk());
         verify(youthServices,times(1)).getAll(any(YouthFiltersDTO.class));
     }
 
     @Test
-    @WithMockUser(roles = "Servant")
+//    @WithUserDetails(value = "joseph servant")
     void getAllWithUnauthorizedServant() throws Exception {
-        mockMvc.perform(post("/youth/get_all"))
+        mockMvc.perform(post("/youth/get_all")
+                        .with(user(users.get(1))))
                 .andExpect(status().isForbidden());
     }
 
     @Test
-    @WithMockUser
+    @WithAnonymousUser
     void getAllWithUnauthenticatedUser() throws Exception {
         mockMvc.perform(post("/youth/get_all"))
-                .andExpect(status().isForbidden());
+                .andExpect(status().isUnauthorized());
     }
 /////////////////test the get youth
 
     @Test
-    @WithMockUser(roles = "Servant_Head")
+//    @WithUserDetails(value = "joseph head")
     void getYouthWithAuthorizedServantHead() throws Exception {
         when(youthServices.getYouthDtoById(1)).thenReturn(null);
         mockMvc.perform(get("/youth/get")
-                        .param("youthId","1"))
+                        .param("youthId","1")
+                        .with(user(users.get(0))))
                 .andExpect(status().isOk());
         verify(youthServices, times(1)).getYouthDtoById(1);
     }
+
     @Test
-    @WithMockUser(roles = "Servant_Head")
+//    @WithUserDetails(value = "joseph servant")
     void getYouthWithAuthorizedServant() throws Exception {
-
+        Youth youth = new Youth();
+        Family family = familyServices.getFamilyById(1);
+        youth.setFamily(family);
+        when(youthServices.getYouthDtoById(1)).thenReturn(null);
+        when(youthServices.getYouthById(1)).thenReturn(youth);
+        mockMvc.perform(get("/youth/get")
+                        .param("youthId", "1")
+                        .with(user(users.get(1))))
+                .andExpect(status().isOk());
+        verify(youthServices, times(1)).getYouthDtoById(1);
+        verify(youthServices, times(1)).getYouthById(1);
     }
-    @Test
-    @WithMockUser(roles = "Servant_Head")
-    void getYouthWithUnAuthorizedServant() throws Exception {
 
+    @Test
+//    @WithUserDetails(value = "fady servant")
+    void getYouthWithUnAuthorizedServant() throws Exception {
+        Youth youth = new Youth();
+        youth.setFamily(familyServices.getFamilyById(1));
+        when(youthServices.getYouthById(1)).thenReturn(youth);
+        when(youthServices.getYouthDtoById(1)).thenReturn(null);
+        mockMvc.perform(get("/youth/get")
+                        .param("youthId", "1")
+                        .with(user(users.get(2))))
+                .andExpect(status().isForbidden());
+        verify(youthServices, times(0)).getYouthDtoById(1);
+        verify(youthServices, times(1)).getYouthById(1);
     }
     @Test
     @WithAnonymousUser
@@ -126,26 +225,50 @@ class YouthControllerTest {
     }
 
 //////////// test the edit youth
-    @Test
-    @WithMockUser(roles = "Servant_Head")
+@Test
+//@WithUserDetails(value = "joseph head")
+//@Sql(scripts = "classpath:databasePreparation/YouthControllerTestDataBase.sql")
+
     void editYouthWithAuthorizedServantHead() throws Exception {
         doNothing().when(youthServices).editYouth(any(YouthDTO.class));
         mockMvc.perform(patch("/youth/edit")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{}"))
+                        .content("{}")
+                        .with(user(users.get(0))))
                 .andExpect(status().isOk());
         verify(youthServices,times(1)).editYouth(any(YouthDTO.class));
     }
+
     @Test
-    @WithMockUser(roles = "Servant_Head")
+//    @WithUserDetails(value = "joseph servant")
     void editYouthWithAuthorizedServant() throws Exception {
-
+        doNothing().when(youthServices).editYouth(any(YouthDTO.class));
+        mockMvc.perform(patch("/youth/edit")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                "familyId":"1"
+                                }""")
+                        .with(user(users.get(1))))
+                .andExpect(status().isOk());
+        verify(youthServices, times(1)).editYouth(any(YouthDTO.class));
     }
+
     @Test
-    @WithMockUser(roles = "Servant_Head")
+//    @WithUserDetails(value = "fady servant")
     void editYouthWithUnAuthorizedServant() throws Exception {
-
+        doNothing().when(youthServices).editYouth(any(YouthDTO.class));
+        mockMvc.perform(patch("/youth/edit")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                "familyId":"1"
+                                }""")
+                        .with(user(users.get(2))))
+                .andExpect(status().isForbidden());
+        verify(youthServices, times(0)).editYouth(any(YouthDTO.class));
     }
+
     @Test
     @WithAnonymousUser
     void editYouthWithUnAuthenticatedUser() throws Exception {
@@ -155,3 +278,15 @@ class YouthControllerTest {
                 .andExpect(status().isUnauthorized());
     }
 }
+
+/*
+
+System.out.println("hiiiiiiiiiiiiiiiiiiiiiiiiii");
+        FamilyDTO familyDTO = new FamilyDTO("mark",1,null,null);
+        familyServices.addFamily(familyDTO);
+        ServantDTO servantDTO = new ServantDTO(null,"joseph",1,null);
+        servantServices.addServant(servantDTO);
+//        when(servantServices.getServantById(any())).thenReturn(new Servant(new Family()));
+        UserDTO userDTO = new UserDTO("joseph servant", "pas",true,null, Roles.ROLE_Servant,1);
+        userService.addUser(userDTO);
+ */

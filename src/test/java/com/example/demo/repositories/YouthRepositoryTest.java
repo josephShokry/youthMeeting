@@ -1,29 +1,22 @@
 package com.example.demo.repositories;
 
-import com.example.demo.controllers.YouthController;
 import com.example.demo.models.Area;
 import com.example.demo.models.DTOs.YouthFiltersDTO;
 import com.example.demo.models.Family;
 import com.example.demo.models.Street;
 import com.example.demo.models.Youth;
 import jakarta.persistence.EntityManager;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
@@ -33,6 +26,7 @@ import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
 @ActiveProfiles("test")
+@Sql(scripts = "classpath:databasePreparation/YouthRepositoryTestDataBase.sql")
 class YouthRepositoryTest {
     @Autowired private EntityManager entityManager;
     @Autowired private YouthRepository youthRepository;
@@ -54,20 +48,19 @@ class YouthRepositoryTest {
         new Area(null,"Moharm bek", null),
         new Area(null,"غربال", null));
 
-    @BeforeEach
-    void setUp() {
-        int counter = 0;
-        for(Youth youth: youthsTable){
-            int id = counter%2;
-            youth.setFamily(familiesTable.get(id));
-            streetsTable.get(id).setArea(areasTable.get(id));
-            youth.setStreet(streetsTable.get(id));
-            youthRepository.save(youth);
-            counter++;
-        }
-        entityManager.flush();
-    }
-
+//    @BeforeEach
+//    void setUp() {
+//        int counter = 0;
+//        for(Youth youth: youthsTable){
+//            int id = counter%2;
+//            youth.setFamily(familiesTable.get(id));
+//            streetsTable.get(id).setArea(areasTable.get(id));
+//            youth.setStreet(streetsTable.get(id));
+//            youthRepository.save(youth);
+//            counter++;
+//        }
+//        entityManager.flush();
+//    }
     @Test
     void injectedComponentsAreNotNull(){
         assertThat(youthRepository).isNotNull();
