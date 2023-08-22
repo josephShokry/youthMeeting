@@ -24,7 +24,6 @@ public class UserService implements UserDetailsService {
                 .person(servantServices.getServantById(userDTO.personId))
                 .roles(userDTO.roles)
                 .build();
-//        user.setPerson();
         System.out.println(user);
         userRepository.save(user);
     }

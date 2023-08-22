@@ -6,31 +6,32 @@ import com.example.demo.models.Family;
 import com.example.demo.models.Street;
 import com.example.demo.models.Youth;
 import jakarta.persistence.EntityManager;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.jdbc.datasource.init.ScriptUtils;
 
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
-@ExtendWith(SpringExtension.class)
-@DataJpaTest
-@ActiveProfiles("test")
-@Sql(scripts = "classpath:databasePreparation/YouthRepositoryTestDataBase.sql")
+@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 class YouthRepositoryTest {
     @Autowired private EntityManager entityManager;
     @Autowired private YouthRepository youthRepository;
-
     List<Youth> youthsTable = List.of(
                 new Youth(null, "Joseph",  "Shokry","2002-04-09","01284024832"),
                 new Youth(null, "Isaac",  "Vector","2003-09-04","01278497512"),
@@ -48,24 +49,30 @@ class YouthRepositoryTest {
         new Area(null,"Moharm bek", null),
         new Area(null,"غربال", null));
 
-//    @BeforeEach
-//    void setUp() {
-//        int counter = 0;
-//        for(Youth youth: youthsTable){
-//            int id = counter%2;
-//            youth.setFamily(familiesTable.get(id));
-//            streetsTable.get(id).setArea(areasTable.get(id));
-//            youth.setStreet(streetsTable.get(id));
-//            youthRepository.save(youth);
-//            counter++;
-//        }
-//        entityManager.flush();
-//    }
+    @BeforeAll
+    static void setup(@Autowired DataSource dataSource) {
+        try (Connection conn = dataSource.getConnection()) {
+            ScriptUtils.executeSqlScript(conn, new ClassPathResource("databasePreparation/YouthRepositoryTestDataBase.sql"));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @Test
     void injectedComponentsAreNotNull(){
         assertThat(youthRepository).isNotNull();
     }
-
+    //TODO: try to use @EqualsAndHashCode for testing the equality
+    private void assertYouthEquals(Youth expected, Youth actual) {
+        assertThat(actual.getFirstName()).isEqualTo(expected.getFirstName());
+        assertThat(actual.getLastName()).isEqualTo(expected.getLastName());
+    }
+    private void assertYouthsEquals(List<Youth> expected, List<Youth> actual){
+        assertThat(expected.size()).isEqualTo(actual.size());
+        for(int i=0;i< expected.size();i++){
+            assertYouthEquals(expected.get(i), actual.get(i));
+        }
+    }
     @Test
     void findAllWithNoFiltersAndDefaultPagination() {
         YouthFiltersDTO youthFiltersDTO = new YouthFiltersDTO(null,null,null,null,null,null,null);
@@ -73,7 +80,7 @@ class YouthRepositoryTest {
         Pageable paging = PageRequest.of(0,10);
         Specification<Youth> specification = new YouthSpecificationImpl(youthFiltersDTO);
         Page<Youth> result = youthRepository.findAll(specification,paging);
-        assertThat(result.getContent()).isEqualTo(actualYouthPage.getContent());
+        assertYouthsEquals(result.getContent(), actualYouthPage.getContent());
     }
     @Test
     void findAllWithCustomPagination() {
@@ -82,7 +89,7 @@ class YouthRepositoryTest {
         Pageable paging = PageRequest.of(1,2);
         Specification<Youth> specification = new YouthSpecificationImpl(youthFiltersDTO);
         Page<Youth> result = youthRepository.findAll(specification, paging);
-        assertThat(result.getContent()).isEqualTo(actualYouthPage.getContent());
+        assertYouthsEquals(result.getContent(), actualYouthPage.getContent());
     }
 
     @Test
@@ -92,7 +99,7 @@ class YouthRepositoryTest {
         Pageable paging = PageRequest.of(0,10);
         Specification<Youth> specification = new YouthSpecificationImpl(youthFiltersDTO);
         Page<Youth> result = youthRepository.findAll(specification, paging);
-        assertThat(result.getContent()).isEqualTo(actualYouthPage.getContent());
+        assertYouthsEquals(result.getContent(), actualYouthPage.getContent());
     }
     @Test
     void findAllWithNamePartAndMonthFilterAndDefaultPagination() {
@@ -101,7 +108,7 @@ class YouthRepositoryTest {
         Pageable paging = PageRequest.of(0,10);
         Specification<Youth> specification = new YouthSpecificationImpl(youthFiltersDTO);
         Page<Youth> result = youthRepository.findAll(specification, paging);
-        assertThat(result.getContent()).isEqualTo(actualYouthPage.getContent());
+        assertYouthsEquals(result.getContent(), actualYouthPage.getContent());
     }
     @Test
     void findAllWithYear() {
@@ -110,7 +117,7 @@ class YouthRepositoryTest {
         Pageable paging = PageRequest.of(0,10);
         Specification<Youth> specification = new YouthSpecificationImpl(youthFiltersDTO);
         Page<Youth> result = youthRepository.findAll(specification, paging);
-        assertThat(result.getContent()).isEqualTo(actualYouthPage.getContent());
+        assertYouthsEquals(result.getContent(), actualYouthPage.getContent());
     }
     @Test
     void findAllWithMonthAndYear() {
@@ -119,37 +126,37 @@ class YouthRepositoryTest {
         Pageable paging = PageRequest.of(0,10);
         Specification<Youth> specification = new YouthSpecificationImpl(youthFiltersDTO);
         Page<Youth> result = youthRepository.findAll(specification, paging);
-        assertThat(result.getContent()).isEqualTo(actualYouthPage.getContent());
+        assertYouthsEquals(result.getContent(), actualYouthPage.getContent());
     }
     @Test
     void findAllWithFamily() {
-        int familyIdForSearch = familiesTable.get(0).getId();
+        int familyIdForSearch = 1;
         YouthFiltersDTO youthFiltersDTO = new YouthFiltersDTO(familyIdForSearch,null,null,null,null,null,null);
         Page<Youth> actualYouthPage = new PageImpl<>(List.of(youthsTable.get(0), youthsTable.get(2), youthsTable.get(4)));
         Pageable paging = PageRequest.of(0,10);
         Specification<Youth> specification = new YouthSpecificationImpl(youthFiltersDTO);
         Page<Youth> result = youthRepository.findAll(specification, paging);
-        assertThat(result.getContent()).isEqualTo(actualYouthPage.getContent());
+        assertYouthsEquals(result.getContent(), actualYouthPage.getContent());
     }
     @Test
     void findAllWithStreet() {
-        int streetIdForSearch = streetsTable.get(1).getId();
-        YouthFiltersDTO youthFiltersDTO = new YouthFiltersDTO(null,streetsTable.get(1).getId(),null,null,null,null,null);
+        int streetIdForSearch = 2;
+        YouthFiltersDTO youthFiltersDTO = new YouthFiltersDTO(null,streetIdForSearch,null,null,null,null,null);
         Page<Youth> actualYouthPage = new PageImpl<>(List.of(youthsTable.get(1), youthsTable.get(3), youthsTable.get(5)));
         Pageable paging = PageRequest.of(0,10);
         Specification<Youth> specification = new YouthSpecificationImpl(youthFiltersDTO);
         Page<Youth> result = youthRepository.findAll(specification, paging);
-        assertThat(result.getContent()).isEqualTo(actualYouthPage.getContent());
+        assertYouthsEquals(result.getContent(), actualYouthPage.getContent());
     }
 
     @Test
     void findAllWithNamePartAndStreet() {
-        int streetIdForSearch = streetsTable.get(1).getId();
+        int streetIdForSearch = 2;
         YouthFiltersDTO youthFiltersDTO = new YouthFiltersDTO(null,streetIdForSearch,"aa",null,null,null,null);
         Page<Youth> actualYouthPage = new PageImpl<>(List.of(youthsTable.get(1)));
         Pageable paging = PageRequest.of(0,10);
         Specification<Youth> specification = new YouthSpecificationImpl(youthFiltersDTO);
         Page<Youth> result = youthRepository.findAll(specification, paging);
-        assertThat(result.getContent()).isEqualTo(actualYouthPage.getContent());
+        assertYouthsEquals(result.getContent(), actualYouthPage.getContent());
     }
 }

@@ -28,6 +28,7 @@ public class SecurityConfig {
         http
                 .csrf().disable()
                 .authorizeRequests()
+                .requestMatchers("/user/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic(Customizer.withDefaults());

@@ -6,15 +6,10 @@ import com.example.demo.models.Family;
 import com.example.demo.models.Person;
 import com.example.demo.models.Servant;
 import com.example.demo.models.Youth;
-import com.example.demo.repositories.ServantRepository;
 import com.example.demo.security.Roles;
 import com.example.demo.security.SecurityConfig;
 import com.example.demo.security.User;
-import com.example.demo.security.UserService;
-import com.example.demo.services.FamilyServices;
-import com.example.demo.services.ServantServices;
 import com.example.demo.services.YouthServices;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -24,12 +19,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.test.context.support.WithAnonymousUser;
-import org.springframework.security.test.context.support.WithUserDetails;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,21 +40,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Import(SecurityConfig.class)
 //@ContextConfiguration
 @Transactional
-@Sql(scripts = "classpath:databasePreparation/YouthControllerTestDataBase.sql")
 class YouthControllerTest {
-    @Autowired
-    UserService userService;
-    @Autowired
-    FamilyServices familyServices;
-    @Autowired
-    ServantRepository servantRepository;
     //TODO: remove unnecessary authowireds
     @Autowired
     private MockMvc mockMvc;
     @MockBean
     private YouthServices youthServices;
-    @Autowired
-    private ServantServices servantServices;
 
     List<Family> families = List.of(
             new Family(1, "mark",null,null,null,null),
@@ -84,8 +65,6 @@ class YouthControllerTest {
 
     //test the add youth
     @Test
-//    @WithUserDetails(value = "joseph head")
-// this servant is a head servant
     void addYouthWithAuthorizedServantHead() throws Exception {
         // Create a mock CustomUser object
 //        User customUser = new User("joseph head","pas",true, Roles.ROLE_Servant_Head,null,true);
@@ -103,8 +82,6 @@ class YouthControllerTest {
     }
 
     @Test
-//    @WithUserDetails(value = "joseph servant")
-        // this servant belongs to the mark family with family id = 1
     void addYouthWithAuthorizedServant() throws Exception {
         doNothing().when(youthServices).addYouth(any(YouthDTO.class));
 //        when()
@@ -121,8 +98,6 @@ class YouthControllerTest {
     }
 
     @Test
-//    @WithUserDetails(value = "fady servant")
-        // this servant belongs to the john family with family id = 2
     void addYouthWithUnAuthorizedServant() throws Exception {
         doNothing().when(youthServices).addYouth(any(YouthDTO.class));
         mockMvc.perform(post("/youth/add")
@@ -145,10 +120,7 @@ class YouthControllerTest {
                 .andExpect(status().isUnauthorized());
     }
 /////////////////// test the get all
-@Test
-//@WithUserDetails(value = "joseph head")
-//@Sql(scripts = "classpath:databasePreparation/YouthControllerTestDataBase.sql")
-
+    @Test
     void getAllWithHeadServant() throws Exception {
         when(youthServices.getAll(any(YouthFiltersDTO.class))).thenReturn(null);
         mockMvc.perform(post("/youth/get_all")
@@ -160,7 +132,6 @@ class YouthControllerTest {
     }
 
     @Test
-//    @WithUserDetails(value = "joseph servant")
     void getAllWithUnauthorizedServant() throws Exception {
         mockMvc.perform(post("/youth/get_all")
                         .with(user(users.get(1))))
@@ -176,7 +147,6 @@ class YouthControllerTest {
 /////////////////test the get youth
 
     @Test
-//    @WithUserDetails(value = "joseph head")
     void getYouthWithAuthorizedServantHead() throws Exception {
         when(youthServices.getYouthDtoById(1)).thenReturn(null);
         mockMvc.perform(get("/youth/get")
@@ -187,11 +157,9 @@ class YouthControllerTest {
     }
 
     @Test
-//    @WithUserDetails(value = "joseph servant")
     void getYouthWithAuthorizedServant() throws Exception {
         Youth youth = new Youth();
-        Family family = familyServices.getFamilyById(1);
-        youth.setFamily(family);
+        youth.setFamily(families.get(0));
         when(youthServices.getYouthDtoById(1)).thenReturn(null);
         when(youthServices.getYouthById(1)).thenReturn(youth);
         mockMvc.perform(get("/youth/get")
@@ -203,10 +171,9 @@ class YouthControllerTest {
     }
 
     @Test
-//    @WithUserDetails(value = "fady servant")
     void getYouthWithUnAuthorizedServant() throws Exception {
         Youth youth = new Youth();
-        youth.setFamily(familyServices.getFamilyById(1));
+        youth.setFamily(families.get(0));
         when(youthServices.getYouthById(1)).thenReturn(youth);
         when(youthServices.getYouthDtoById(1)).thenReturn(null);
         mockMvc.perform(get("/youth/get")
@@ -225,10 +192,7 @@ class YouthControllerTest {
     }
 
 //////////// test the edit youth
-@Test
-//@WithUserDetails(value = "joseph head")
-//@Sql(scripts = "classpath:databasePreparation/YouthControllerTestDataBase.sql")
-
+    @Test
     void editYouthWithAuthorizedServantHead() throws Exception {
         doNothing().when(youthServices).editYouth(any(YouthDTO.class));
         mockMvc.perform(patch("/youth/edit")
@@ -240,7 +204,6 @@ class YouthControllerTest {
     }
 
     @Test
-//    @WithUserDetails(value = "joseph servant")
     void editYouthWithAuthorizedServant() throws Exception {
         doNothing().when(youthServices).editYouth(any(YouthDTO.class));
         mockMvc.perform(patch("/youth/edit")
@@ -255,7 +218,6 @@ class YouthControllerTest {
     }
 
     @Test
-//    @WithUserDetails(value = "fady servant")
     void editYouthWithUnAuthorizedServant() throws Exception {
         doNothing().when(youthServices).editYouth(any(YouthDTO.class));
         mockMvc.perform(patch("/youth/edit")

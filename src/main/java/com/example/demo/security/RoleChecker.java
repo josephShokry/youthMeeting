@@ -26,8 +26,7 @@ public class RoleChecker {
     }
     public Boolean sameFamilyUsingYouthId(Authentication authentication, Integer youthId){
         User principal = (User) authentication.getPrincipal();
-//        if(principal.getRoles() == Roles.ROLE_Servant_Head) return true;
-        Servant servant = servantServices.getServantById(principal.getPerson().getId());
+        Servant servant = (Servant)principal.getPerson();
         Youth youth = youthServices.getYouthById(youthId);
         return Objects.equals(youth.getFamily().getId(), servant.getFamily().getId());
     }
@@ -35,8 +34,6 @@ public class RoleChecker {
     public Boolean sameFamilyUsingYouthDto(Authentication authentication, YouthDTO youthDTO){
         //TODO: find a better way of the casting
         User principal = (User) authentication.getPrincipal();
-        int id = principal.getPerson().getId();
-        Servant servant = servantServices.getServantById(id);
-        return Objects.equals(youthDTO.familyId, servant.getFamily().getId());
+        return Objects.equals(youthDTO.familyId, ((Servant)principal.getPerson()).getFamily().getId());
     }
 }
