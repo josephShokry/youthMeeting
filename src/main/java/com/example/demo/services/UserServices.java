@@ -1,7 +1,9 @@
-package com.example.demo.security;
+package com.example.demo.services;
 
 import com.example.demo.models.DTOs.UserDTO;
-import com.example.demo.services.ServantServices;
+import com.example.demo.models.User;
+import com.example.demo.models.mappers.UserMapper;
+import com.example.demo.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -10,27 +12,22 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService implements UserDetailsService {
+public class UserServices implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
     @Autowired
     private ServantServices servantServices;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private UserMapper userMapper;
     public void addUser(UserDTO userDTO) {
-        User user = User.builder()
-                .username(userDTO.username)
-                .password(passwordEncoder.encode(userDTO.password))
-                .person(servantServices.getServantById(userDTO.personId))
-                .roles(userDTO.roles)
-                .build();
-        System.out.println(user);
-        userRepository.save(user);
+        User user = new User();
+        userRepository.save(userMapper.userDtoToUser(userDTO, user,servantServices));
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserDetails user = userRepository.findByUsername(username);
-        return user;
+        return userRepository.findByUsername(username);
     }
 }

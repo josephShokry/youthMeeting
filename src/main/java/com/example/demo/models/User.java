@@ -1,6 +1,6 @@
-package com.example.demo.security;
+package com.example.demo.models;
 
-import com.example.demo.models.Person;
+import com.example.demo.security.Roles;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -9,8 +9,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Entity
 @Getter
@@ -20,15 +18,10 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @Table(name = "users")
 public class User implements UserDetails {
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private int id;
     @Id
     private String username;
     private String password;
-//    private boolean hi = true;
     private boolean enabled;
-//    private List<GrantedAuthority> authorities;
     @Enumerated(EnumType.STRING)
     private Roles roles;
     @OneToOne

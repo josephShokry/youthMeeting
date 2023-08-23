@@ -2,9 +2,6 @@ package com.example.demo.models.DTOs;
 
 import com.example.demo.security.Roles;
 import lombok.*;
-import org.springframework.security.core.GrantedAuthority;
-
-import java.util.List;
 
 @Getter
 @Setter
@@ -14,8 +11,8 @@ import java.util.List;
 public class UserDTO {
     public String username;
     public String password;
-    public boolean enabled;
-    public List<GrantedAuthority> authorities;
+//    public boolean enabled;
+//    public List<Roles> roles;
     public Roles roles;
     public Integer personId;
 }

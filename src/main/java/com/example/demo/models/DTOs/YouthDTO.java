@@ -1,10 +1,7 @@
 package com.example.demo.models.DTOs;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -43,6 +40,7 @@ public class YouthDTO {
     @JsonProperty("notes")
     public String notes;
     @JsonProperty("familyId")
+    @NotNull(message = "please specify the family of the youth")
     @Min(1)
     public Integer familyId;
     @JsonProperty("streetId")

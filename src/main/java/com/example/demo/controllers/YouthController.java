@@ -20,9 +20,8 @@ public class YouthController {
     @Autowired
     private YouthServices youthServices;
 
-    //TODO hasRole not working
     @PostMapping("add")
-    @PreAuthorize("hasRole('ROLE_Servant_Head') or @roleChecker.sameFamilyUsingYouthDto(authentication, #youthDTO) ")
+    @PreAuthorize("hasRole('ROLE_Servant_Head') or @roleChecker.sameFamily(authentication, #youthDTO) ")
     public ResponseEntity<String> addYouth(@Valid @RequestBody YouthDTO youthDTO) {
         youthServices.addYouth(youthDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body("youth added!");
@@ -36,14 +35,14 @@ public class YouthController {
     }
 
     @GetMapping("get")
-    @PreAuthorize("hasRole('ROLE_Servant_Head') or @roleChecker.sameFamilyUsingYouthId(authentication, #youthId)")
+    @PreAuthorize("hasRole('ROLE_Servant_Head') or @roleChecker.sameFamily(authentication, #youthId)")
     public ResponseEntity<YouthDTO> getYouth(@RequestParam Integer youthId) {
         return ResponseEntity.status(HttpStatus.OK).body(youthServices.getYouthDtoById(youthId));
     }
 
     @PatchMapping("edit")
-    @PreAuthorize("hasRole('ROLE_Servant_Head') or @roleChecker.sameFamilyUsingYouthDto(authentication, #youthDTO)")
-    public ResponseEntity<String> editYouth(@RequestBody YouthDTO youthDTO) {
+    @PreAuthorize("hasRole('ROLE_Servant_Head') or @roleChecker.sameFamily(authentication, #youthDTO)")
+    public ResponseEntity<String> editYouth(@Valid @RequestBody YouthDTO youthDTO) {
         youthServices.editYouth(youthDTO);
         return ResponseEntity.status(HttpStatus.OK).body("youth edited successfully!!");
     }

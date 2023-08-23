@@ -62,7 +62,6 @@ class YouthRepositoryTest {
     void injectedComponentsAreNotNull(){
         assertThat(youthRepository).isNotNull();
     }
-    //TODO: try to use @EqualsAndHashCode for testing the equality
     private void assertYouthEquals(Youth expected, Youth actual) {
         assertThat(actual.getFirstName()).isEqualTo(expected.getFirstName());
         assertThat(actual.getLastName()).isEqualTo(expected.getLastName());

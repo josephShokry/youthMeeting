@@ -19,7 +19,6 @@ INSERT INTO persons (DTYPE, first_name, last_name, day_of_birth, phone_number, f
 VALUES ('Youth', 'Isaac', 'Vector', '2003-09-04', '01278497512',
 (SELECT id FROM families WHERE family_name = 'John'), (SELECT id FROM streets WHERE street_name = 'شجره الدر'));
 
--- todo: the family_id has a problem of uniqueness
 INSERT INTO persons (DTYPE, first_name, last_name, day_of_birth, phone_number, family_id, street_id)
 VALUES ('Youth', 'Adel', 'Makram', '1998-10-14', '01579486321',
 (SELECT id FROM families WHERE family_name = 'Mark'), (SELECT id FROM streets WHERE street_name = 'Ishaky'));

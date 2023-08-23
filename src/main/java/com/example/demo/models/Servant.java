@@ -1,6 +1,5 @@
 package com.example.demo.models;
 
-import com.example.demo.security.User;
 import jakarta.persistence.*;
 import lombok.*;
 
