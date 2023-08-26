@@ -13,7 +13,7 @@ import java.util.Optional;
 
 
 @Service
-public class AreaServices {
+public class AreaService {
     @Autowired
     private AreaRepository areaRepository;
     @Autowired
@@ -25,14 +25,14 @@ public class AreaServices {
         return area.getId();
     }
 
-    public Area getById(Integer areaId) {
+    public Area findById(Integer areaId) {
         Optional.ofNullable(areaId).orElseThrow(() -> new DataNotFoundException("the Area id is null"));
         Area area = areaRepository.findById(areaId).orElseThrow(
                  () -> new DataNotFoundException("the required area is not present"));
         return area;
     }
 
-    public Iterable<LightDTO> getAll() {
+    public Iterable<LightDTO> findAll() {
         return areaMapper.areasToLightDtos(areaRepository.findAll());
     }
 }

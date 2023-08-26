@@ -1,13 +1,11 @@
 package com.example.demo.models.mappers;
 
-import com.example.demo.models.Area;
 import com.example.demo.models.DTOs.YouthDTO;
 import com.example.demo.models.Family;
 import com.example.demo.models.Street;
 import com.example.demo.models.Youth;
-import com.example.demo.services.AreaServices;
-import com.example.demo.services.FamilyServices;
-import com.example.demo.services.StreetServices;
+import com.example.demo.services.FamilyService;
+import com.example.demo.services.StreetService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mapstruct.factory.Mappers;
@@ -27,8 +25,8 @@ import static org.mockito.Mockito.when;
 class YouthMapperTest {
     @InjectMocks
     private YouthMapper youthMapper = Mappers.getMapper(YouthMapper.class);
-    @MockBean private FamilyServices familyServices;
-    @MockBean private StreetServices streetServices;
+    @MockBean private FamilyService familyService;
+    @MockBean private StreetService streetService;
 
 
     @Test
@@ -37,10 +35,10 @@ class YouthMapperTest {
                 "2002-09-04", "Alex", "eng", 3, 5, 3,
                 "good person", 1, 1, 16);
 
-        when(familyServices.getFamilyById(1)).thenReturn(new Family(1,"mark",3,null,2020));
-        when(streetServices.getById(1)).thenReturn(new Street(1,"ishaky", null, null));
+        when(familyService.findFamilyById(1)).thenReturn(new Family(1,"mark",3,null,2020));
+        when(streetService.findById(1)).thenReturn(new Street(1,"ishaky", null, null));
 
-        Youth targetYouth = youthMapper.youthDtoToYouth(youthDTO, new Youth(),familyServices, streetServices);
+        Youth targetYouth = youthMapper.youthDtoToYouth(youthDTO, new Youth(), familyService, streetService);
 
         assertThat(targetYouth.getFirstName()).isEqualTo("Joseph");
         assertThat(targetYouth.getLastName()).isEqualTo("Shokry");
@@ -53,8 +51,8 @@ class YouthMapperTest {
         assertThat(targetYouth.getMeetingLevel()).isEqualTo(3);
         assertThat(targetYouth.getNotes()).isEqualTo("good person");
         assertThat(targetYouth.getBuildingNumber()).isEqualTo(16);
-        verify(familyServices).getFamilyById(1);
-        verify(streetServices).getById(1);
+        verify(familyService).findFamilyById(1);
+        verify(streetService).findById(1);
         assertThat(targetYouth.getFamily()).isNotNull();
         assertThat(targetYouth.getStreet()).isNotNull();
         assertThat(targetYouth.getFamily().getFamilyName()).isEqualTo("mark");

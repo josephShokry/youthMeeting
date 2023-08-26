@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class FamilyServices {
+public class FamilyService {
     @Autowired
     private FamilyRepository familyRepository;
     @Autowired
@@ -24,14 +24,14 @@ public class FamilyServices {
         return family.getId();
     }
 
-    public Family getFamilyById(Integer familyId) {
+    public Family findFamilyById(Integer familyId) {
         Optional.ofNullable(familyId).orElseThrow(() -> new DataNotFoundException("the family id is null"));
         Family family = familyRepository.findById(familyId).orElseThrow(
                 ()-> new DataNotFoundException("the required family is not present"));
         return family;
     }
 
-    public Iterable<LightDTO> getAll() {
+    public Iterable<LightDTO> findAll() {
         return familyMapper.familiesToLightDtos(familyRepository.findAll());
     }
 }

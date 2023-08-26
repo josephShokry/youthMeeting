@@ -6,7 +6,6 @@ import com.example.demo.models.DTOs.YouthFiltersDTO;
 import com.example.demo.models.DTOs.YouthIntermediateDTO;
 import com.example.demo.models.Family;
 import com.example.demo.models.Youth;
-import com.example.demo.models.mappers.YouthIntermediateMapper;
 import com.example.demo.models.mappers.YouthMapper;
 import com.example.demo.repositories.YouthRepository;
 import org.junit.jupiter.api.Test;
@@ -30,15 +29,14 @@ import static org.mockito.Mockito.*;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
-class YouthServicesTest {
+class YouthServiceTest {
     @InjectMocks
-    private YouthServices youthService;
+    private YouthService youthService;
     @MockBean private YouthRepository youthRepository;
-    @MockBean private FamilyServices familyServices;
-    @MockBean private AreaServices areaServices;
-    @MockBean private StreetServices streetServices;
+    @MockBean private FamilyService familyService;
+    @MockBean private AreaService areaService;
+    @MockBean private StreetService streetService;
     @MockBean private YouthMapper youthMapper;
-    @MockBean private YouthIntermediateMapper youthIntermediateMapper;
     //Data
     Youth youth1 = new Youth(null, "Joseph",  "Shokry","2002-04-09","01284024832");
     Youth youth2 = new Youth(null, "Isaac",  "Vector","2003-09-04","01278497512");
@@ -60,26 +58,26 @@ class YouthServicesTest {
     @Test
     void testAddYouth() {
         //mock
-        when(youthMapper.youthDtoToYouth(eq(emptyYouthDto),any(Youth.class),any(FamilyServices.class),
-                any(StreetServices.class))).thenReturn(youth1);
+        when(youthMapper.youthDtoToYouth(eq(emptyYouthDto),any(Youth.class),any(FamilyService.class),
+                any(StreetService.class))).thenReturn(youth1);
         //call
         youthService.addYouth(emptyYouthDto);
         //verify
         verify(youthMapper, times(1)).youthDtoToYouth(eq(emptyYouthDto),any(Youth.class)
-                ,any(FamilyServices.class), any(StreetServices.class));
+                ,any(FamilyService.class), any(StreetService.class));
         verify(youthRepository, times(1)).save(youth1);
     }
     @Test
     void testGetYouthByCorrectId() {
         when(youthRepository.findById(1)).thenReturn(Optional.of(youth1));
-        assertThat(youthService.getYouthById(1)).isEqualTo(youth1);
+        assertThat(youthService.findYouthById(1)).isEqualTo(youth1);
         verify(youthRepository,times(1)).findById(1);
     }
 
     @Test
     void testGetYouthByIdWithWrongId() {
         when(youthRepository.findById(1)).thenReturn(Optional.empty());
-        assertThatThrownBy(() -> youthService.getYouthById(1))
+        assertThatThrownBy(() -> youthService.findYouthById(1))
                 .isInstanceOf(DataNotFoundException.class)
                 .hasMessage("the required youth is not present");
         verify(youthRepository).findById(1);
@@ -95,14 +93,14 @@ class YouthServicesTest {
 
         when(youthRepository.findById(1)).thenReturn(Optional.of(youth1));
         when(youthMapper.youthToYouthDto(eq(youth1), any(YouthDTO.class))).thenReturn(fullYouthDto);
-        assertThat(youthService.getYouthDtoById(1)).isEqualTo(fullYouthDto);
+        assertThat(youthService.findYouthDtoById(1)).isEqualTo(fullYouthDto);
         verify(youthRepository,times(1)).findById(1);
         verify(youthMapper,times(1)).youthToYouthDto(eq(youth1),any(YouthDTO.class));
     }
     @Test
     void testGetYouthDtoByIdWithWrongId() {
         when(youthRepository.findById(1)).thenReturn(Optional.empty());
-        assertThatThrownBy(() -> youthService.getYouthDtoById(1))
+        assertThatThrownBy(() -> youthService.findYouthDtoById(1))
                 .isInstanceOf(DataNotFoundException.class)
                 .hasMessage("the required youth is not present");
         verify(youthRepository).findById(1);
@@ -119,13 +117,13 @@ class YouthServicesTest {
         fullYouth.setFamily(family);
         //mock
         when(youthRepository.findById(emptyYouthDto.id)).thenReturn(Optional.of(youth1));
-        when(youthMapper.youthDtoToYouth(eq(emptyYouthDto),eq(youth1),any(FamilyServices.class),
-                any(StreetServices.class))).thenReturn(fullYouth);
+        when(youthMapper.youthDtoToYouth(eq(emptyYouthDto),eq(youth1),any(FamilyService.class),
+                any(StreetService.class))).thenReturn(fullYouth);
         //call
         youthService.editYouth(emptyYouthDto);
         //verify
         verify(youthMapper, times(1)).youthDtoToYouth(eq(emptyYouthDto),any(Youth.class)
-                ,any(FamilyServices.class), any(StreetServices.class));
+                ,any(FamilyService.class), any(StreetService.class));
         verify(youthRepository, times(1)).save(fullYouth);
         verify(youthRepository,times(1)).findById(emptyYouthDto.id);
     }
@@ -144,7 +142,7 @@ class YouthServicesTest {
                 .hasMessage("the required youth is not present");
         verify(youthRepository,times(1)).findById(emptyYouthDto.id);
         verify(youthMapper, times(0)).youthDtoToYouth(eq(emptyYouthDto),any(Youth.class)
-                ,any(FamilyServices.class), any(StreetServices.class));
+                ,any(FamilyService.class), any(StreetService.class));
         verify(youthRepository, times(0)).save(fullYouth);
     }
 
@@ -161,7 +159,7 @@ class YouthServicesTest {
                 .hasMessage("the youth id is null");
         verify(youthRepository,times(0)).findById(emptyYouthDto.id);
         verify(youthMapper, times(0)).youthDtoToYouth(eq(emptyYouthDto),any(Youth.class)
-                ,any(FamilyServices.class), any(StreetServices.class));
+                ,any(FamilyService.class), any(StreetService.class));
         verify(youthRepository, times(0)).save(fullYouth);
     }
 
@@ -173,11 +171,11 @@ class YouthServicesTest {
         when(youthRepository.findAll(any(Specification.class), any(Pageable.class))).thenReturn(mockedPage);
         List<YouthIntermediateDTO> mockedIntermediateDtoList = List.of(youthIntermediateDTO1, youthIntermediateDTO2, youthIntermediateDTO3, youthIntermediateDTO4, youthIntermediateDTO5, youthIntermediateDTO6); // Create a list of mocked YouthIntermediateDTO objects
         Page<YouthIntermediateDTO> mockedIntermediateDtoPage = new PageImpl<>(mockedIntermediateDtoList);
-        when(youthIntermediateMapper.youthsToPageYouthIntermediateDtos(any(Page.class))).thenReturn(mockedIntermediateDtoPage);
-        Page<YouthIntermediateDTO> result = youthService.getAll(youthFiltersDTO);
+        when(youthMapper.youthsToPageYouthIntermediateDtos(any(Page.class))).thenReturn(mockedIntermediateDtoPage);
+        Page<YouthIntermediateDTO> result = youthService.findAll(youthFiltersDTO);
         assertThat(result).isEqualTo(mockedIntermediateDtoPage);
         verify(youthRepository, times(1)).findAll(any(Specification.class), any(Pageable.class));
-        verify(youthIntermediateMapper, times(1)).youthsToPageYouthIntermediateDtos(any(Page.class));
+        verify(youthMapper, times(1)).youthsToPageYouthIntermediateDtos(any(Page.class));
     }
 
     @Test
@@ -186,7 +184,7 @@ class YouthServicesTest {
         int pageSize = 2;
         YouthFiltersDTO youthFiltersDTO = new YouthFiltersDTO(null, null, null, null, null, 2, 1);
         ArgumentCaptor<Pageable> pageableCaptor = ArgumentCaptor.forClass(Pageable.class);
-        youthService.getAll(youthFiltersDTO);
+        youthService.findAll(youthFiltersDTO);
         verify(youthRepository).findAll(any(Specification.class), pageableCaptor.capture());
         Pageable capturedPageable = pageableCaptor.getValue();
         assertThat(capturedPageable.getPageNumber()).isEqualTo(pageNumber);
@@ -199,7 +197,7 @@ class YouthServicesTest {
         int defaultPageSize = 10;
         YouthFiltersDTO youthFiltersDTO = new YouthFiltersDTO(null, null, null, null, null, null, null);
         ArgumentCaptor<Pageable> pageableCaptor = ArgumentCaptor.forClass(Pageable.class);
-        youthService.getAll(youthFiltersDTO);
+        youthService.findAll(youthFiltersDTO);
         verify(youthRepository).findAll(any(Specification.class), pageableCaptor.capture());
         Pageable capturedPageable = pageableCaptor.getValue();
         assertThat(capturedPageable.getPageNumber()).isEqualTo(defaultPageNumber);

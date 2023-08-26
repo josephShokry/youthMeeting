@@ -25,7 +25,7 @@ public class Youth extends Person{
     private Integer gradLevel;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(referencedColumnName = "id")
+    @JoinColumn(name = "family_id", referencedColumnName = "id")
     @JsonIgnore
     private Family family;
     @Column(name = "meeting_level")

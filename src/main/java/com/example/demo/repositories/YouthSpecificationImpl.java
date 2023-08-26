@@ -28,7 +28,6 @@ public class YouthSpecificationImpl implements YouthSpecification{
             Expression<Integer> yearExpression = criteriaBuilder.function("YEAR", Integer.class, root.get("dayOfBirth"));
             predicates.add(criteriaBuilder.equal(yearExpression, youthFiltersDTO.year));
         }
-
         if(youthFiltersDTO != null && youthFiltersDTO.month != null){
             Expression<Integer> monthExpression = criteriaBuilder.function("MONTH", Integer.class, root.get("dayOfBirth"));
             predicates.add(criteriaBuilder.equal(monthExpression, youthFiltersDTO.month));

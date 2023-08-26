@@ -21,7 +21,7 @@ public class Street {
     @OneToMany(mappedBy = "street",orphanRemoval = true)
     private List<Youth> youthList;
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(referencedColumnName = "id")
+    @JoinColumn(name = "area_id", referencedColumnName = "id")
 //    @JsonIgnore
     private Area area;
 

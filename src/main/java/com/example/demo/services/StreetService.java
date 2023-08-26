@@ -13,28 +13,28 @@ import java.util.Optional;
 
 @Service
 
-public class StreetServices {
+public class StreetService {
     @Autowired
     private StreetRepository streetRepository;
     @Autowired
-    private AreaServices areaServices;
+    private AreaService areaService;
     @Autowired
     private StreetMapper streetMapper;
 
     public Integer addStreet(StreetDTO streetDTO) {
         Street street = new Street();
-        streetRepository.save(streetMapper.getStreetFromDto(streetDTO, street, areaServices));
+        streetRepository.save(streetMapper.streetDtoToStreet(streetDTO, street, areaService));
         return street.getId();
     }
 
-    public Street getById(Integer streetId) {
+    public Street findById(Integer streetId) {
         Optional.ofNullable(streetId).orElseThrow(() -> new DataNotFoundException("the street id is null"));
         Street street = streetRepository.findById(streetId).orElseThrow(
                 () ->new DataNotFoundException("the required street not present"));
         return street;
     }
 
-    public Iterable<LightDTO> getAll() {
+    public Iterable<LightDTO> findAll() {
         return streetMapper.streetsToLightDtos(streetRepository.findAll());
 
     }
