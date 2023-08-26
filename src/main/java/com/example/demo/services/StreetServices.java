@@ -3,7 +3,7 @@ package com.example.demo.services;
 import com.example.demo.exceptions.DataNotFoundException;
 import com.example.demo.models.DTOs.LightDTO;
 import com.example.demo.models.DTOs.StreetDTO;
-import com.example.demo.models.Street;
+import com.example.demo.models.entities.Street;
 import com.example.demo.models.mappers.StreetMapper;
 import com.example.demo.repositories.StreetRepository;
 import org.springframework.beans.factory.annotation.Autowired;

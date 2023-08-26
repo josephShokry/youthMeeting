@@ -1,7 +1,7 @@
 package com.example.demo.services;
 
 import com.example.demo.models.DTOs.UserDTO;
-import com.example.demo.models.User;
+import com.example.demo.models.entities.User;
 import com.example.demo.models.mappers.UserMapper;
 import com.example.demo.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

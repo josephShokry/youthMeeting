@@ -1,6 +1,6 @@
 package com.example.demo.repositories;
 
-import com.example.demo.models.Youth;
+import com.example.demo.models.entities.Youth;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;

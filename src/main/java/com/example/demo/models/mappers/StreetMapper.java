@@ -2,7 +2,7 @@ package com.example.demo.models.mappers;
 
 import com.example.demo.models.DTOs.LightDTO;
 import com.example.demo.models.DTOs.StreetDTO;
-import com.example.demo.models.Street;
+import com.example.demo.models.entities.Street;
 import com.example.demo.services.AreaServices;
 import org.mapstruct.*;
 

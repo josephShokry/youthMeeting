@@ -3,7 +3,7 @@ package com.example.demo.services;
 import com.example.demo.exceptions.DataNotFoundException;
 import com.example.demo.models.DTOs.FamilyDTO;
 import com.example.demo.models.DTOs.LightDTO;
-import com.example.demo.models.Family;
+import com.example.demo.models.entities.Family;
 import com.example.demo.models.mappers.FamilyMapper;
 import com.example.demo.repositories.FamilyRepository;
 import org.springframework.beans.factory.annotation.Autowired;

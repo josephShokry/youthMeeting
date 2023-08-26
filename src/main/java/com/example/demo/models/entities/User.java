@@ -1,4 +1,4 @@
-package com.example.demo.models;
+package com.example.demo.models.entities;
 
 import com.example.demo.security.Roles;
 import jakarta.persistence.*;
@@ -18,6 +18,9 @@ import java.util.List;
 @AllArgsConstructor
 @Table(name = "users")
 public class User implements UserDetails {
+    //TODO: change username to be userName
+    //TODO: change the roles to be list of roles or set
+    //TODO: change the Person to be Servant ignoring the case that the user can be father
     @Id
     private String username;
     private String password;

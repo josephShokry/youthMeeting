@@ -1,6 +1,6 @@
 package com.example.demo.models.mappers;
 
-import com.example.demo.models.Area;
+import com.example.demo.models.entities.Area;
 import com.example.demo.models.DTOs.AreaDTO;
 import com.example.demo.models.DTOs.LightDTO;
 import org.mapstruct.*;

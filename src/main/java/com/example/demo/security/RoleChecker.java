@@ -1,9 +1,9 @@
 package com.example.demo.security;
 
 import com.example.demo.models.DTOs.YouthDTO;
-import com.example.demo.models.Servant;
-import com.example.demo.models.User;
-import com.example.demo.models.Youth;
+import com.example.demo.models.entities.Servant;
+import com.example.demo.models.entities.User;
+import com.example.demo.models.entities.Youth;
 import com.example.demo.services.ServantServices;
 import com.example.demo.services.YouthServices;
 import org.springframework.beans.factory.annotation.Autowired;

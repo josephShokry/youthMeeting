@@ -15,6 +15,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
+    //TODO: modify the security which end points are allowed and which are not
 
     @Bean
     public PasswordEncoder passwordEncoder() {

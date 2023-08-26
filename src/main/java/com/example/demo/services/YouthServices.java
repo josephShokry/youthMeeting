@@ -4,7 +4,7 @@ import com.example.demo.exceptions.DataNotFoundException;
 import com.example.demo.models.DTOs.YouthDTO;
 import com.example.demo.models.DTOs.YouthFiltersDTO;
 import com.example.demo.models.DTOs.YouthIntermediateDTO;
-import com.example.demo.models.Youth;
+import com.example.demo.models.entities.Youth;
 import com.example.demo.models.mappers.YouthIntermediateMapper;
 import com.example.demo.models.mappers.YouthMapper;
 import com.example.demo.repositories.YouthRepository;

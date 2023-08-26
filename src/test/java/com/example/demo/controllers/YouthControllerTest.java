@@ -2,12 +2,12 @@ package com.example.demo.controllers;
 
 import com.example.demo.models.DTOs.YouthDTO;
 import com.example.demo.models.DTOs.YouthFiltersDTO;
-import com.example.demo.models.Family;
-import com.example.demo.models.Person;
-import com.example.demo.models.Servant;
-import com.example.demo.models.Youth;
+import com.example.demo.models.entities.Family;
+import com.example.demo.models.entities.Person;
+import com.example.demo.models.entities.Servant;
+import com.example.demo.models.entities.Youth;
 import com.example.demo.security.Roles;
-import com.example.demo.models.User;
+import com.example.demo.models.entities.User;
 import com.example.demo.services.YouthServices;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

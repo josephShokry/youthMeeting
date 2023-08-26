@@ -1,11 +1,9 @@
 package com.example.demo.models.mappers;
 
-import com.example.demo.models.Area;
 import com.example.demo.models.DTOs.YouthDTO;
-import com.example.demo.models.Family;
-import com.example.demo.models.Street;
-import com.example.demo.models.Youth;
-import com.example.demo.services.AreaServices;
+import com.example.demo.models.entities.Family;
+import com.example.demo.models.entities.Street;
+import com.example.demo.models.entities.Youth;
 import com.example.demo.services.FamilyServices;
 import com.example.demo.services.StreetServices;
 import org.junit.jupiter.api.Test;

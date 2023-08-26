@@ -1,7 +1,7 @@
 package com.example.demo.models.mappers;
 
 import com.example.demo.models.DTOs.UserDTO;
-import com.example.demo.models.User;
+import com.example.demo.models.entities.User;
 import com.example.demo.services.ServantServices;
 import org.mapstruct.*;
 

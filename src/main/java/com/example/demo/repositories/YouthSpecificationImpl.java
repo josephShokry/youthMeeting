@@ -1,7 +1,7 @@
 package com.example.demo.repositories;
 
 import com.example.demo.models.DTOs.YouthFiltersDTO;
-import com.example.demo.models.Youth;
+import com.example.demo.models.entities.Youth;
 import jakarta.persistence.criteria.*;
 import lombok.AllArgsConstructor;
 
