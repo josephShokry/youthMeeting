@@ -36,6 +36,4 @@ public class Person {
     @JoinColumn(referencedColumnName = "id", name = "street_id",unique = false)
     @JsonIgnore
     private Street street;
-//    @OneToOne
-//    private User user;
 }

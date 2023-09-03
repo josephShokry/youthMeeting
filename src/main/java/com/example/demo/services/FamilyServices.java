@@ -26,9 +26,8 @@ public class FamilyServices {
 
     public Family getFamilyById(Integer familyId) {
         Optional.ofNullable(familyId).orElseThrow(() -> new DataNotFoundException("the family id is null"));
-        Family family = familyRepository.findById(familyId).orElseThrow(
+        return familyRepository.findById(familyId).orElseThrow(
                 ()-> new DataNotFoundException("the required family is not present"));
-        return family;
     }
 
     public Iterable<LightDTO> getAll() {

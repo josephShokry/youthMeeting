@@ -49,4 +49,9 @@ public class YouthDTO {
     @JsonProperty("buildingNumber")
     @Min(1)
     public Integer buildingNumber;
+    @JsonProperty("floor")
+    public String floor;
+    @JsonProperty("fatherId")
+    @Min(1)
+    public Integer fatherId;
 }

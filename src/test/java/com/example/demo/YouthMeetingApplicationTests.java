@@ -10,8 +10,8 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootTest
 //@SpringBootApplication
 //@AutoConfigureMockMvc
-@ComponentScan(basePackages = {"com/example/demo"})
-@EntityScan("com.example.demo")
+//@ComponentScan(basePackages = {"com/example/demo"})
+//@EntityScan("com.example.demo")
 class YouthMeetingApplicationTests {
 
 	@Test

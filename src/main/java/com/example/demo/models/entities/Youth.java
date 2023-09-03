@@ -30,7 +30,9 @@ public class Youth extends Person{
     private Family family;
     @Column(name = "meeting_level")
     private Integer meetingLevel;
-//    private Father father;
+    @ManyToOne
+    @JoinColumn(name = "father_id")
+    private Father father;
     @Column(name = "notes")
     private String notes;
     public Youth(Integer id, String firstName, String lastName, String dayOfBirth, String phoneNumber) {

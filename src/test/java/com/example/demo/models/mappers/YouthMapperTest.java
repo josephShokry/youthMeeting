@@ -5,6 +5,7 @@ import com.example.demo.models.entities.Family;
 import com.example.demo.models.entities.Street;
 import com.example.demo.models.entities.Youth;
 import com.example.demo.services.FamilyServices;
+import com.example.demo.services.FatherServices;
 import com.example.demo.services.StreetServices;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,22 +24,26 @@ import static org.mockito.Mockito.when;
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
 class YouthMapperTest {
+    // TODO: add test for checking the father in the mapper of the youth
+    // i added all the youths to father id = 1 and didn't attach any father
     @InjectMocks
     private YouthMapper youthMapper = Mappers.getMapper(YouthMapper.class);
     @MockBean private FamilyServices familyServices;
     @MockBean private StreetServices streetServices;
+    @MockBean private FatherServices fatherServices;
+
 
 
     @Test
     void TestYouthDtoToYouth() {
         YouthDTO youthDTO = new YouthDTO(1, "Joseph", "Shokry", "01284024832",
                 "2002-09-04", "Alex", "eng", 3, 5, 3,
-                "good person", 1, 1, 16);
+                "good person", 1, 1, 16,"first",1);
 
         when(familyServices.getFamilyById(1)).thenReturn(new Family(1,"mark",3,null,null,2020));
         when(streetServices.getById(1)).thenReturn(new Street(1,"ishaky", null, null));
 
-        Youth targetYouth = youthMapper.youthDtoToYouth(youthDTO, new Youth(),familyServices, streetServices);
+        Youth targetYouth = youthMapper.youthDtoToYouth(youthDTO, new Youth(),familyServices, streetServices, fatherServices);
 
         assertThat(targetYouth.getFirstName()).isEqualTo("Joseph");
         assertThat(targetYouth.getLastName()).isEqualTo("Shokry");
@@ -64,7 +69,7 @@ class YouthMapperTest {
     void youthToYouthDto() {
         Family family = new Family(1,"mark",3,null,null,2020);
         Street street = new Street(1,"ishaky",null, null);
-        Youth youth = new Youth("Alex","eng",3,5,family,3,"good person");
+        Youth youth = new Youth("Alex","eng",3,5,family,3, null,"good person");
         youth.setId(1);
         youth.setFirstName("Joseph");
         youth.setLastName("Shokry");

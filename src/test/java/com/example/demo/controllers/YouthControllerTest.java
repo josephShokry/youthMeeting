@@ -51,7 +51,6 @@ class YouthControllerTest {
             new User("servant 1","pas",true, Roles.ROLE_Servant,persons.get(0),true),
             new User("servant 2","pas",true, Roles.ROLE_Servant,persons.get(1),true)
             );
-    @MockBean private Validator validator;
 
     //test the add youth
     @Test

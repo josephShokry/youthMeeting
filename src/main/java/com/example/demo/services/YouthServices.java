@@ -26,10 +26,10 @@ public class YouthServices {
     @Autowired
     private FamilyServices familyServices;
     @Autowired
-
     private AreaServices areaServices;
     @Autowired
-
+    private FatherServices fatherServices;
+    @Autowired
     private StreetServices streetServices;
     @Autowired
     private YouthMapper youthMapper;
@@ -38,7 +38,7 @@ public class YouthServices {
 
 
     public void addYouth(YouthDTO youthDTO) {
-        Youth youth = youthMapper.youthDtoToYouth(youthDTO, new Youth(), familyServices, streetServices);
+        Youth youth = youthMapper.youthDtoToYouth(youthDTO, new Youth(), familyServices, streetServices, fatherServices);
         youthRepository.save(youth);
     }
     public Youth getYouthById(Integer youthId){
@@ -66,7 +66,7 @@ public class YouthServices {
 
     public void editYouth(YouthDTO youthDTO) {
         Youth youth = getYouthById(youthDTO.id);
-        youthMapper.youthDtoToYouth(youthDTO, youth, familyServices, streetServices);
+        youthMapper.youthDtoToYouth(youthDTO, youth, familyServices, streetServices, fatherServices);
         youthRepository.save(youth);
     }
 }
