@@ -3,10 +3,12 @@ package com.example.demo.models.DTOs;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class YouthDTO {
 
     @JsonProperty("id")

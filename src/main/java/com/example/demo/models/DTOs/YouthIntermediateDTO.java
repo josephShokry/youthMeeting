@@ -2,10 +2,12 @@ package com.example.demo.models.DTOs;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class YouthIntermediateDTO {
     @JsonProperty("id")
     public Integer id;

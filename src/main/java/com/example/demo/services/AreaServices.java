@@ -1,9 +1,9 @@
 package com.example.demo.services;
 
 import com.example.demo.exceptions.DataNotFoundException;
-import com.example.demo.models.entities.Area;
 import com.example.demo.models.DTOs.AreaDTO;
 import com.example.demo.models.DTOs.LightDTO;
+import com.example.demo.models.entities.Area;
 import com.example.demo.models.mappers.AreaMapper;
 import com.example.demo.repositories.AreaRepository;
 import org.springframework.beans.factory.annotation.Autowired;

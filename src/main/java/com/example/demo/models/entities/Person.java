@@ -2,10 +2,8 @@ package com.example.demo.models.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
 
@@ -16,6 +14,7 @@ import java.time.LocalDate;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Table(name = "persons")
+@SuperBuilder
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

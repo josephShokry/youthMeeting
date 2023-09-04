@@ -2,6 +2,7 @@ package com.example.demo.models.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 
 @Entity
@@ -10,7 +11,7 @@ import lombok.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@SuperBuilder
 public class Servant extends Person {
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(referencedColumnName = "id", name = "family_id",unique = false)
