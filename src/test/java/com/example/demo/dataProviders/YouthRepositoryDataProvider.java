@@ -1,9 +1,6 @@
 package com.example.demo.dataProviders;
 
-import com.example.demo.models.entities.Area;
-import com.example.demo.models.entities.Family;
-import com.example.demo.models.entities.Street;
-import com.example.demo.models.entities.Youth;
+import com.example.demo.models.entities.*;
 import lombok.Getter;
 import org.springframework.stereotype.Component;
 
@@ -18,20 +15,37 @@ public class YouthRepositoryDataProvider {
     private final List<Family> familiesTable;
     private final List<Street> streetsTable;
     private final List<Area> areasTable;
+    private final List<Father> fathersTable;
 
     public YouthRepositoryDataProvider() {
         this.youthsTable = new ArrayList<>();
         this.familiesTable = new ArrayList<>();
         this.streetsTable = new ArrayList<>();
         this.areasTable = new ArrayList<>();
+        this.fathersTable = new ArrayList<>();
         prepareData();
     }
 
     private void prepareData(){
+        prepareFatherTable();
         prepareAreaTable();
         prepareStreetTable();
         prepareFamilyTable();
         prepareYouthTable();
+    }
+    private void prepareFatherTable(){
+        fathersTable.addAll(
+                List.of(
+                        Father.builder()
+                                .firstName("angelos")
+                                .church("malak")
+                                .build(),
+                        Father.builder()
+                                .firstName("mina")
+                                .church("mary")
+                                .build()
+                )
+        );
     }
     private void prepareAreaTable(){
         areasTable.addAll(
@@ -85,6 +99,7 @@ public class YouthRepositoryDataProvider {
                                 .phoneNumber("01284024832")
                                 .family(familiesTable.get(0))
                                 .street(streetsTable.get(0))
+                                .father(fathersTable.get(0))
                                 .build(),
                         Youth.builder()
                                 .firstName("Isaac")
@@ -93,6 +108,7 @@ public class YouthRepositoryDataProvider {
                                 .phoneNumber("01278497512")
                                 .family(familiesTable.get(1))
                                 .street(streetsTable.get(1))
+                                .father(fathersTable.get(1))
                                 .build(),
                         Youth.builder()
                                 .firstName("Adel")
@@ -101,6 +117,7 @@ public class YouthRepositoryDataProvider {
                                 .phoneNumber("01579486321")
                                 .family(familiesTable.get(0))
                                 .street(streetsTable.get(0))
+                                .father(fathersTable.get(0))
                                 .build(),
                         Youth.builder()
                                 .firstName("Fady")
@@ -109,6 +126,7 @@ public class YouthRepositoryDataProvider {
                                 .phoneNumber("01147547894")
                                 .family(familiesTable.get(1))
                                 .street(streetsTable.get(1))
+                                .father(fathersTable.get(1))
                                 .build(),
                         Youth.builder()
                                 .firstName("Kiro")
@@ -117,6 +135,7 @@ public class YouthRepositoryDataProvider {
                                 .phoneNumber("01075471369")
                                 .family(familiesTable.get(0))
                                 .street(streetsTable.get(0))
+                                .father(fathersTable.get(0))
                                 .build(),
                         Youth.builder()
                                 .firstName("Josephine")
@@ -125,6 +144,7 @@ public class YouthRepositoryDataProvider {
                                 .phoneNumber("01578945617")
                                 .family(familiesTable.get(1))
                                 .street(streetsTable.get(1))
+                                .father(fathersTable.get(1))
                                 .build()
                 )
         );

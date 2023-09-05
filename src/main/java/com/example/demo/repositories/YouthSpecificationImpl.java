@@ -22,13 +22,12 @@ public class YouthSpecificationImpl implements YouthSpecification{
         if(youthFiltersDTO != null && youthFiltersDTO.streetId != null)
             predicates.add(criteriaBuilder.equal(root.join("street", JoinType.LEFT).get("id"), youthFiltersDTO.streetId));
         if(youthFiltersDTO != null && youthFiltersDTO.namePart != null)
-            predicates.add(criteriaBuilder.like(criteriaBuilder.concat(root.get("firstName"), root.get("lastName")),
-                "%" + youthFiltersDTO.namePart.toLowerCase() + "%"));
+            predicates.add(criteriaBuilder.like(criteriaBuilder.concat(criteriaBuilder.concat(
+                    root.get("firstName"), " "), root.get("lastName")), "%" + youthFiltersDTO.namePart + "%"));
         if(youthFiltersDTO != null && youthFiltersDTO.year != null){
             Expression<Integer> yearExpression = criteriaBuilder.function("YEAR", Integer.class, root.get("dayOfBirth"));
             predicates.add(criteriaBuilder.equal(yearExpression, youthFiltersDTO.year));
         }
-
         if(youthFiltersDTO != null && youthFiltersDTO.month != null){
             Expression<Integer> monthExpression = criteriaBuilder.function("MONTH", Integer.class, root.get("dayOfBirth"));
             predicates.add(criteriaBuilder.equal(monthExpression, youthFiltersDTO.month));
