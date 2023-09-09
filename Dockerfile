@@ -22,7 +22,7 @@
 
 FROM maven:3.8.5-openjdk-17 AS build
 COPY . .
-RUN mvn clean package -DskipTests
+RUN mvn clean install -DskipTests
 FROM eclipse-temurin:17-jdk-alpine
 VOLUME /tmp
 COPY target/demo-0.0.1-SNAPSHOT.jar app.jar
