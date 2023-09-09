@@ -9,9 +9,9 @@
 FROM maven:3.8.4-openjdk-17 AS build
 WORKDIR /app
 COPY pom.xml .
-RUN mvn clean install
+RUN mvnw clean install
 COPY src /app/src
-RUN mvn package
+RUN mvnw package
 
 # Final Stage
 FROM eclipse-temurin:17-jdk-alpine
