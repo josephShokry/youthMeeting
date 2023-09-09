@@ -116,7 +116,7 @@
 							<goal>repackage</goal>
 						</goals>
 						<configuration>
-							<mainClass>com.example.demo.DemoApplication</mainClass>
+							<mainClass>com.example.demo.Main</mainClass>
 							<!-- Replace com.example.demo.DemoApplication with your actual main class -->
 						</configuration>
 					</execution>
