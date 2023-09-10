@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 
 public class AreaDTO {
     @JsonProperty("Id")
-    public Integer id;
+    public Long id;
     @JsonProperty("areaName")
     @NotBlank(message = "please specify the area name")
     public String areaName;

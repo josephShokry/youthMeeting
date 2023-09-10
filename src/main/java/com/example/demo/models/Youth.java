@@ -8,7 +8,6 @@ import java.time.LocalDate;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@Table(name = "youths")
 @Setter
 @Getter
 @AllArgsConstructor
@@ -20,10 +19,9 @@ public class Youth extends Person{
     @Column(name = "college")
     private String college;
     @Column(name = "college_level")
-    private Integer collegeLevel;
+    private String collegeLevel;
     @Column(name = "grad_level")
     private Integer gradLevel;
-
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "family_id", referencedColumnName = "id")
     @JsonIgnore
@@ -33,7 +31,7 @@ public class Youth extends Person{
 //    private Father father;
     @Column(name = "notes")
     private String notes;
-    public Youth(Integer id, String firstName, String lastName, String dayOfBirth, String phoneNumber) {
+    public Youth(Long id, String firstName, String lastName, String dayOfBirth, String phoneNumber) {
         super(id, firstName, lastName, LocalDate.parse(dayOfBirth), phoneNumber, null, null, null);
     }
 }

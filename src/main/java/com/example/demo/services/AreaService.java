@@ -19,17 +19,16 @@ public class AreaService {
     @Autowired
     private AreaMapper areaMapper;
 
-    public Integer addArea(AreaDTO areaDTO) {
+    public Long addArea(AreaDTO areaDTO) {
         Area area = new Area();
         areaRepository.save(areaMapper.getAreaFromDto(areaDTO, area));
         return area.getId();
     }
 
-    public Area findById(Integer areaId) {
+    public Area findById(Long areaId) {
         Optional.ofNullable(areaId).orElseThrow(() -> new DataNotFoundException("the Area id is null"));
-        Area area = areaRepository.findById(areaId).orElseThrow(
+        return areaRepository.findById(areaId).orElseThrow(
                  () -> new DataNotFoundException("the required area is not present"));
-        return area;
     }
 
     public Iterable<LightDTO> findAll() {

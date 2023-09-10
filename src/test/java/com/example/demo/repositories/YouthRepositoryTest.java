@@ -123,7 +123,7 @@ class YouthRepositoryTest {
     }
     @Test
     void findAllWithFamily() {
-        int familyIdForSearch = familiesTable.get(0).getId();
+        long familyIdForSearch = familiesTable.get(0).getId();
         YouthFiltersDTO youthFiltersDTO = new YouthFiltersDTO(familyIdForSearch,null,null,null,null,null,null);
         Page<Youth> actualYouthPage = new PageImpl<>(List.of(youthsTable.get(0), youthsTable.get(2), youthsTable.get(4)));
         Pageable paging = PageRequest.of(0,10);
@@ -133,7 +133,7 @@ class YouthRepositoryTest {
     }
     @Test
     void findAllWithStreet() {
-        int streetIdForSearch = streetsTable.get(1).getId();
+        long streetIdForSearch = streetsTable.get(1).getId();
         YouthFiltersDTO youthFiltersDTO = new YouthFiltersDTO(null,streetsTable.get(1).getId(),null,null,null,null,null);
         Page<Youth> actualYouthPage = new PageImpl<>(List.of(youthsTable.get(1), youthsTable.get(3), youthsTable.get(5)));
         Pageable paging = PageRequest.of(0,10);
@@ -144,7 +144,7 @@ class YouthRepositoryTest {
 
     @Test
     void findAllWithNamePartAndStreet() {
-        int streetIdForSearch = streetsTable.get(1).getId();
+        long streetIdForSearch = streetsTable.get(1).getId();
         YouthFiltersDTO youthFiltersDTO = new YouthFiltersDTO(null,streetIdForSearch,"aa",null,null,null,null);
         Page<Youth> actualYouthPage = new PageImpl<>(List.of(youthsTable.get(1)));
         Pageable paging = PageRequest.of(0,10);

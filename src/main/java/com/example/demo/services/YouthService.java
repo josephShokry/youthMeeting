@@ -33,13 +33,13 @@ public class YouthService {
         Youth youth = youthMapper.youthDtoToYouth(youthDTO, new Youth(), familyService, streetService);
         youthRepository.save(youth);
     }
-    public Youth findYouthById(Integer youthId){
+    public Youth findYouthById(Long youthId){
         // TODO: need something to catch this exceptions
         Optional.ofNullable(youthId).orElseThrow(() -> new DataNotFoundException("the youth id is null"));
         return youthRepository.findById(youthId).orElseThrow(
                 () -> new DataNotFoundException("the required youth is not present"));
     }
-    public YouthDTO findYouthDtoById(Integer youthId){
+    public YouthDTO findYouthDtoById(Long youthId){
         return youthMapper.youthToYouthDto(findYouthById(youthId), new YouthDTO());
     }
 

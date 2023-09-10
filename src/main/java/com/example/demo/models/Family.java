@@ -15,7 +15,7 @@ import java.util.List;
 public class Family {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     @Column(name = "family_name")
     private String familyName;
     @Column(name = "family_level")

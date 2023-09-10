@@ -15,7 +15,7 @@ import java.util.List;
 public class Street {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     @Column(name = "street_name")
     private String streetName;
     @OneToMany(mappedBy = "street",orphanRemoval = true)

@@ -14,7 +14,7 @@ public class FamilyController {
     @Autowired
     private FamilyService familyService;
     @PostMapping("add_family")
-    public ResponseEntity<Integer> addFamily(@RequestBody FamilyDTO familyDTO){
+    public ResponseEntity<Long> addFamily(@RequestBody FamilyDTO familyDTO){
         return ResponseEntity.status(HttpStatus.CREATED).body(familyService.addFamily(familyDTO));
     }
     @GetMapping("get_all")

@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 public class YouthDTO {
 
     @JsonProperty("id")
-    public Integer id;
+    public Long id;
     @JsonProperty("firstName")
     @NotBlank(message = "please specify the first name")
     public String firstName;
@@ -34,7 +34,7 @@ public class YouthDTO {
     @JsonProperty("college")
     public String college;
     @JsonProperty("collegeLevel")
-    public Integer collegeLevel;
+    public String collegeLevel;
     @JsonProperty("gradLevel")
     public Integer gradLevel;
     @JsonProperty("meetingLevel")
@@ -44,10 +44,10 @@ public class YouthDTO {
     public String notes;
     @JsonProperty("familyId")
     @Min(1)
-    public Integer familyId;
+    public Long familyId;
     @JsonProperty("streetId")
     @Min(1)
-    public Integer streetId;
+    public Long streetId;
     @JsonProperty("buildingNumber")
     @Min(1)
     public Integer buildingNumber;

@@ -12,9 +12,9 @@ import lombok.Setter;
 @Getter
 public class YouthFiltersDTO {
     @JsonProperty("familyId")
-    public Integer familyId;
+    public Long familyId;
     @JsonProperty("streetId")
-    public Integer streetId;
+    public Long streetId;
     @JsonProperty("namePart")
     public String namePart;
     @JsonProperty("month")

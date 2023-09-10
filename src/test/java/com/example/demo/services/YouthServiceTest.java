@@ -45,12 +45,12 @@ class YouthServiceTest {
     Youth youth5 = new Youth(null, "Kiro", "Soliman","2004-11-22","01075471369");
     Youth youth6 = new Youth(null, "Jolie", "Atef","2001-01-30","01578945617");
 
-    YouthIntermediateDTO youthIntermediateDTO1 = new YouthIntermediateDTO(1,"Joseph","Shokry",3,3);
-    YouthIntermediateDTO youthIntermediateDTO2 = new YouthIntermediateDTO(1,"Isaac", "Vector",2,2);
-    YouthIntermediateDTO youthIntermediateDTO3 = new YouthIntermediateDTO(1,"Adel", "Makram",1,1);
-    YouthIntermediateDTO youthIntermediateDTO4 = new YouthIntermediateDTO(1,"Fady", "Shokry",4,4);
-    YouthIntermediateDTO youthIntermediateDTO5 = new YouthIntermediateDTO(1,"Kiro", "Soliman",2,2);
-    YouthIntermediateDTO youthIntermediateDTO6 = new YouthIntermediateDTO(1,"Jolie", "Atef",3,3);
+    YouthIntermediateDTO youthIntermediateDTO1 = new YouthIntermediateDTO(1L,"Joseph","Shokry",3,3L);
+    YouthIntermediateDTO youthIntermediateDTO2 = new YouthIntermediateDTO(1L,"Isaac", "Vector",2,2L);
+    YouthIntermediateDTO youthIntermediateDTO3 = new YouthIntermediateDTO(1L,"Adel", "Makram",1,1L);
+    YouthIntermediateDTO youthIntermediateDTO4 = new YouthIntermediateDTO(1L,"Fady", "Shokry",4,4L);
+    YouthIntermediateDTO youthIntermediateDTO5 = new YouthIntermediateDTO(1L,"Kiro", "Soliman",2,2L);
+    YouthIntermediateDTO youthIntermediateDTO6 = new YouthIntermediateDTO(1L,"Jolie", "Atef",3,3L);
 
     YouthDTO emptyYouthDto = new YouthDTO();
 
@@ -69,18 +69,18 @@ class YouthServiceTest {
     }
     @Test
     void testGetYouthByCorrectId() {
-        when(youthRepository.findById(1)).thenReturn(Optional.of(youth1));
-        assertThat(youthService.findYouthById(1)).isEqualTo(youth1);
-        verify(youthRepository,times(1)).findById(1);
+        when(youthRepository.findById(1L)).thenReturn(Optional.of(youth1));
+        assertThat(youthService.findYouthById(1L)).isEqualTo(youth1);
+        verify(youthRepository,times(1)).findById(1L);
     }
 
     @Test
     void testGetYouthByIdWithWrongId() {
-        when(youthRepository.findById(1)).thenReturn(Optional.empty());
-        assertThatThrownBy(() -> youthService.findYouthById(1))
+        when(youthRepository.findById(1L)).thenReturn(Optional.empty());
+        assertThatThrownBy(() -> youthService.findYouthById(1L))
                 .isInstanceOf(DataNotFoundException.class)
                 .hasMessage("the required youth is not present");
-        verify(youthRepository).findById(1);
+        verify(youthRepository).findById(1L);
     }
 
     @Test
@@ -88,32 +88,32 @@ class YouthServiceTest {
         YouthDTO fullYouthDto = new YouthDTO();
         fullYouthDto.firstName = "Joseph";
         fullYouthDto.lastName = "Shokry";
-        fullYouthDto.id = 1;
+        fullYouthDto.id = 1L;
         fullYouthDto.phoneNumber = "01284024832";
 
-        when(youthRepository.findById(1)).thenReturn(Optional.of(youth1));
+        when(youthRepository.findById(1L)).thenReturn(Optional.of(youth1));
         when(youthMapper.youthToYouthDto(eq(youth1), any(YouthDTO.class))).thenReturn(fullYouthDto);
-        assertThat(youthService.findYouthDtoById(1)).isEqualTo(fullYouthDto);
-        verify(youthRepository,times(1)).findById(1);
+        assertThat(youthService.findYouthDtoById(1L)).isEqualTo(fullYouthDto);
+        verify(youthRepository,times(1)).findById(1L);
         verify(youthMapper,times(1)).youthToYouthDto(eq(youth1),any(YouthDTO.class));
     }
     @Test
     void testGetYouthDtoByIdWithWrongId() {
-        when(youthRepository.findById(1)).thenReturn(Optional.empty());
-        assertThatThrownBy(() -> youthService.findYouthDtoById(1))
+        when(youthRepository.findById(1L)).thenReturn(Optional.empty());
+        assertThatThrownBy(() -> youthService.findYouthDtoById(1L))
                 .isInstanceOf(DataNotFoundException.class)
                 .hasMessage("the required youth is not present");
-        verify(youthRepository).findById(1);
+        verify(youthRepository).findById(1L);
         verify(youthMapper, times(0)).youthToYouthDto(any(Youth.class),any(YouthDTO.class));
     }
 
     @Test
     void testEditYouth() {
         Youth fullYouth = youth1;
-        emptyYouthDto.id = 1;
+        emptyYouthDto.id = 1L;
         fullYouth.setFirstName("isaak");
         fullYouth.setLastName("vector");
-        Family family = new Family(1,"mark",3,null,2021);
+        Family family = new Family(1L,"mark",3,null,2021);
         fullYouth.setFamily(family);
         //mock
         when(youthRepository.findById(emptyYouthDto.id)).thenReturn(Optional.of(youth1));
@@ -131,10 +131,10 @@ class YouthServiceTest {
     @Test
     void testEditYouthWithWrongId() {
         Youth fullYouth = youth1;
-        emptyYouthDto.id = 100;
+        emptyYouthDto.id = 100L;
         fullYouth.setFirstName("isaak");
         fullYouth.setLastName("vector");
-        Family family = new Family(1,"mark",3,null,2021);
+        Family family = new Family(1L,"mark",3,null,2021);
         fullYouth.setFamily(family);
         when(youthRepository.findById(emptyYouthDto.id)).thenReturn(Optional.empty());
         assertThatThrownBy(() -> youthService.editYouth(emptyYouthDto))
@@ -152,7 +152,7 @@ class YouthServiceTest {
         emptyYouthDto.id = null;
         fullYouth.setFirstName("isaak");
         fullYouth.setLastName("vector");
-        Family family = new Family(1,"mark",3,null,2021);
+        Family family = new Family(1L,"mark",3,null,2021);
         fullYouth.setFamily(family);
         assertThatThrownBy(() -> youthService.editYouth(emptyYouthDto))
                 .isInstanceOf(DataNotFoundException.class)

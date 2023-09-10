@@ -31,12 +31,12 @@ class YouthMapperTest {
 
     @Test
     void TestYouthDtoToYouth() {
-        YouthDTO youthDTO = new YouthDTO(1, "Joseph", "Shokry", "01284024832",
-                "2002-09-04", "Alex", "eng", 3, 5, 3,
-                "good person", 1, 1, 16);
+        YouthDTO youthDTO = new YouthDTO(1L, "Joseph", "Shokry", "01284024832",
+                "2002-09-04", "Alex", "eng", "3", 5, 3,
+                "good person", 1L, 1L, 16);
 
-        when(familyService.findFamilyById(1)).thenReturn(new Family(1,"mark",3,null,2020));
-        when(streetService.findById(1)).thenReturn(new Street(1,"ishaky", null, null));
+        when(familyService.findFamilyById(1L)).thenReturn(new Family(1L,"mark",3,null,2020));
+        when(streetService.findById(1L)).thenReturn(new Street(1L,"ishaky", null, null));
 
         Youth targetYouth = youthMapper.youthDtoToYouth(youthDTO, new Youth(), familyService, streetService);
 
@@ -46,13 +46,13 @@ class YouthMapperTest {
         assertThat(targetYouth.getDayOfBirth()).isEqualTo(LocalDate.parse("2002-09-04"));
         assertThat(targetYouth.getUniversity()).isEqualTo("Alex");
         assertThat(targetYouth.getCollege()).isEqualTo("eng");
-        assertThat(targetYouth.getCollegeLevel()).isEqualTo(3);
+        assertThat(targetYouth.getCollegeLevel()).isEqualTo("3");
         assertThat(targetYouth.getGradLevel()).isEqualTo(5);
         assertThat(targetYouth.getMeetingLevel()).isEqualTo(3);
         assertThat(targetYouth.getNotes()).isEqualTo("good person");
         assertThat(targetYouth.getBuildingNumber()).isEqualTo(16);
-        verify(familyService).findFamilyById(1);
-        verify(streetService).findById(1);
+        verify(familyService).findFamilyById(1L);
+        verify(streetService).findById(1L);
         assertThat(targetYouth.getFamily()).isNotNull();
         assertThat(targetYouth.getStreet()).isNotNull();
         assertThat(targetYouth.getFamily().getFamilyName()).isEqualTo("mark");
@@ -62,10 +62,10 @@ class YouthMapperTest {
 
     @Test
     void youthToYouthDto() {
-        Family family = new Family(1,"mark",3,null,2020);
-        Street street = new Street(1,"ishaky",null, null);
-        Youth youth = new Youth("Alex","eng",3,5,family,3,"good person");
-        youth.setId(1);
+        Family family = new Family(1L,"mark",3,null,2020);
+        Street street = new Street(1L,"ishaky",null, null);
+        Youth youth = new Youth("Alex","eng","3",5,family,3,"good person");
+        youth.setId(1L);
         youth.setFirstName("Joseph");
         youth.setLastName("Shokry");
         youth.setDayOfBirth(LocalDate.parse("2002-09-04"));
@@ -79,7 +79,7 @@ class YouthMapperTest {
         assertThat(targetYouthDTO.dayOfBirth).isEqualTo("2002-09-04");
         assertThat(targetYouthDTO.university).isEqualTo("Alex");
         assertThat(targetYouthDTO.college).isEqualTo("eng");
-        assertThat(targetYouthDTO.collegeLevel).isEqualTo(3);
+        assertThat(targetYouthDTO.collegeLevel).isEqualTo("3");
         assertThat(targetYouthDTO.gradLevel).isEqualTo(5);
         assertThat(targetYouthDTO.meetingLevel).isEqualTo(3);
         assertThat(targetYouthDTO.notes).isEqualTo("good person");

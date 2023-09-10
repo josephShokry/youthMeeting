@@ -21,17 +21,16 @@ public class StreetService {
     @Autowired
     private StreetMapper streetMapper;
 
-    public Integer addStreet(StreetDTO streetDTO) {
+    public Long addStreet(StreetDTO streetDTO) {
         Street street = new Street();
         streetRepository.save(streetMapper.streetDtoToStreet(streetDTO, street, areaService));
         return street.getId();
     }
 
-    public Street findById(Integer streetId) {
+    public Street findById(Long streetId) {
         Optional.ofNullable(streetId).orElseThrow(() -> new DataNotFoundException("the street id is null"));
-        Street street = streetRepository.findById(streetId).orElseThrow(
+        return streetRepository.findById(streetId).orElseThrow(
                 () ->new DataNotFoundException("the required street not present"));
-        return street;
     }
 
     public Iterable<LightDTO> findAll() {

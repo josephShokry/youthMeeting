@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class YouthIntermediateDTO {
     @JsonProperty("id")
-    public Integer id;
+    public Long id;
     @JsonProperty("firstName")
     public String firstName;
     @JsonProperty("lastName")
@@ -16,5 +16,5 @@ public class YouthIntermediateDTO {
     @JsonProperty("meetingLevel")
     public Integer meetingLevel;
     @JsonProperty("familyId")
-    public Integer familyId;
+    public Long familyId;
 }

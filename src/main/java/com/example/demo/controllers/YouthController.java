@@ -32,7 +32,7 @@ public class YouthController {
     }
 
     @GetMapping("get")
-    public ResponseEntity<YouthDTO> getYouth(@RequestParam Integer youthId) {
+    public ResponseEntity<YouthDTO> getYouth(@RequestParam Long youthId) {
         return ResponseEntity.status(HttpStatus.OK).body(youthService.findYouthDtoById(youthId));
     }
 

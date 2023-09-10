@@ -14,7 +14,7 @@ public class AreaController {
     @Autowired
     private AreaService areaService;
     @PostMapping("add_area")
-    public ResponseEntity<Integer> addArea(@RequestBody AreaDTO areaDTO){
+    public ResponseEntity<Long> addArea(@RequestBody AreaDTO areaDTO){
 
         return ResponseEntity.status(HttpStatus.CREATED).body(areaService.addArea(areaDTO));
     }

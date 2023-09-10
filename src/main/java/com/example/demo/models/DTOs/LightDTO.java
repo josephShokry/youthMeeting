@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class LightDTO {
     @JsonProperty("Id")
-    public Integer id;
+    public Long id;
     @JsonProperty("name")
     public String name;
 }

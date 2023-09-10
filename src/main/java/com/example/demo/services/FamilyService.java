@@ -18,17 +18,16 @@ public class FamilyService {
     @Autowired
     private FamilyMapper familyMapper;
 
-    public Integer addFamily(FamilyDTO familyDTO) {
+    public Long addFamily(FamilyDTO familyDTO) {
         Family family = new Family();
         familyRepository.save(familyMapper.familyDtoToFamily(familyDTO, family));
         return family.getId();
     }
 
-    public Family findFamilyById(Integer familyId) {
+    public Family findFamilyById(Long familyId) {
         Optional.ofNullable(familyId).orElseThrow(() -> new DataNotFoundException("the family id is null"));
-        Family family = familyRepository.findById(familyId).orElseThrow(
+        return familyRepository.findById(familyId).orElseThrow(
                 ()-> new DataNotFoundException("the required family is not present"));
-        return family;
     }
 
     public Iterable<LightDTO> findAll() {

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-09-05T19:50:21+0200",
+    date = "2023-09-10T14:33:56+0200",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 17.0.2 (Oracle Corporation)"
 )
 @Component
@@ -101,7 +101,7 @@ public class YouthMapperImpl implements YouthMapper {
             return null;
         }
 
-        Integer id = youthFamilyId( youth );
+        Long id = youthFamilyId( youth );
         if ( id != null ) {
             youthIntermediateDTO.familyId = id;
         }
@@ -121,7 +121,7 @@ public class YouthMapperImpl implements YouthMapper {
         return youthIntermediateDTO;
     }
 
-    private Integer youthFamilyId(Youth youth) {
+    private Long youthFamilyId(Youth youth) {
         if ( youth == null ) {
             return null;
         }
@@ -129,14 +129,14 @@ public class YouthMapperImpl implements YouthMapper {
         if ( family == null ) {
             return null;
         }
-        Integer id = family.getId();
+        Long id = family.getId();
         if ( id == null ) {
             return null;
         }
         return id;
     }
 
-    private Integer youthStreetId(Youth youth) {
+    private Long youthStreetId(Youth youth) {
         if ( youth == null ) {
             return null;
         }
@@ -144,7 +144,7 @@ public class YouthMapperImpl implements YouthMapper {
         if ( street == null ) {
             return null;
         }
-        Integer id = street.getId();
+        Long id = street.getId();
         if ( id == null ) {
             return null;
         }
