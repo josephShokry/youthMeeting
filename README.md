@@ -18,7 +18,11 @@
 </details>
 
 ---
-## Today Tasks
+# Today Tasks
+- finish the first PR
+  - [x] add DB migration (ddl sql statements)
+----
+# done tasks
 - finish the first PR
   - [x] change the IDs to Long
   - [x] change the uni level to String

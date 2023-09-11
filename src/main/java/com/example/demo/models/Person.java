@@ -28,7 +28,7 @@ public class Person {
     private LocalDate dayOfBirth;
     @Column(name = "phone_number")
     private String phoneNumber;
-    @Column(name = "building number")
+    @Column(name = "building_number")
     private Integer buildingNumber;
     @Column(name = "floor")
     private String floor;

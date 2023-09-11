@@ -1,0 +1,18 @@
+CREATE TABLE persons (
+    DTYPE VARCHAR(31) NOT NULL,
+    id bigint NOT NULL auto_increment,
+    building_number INTEGER,
+    day_of_birth date,
+    first_name VARCHAR(255),
+    floor VARCHAR(255),
+    last_name VARCHAR(255),
+    phone_number VARCHAR(255),
+    college VARCHAR(255),
+    college_level VARCHAR(255),
+    grad_level INTEGER,
+    meeting_level INTEGER,
+    NOTes VARCHAR(255),
+    university VARCHAR(255),
+    street_id bigint,
+    family_id bigint,
+    PRIMARY key (id)) engine=InnoDB;
