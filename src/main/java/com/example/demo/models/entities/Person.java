@@ -16,7 +16,7 @@ import java.time.LocalDate;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Table(name = "persons")
-public class Person {
+public class Person { // TODO: change the inheritance
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
