@@ -5,6 +5,7 @@ import com.example.demo.models.DTOs.FamilyDTO;
 import com.example.demo.models.DTOs.LightDTO;
 import com.example.demo.models.entities.Family;
 import com.example.demo.models.mappers.FamilyMapper;
+import com.example.demo.models.mappers.LightDTOMapper;
 import com.example.demo.repositories.FamilyRepository;
 import com.example.demo.services.IFamilyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,8 @@ public class FamilyService implements IFamilyService {
     private FamilyRepository familyRepository;
     @Autowired
     private FamilyMapper familyMapper;
+    @Autowired
+    private LightDTOMapper lightDTOMapper;
 
     public Long addFamily(FamilyDTO familyDTO) {
         Family family = new Family();
@@ -32,6 +35,6 @@ public class FamilyService implements IFamilyService {
     }
 
     public Iterable<LightDTO> findAll() {
-        return familyMapper.familiesToLightDtos(familyRepository.findAll());
+        return lightDTOMapper.familiesToLightDtos(familyRepository.findAll());
     }
 }

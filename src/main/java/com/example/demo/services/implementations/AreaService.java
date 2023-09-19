@@ -2,9 +2,9 @@ package com.example.demo.services.implementations;
 
 import com.example.demo.exceptions.exceptions.DataNotFoundException;
 import com.example.demo.models.entities.Area;
-import com.example.demo.models.DTOs.AreaDTO;
 import com.example.demo.models.DTOs.LightDTO;
 import com.example.demo.models.mappers.AreaMapper;
+import com.example.demo.models.mappers.LightDTOMapper;
 import com.example.demo.repositories.AreaRepository;
 import com.example.demo.services.IAreaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +19,12 @@ public class AreaService implements IAreaService {//todo: add interfaces for all
     private AreaRepository areaRepository;
     @Autowired
     private AreaMapper areaMapper;
+    @Autowired
+    private LightDTOMapper lightDTOMapper;
 
-    public Long addArea(AreaDTO areaDTO) {
+    public Long addArea(LightDTO areaLightDTO) {
         Area area = new Area();
-        areaRepository.save(areaMapper.getAreaFromDto(areaDTO, area));
+        areaRepository.save(areaMapper.getAreaFromDto(areaLightDTO, area));
         return area.getId();
     }
 //    todo: search for resource bundles
@@ -33,6 +35,6 @@ public class AreaService implements IAreaService {//todo: add interfaces for all
     }
 
     public Iterable<LightDTO> findAll() {
-        return areaMapper.areasToLightDtos(areaRepository.findAll());
+        return lightDTOMapper.areasToLightDtos(areaRepository.findAll());
     }
 }

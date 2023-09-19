@@ -4,6 +4,7 @@ import com.example.demo.exceptions.exceptions.DataNotFoundException;
 import com.example.demo.models.DTOs.LightDTO;
 import com.example.demo.models.DTOs.StreetDTO;
 import com.example.demo.models.entities.Street;
+import com.example.demo.models.mappers.LightDTOMapper;
 import com.example.demo.models.mappers.StreetMapper;
 import com.example.demo.repositories.StreetRepository;
 import com.example.demo.services.IStreetService;
@@ -21,6 +22,8 @@ public class StreetService implements IStreetService {
     private AreaService areaService;
     @Autowired
     private StreetMapper streetMapper;
+    @Autowired
+    private LightDTOMapper lightDTOMapper;
 
     public Long addStreet(StreetDTO streetDTO) {
         Street street = new Street();
@@ -35,7 +38,7 @@ public class StreetService implements IStreetService {
     }
 
     public Iterable<LightDTO> findAll() {
-        return streetMapper.streetsToLightDtos(streetRepository.findAll());
+        return lightDTOMapper.streetsToLightDtos(streetRepository.findAll());
 
     }
 }

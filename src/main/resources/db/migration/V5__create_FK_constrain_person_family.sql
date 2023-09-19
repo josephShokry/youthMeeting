@@ -1,1 +1,1 @@
-ALTER TABLE persons ADD CONSTRAINT FKm22ywnfjlatd43l848198uy8w FOREIGN key (family_id) REFERENCES families (id);
+ALTER TABLE persons ADD CONSTRAINT FKm22ywnfjlatd43l848198uy8w FOREIGN KEY (family_id) REFERENCES families (id);

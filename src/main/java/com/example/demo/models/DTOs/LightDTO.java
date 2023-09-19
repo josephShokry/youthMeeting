@@ -1,10 +1,22 @@
 package com.example.demo.models.DTOs;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
+@SuperBuilder
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class LightDTO {
     @JsonProperty("Id")
-    public Long id;
+    private Long id;
     @JsonProperty("name")
-    public String name;
+    @NotBlank(message = "please specify the name")
+    private String name;
 }

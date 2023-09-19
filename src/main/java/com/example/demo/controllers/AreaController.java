@@ -1,6 +1,5 @@
 package com.example.demo.controllers;
 
-import com.example.demo.models.DTOs.AreaDTO;
 import com.example.demo.models.DTOs.LightDTO;
 import com.example.demo.services.implementations.AreaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +13,8 @@ public class AreaController {
     @Autowired
     private AreaService areaService;
     @PostMapping("add_area")
-    public ResponseEntity<Long> addArea(@RequestBody AreaDTO areaDTO){
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(areaService.addArea(areaDTO));
+    public ResponseEntity<Long> addArea(@RequestBody LightDTO areaLightDTO){
+        return ResponseEntity.status(HttpStatus.CREATED).body(areaService.addArea(areaLightDTO));
     }
     @GetMapping("get_all")
     public ResponseEntity<Iterable<LightDTO>> getAll(){

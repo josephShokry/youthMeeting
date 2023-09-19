@@ -8,8 +8,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
-import java.time.LocalDate;
-
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Setter
@@ -36,7 +34,7 @@ public class Youth extends Person{
 //    private Father father;
     @Column(name = "notes")
     private String notes;
-    public Youth(Long id, String firstName, String lastName, String dayOfBirth, String phoneNumber) {
-        super(id, firstName, lastName, LocalDate.parse(dayOfBirth), phoneNumber, null, null, null);
-    }
+//    public Youth(Long id, String firstName, String lastName, String dayOfBirth, String phoneNumber) {
+//        super(id, firstName, lastName, LocalDate.parse(dayOfBirth), phoneNumber, null, null, null);
+//    }
 }

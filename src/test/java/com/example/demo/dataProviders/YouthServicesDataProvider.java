@@ -1,6 +1,6 @@
 package com.example.demo.dataProviders;
 
-import com.example.demo.models.DTOs.YouthIntermediateDTO;
+import com.example.demo.models.DTOs.YouthMidLevelDTO;
 import com.example.demo.models.entities.Youth;
 import lombok.Getter;
 import org.springframework.stereotype.Component;
@@ -14,11 +14,11 @@ public class YouthServicesDataProvider {
     @Getter
     private final List<Youth> youthsTable;
     @Getter
-    private final List<YouthIntermediateDTO> youthIntermediateDTOTable;
+    private final List<YouthMidLevelDTO> youthMidLevelDTOTable;
 
     public YouthServicesDataProvider() {
         this.youthsTable = new ArrayList<>();
-        this.youthIntermediateDTOTable = new ArrayList<>();
+        this.youthMidLevelDTOTable = new ArrayList<>();
         prepareData();
     }
 
@@ -28,44 +28,44 @@ public class YouthServicesDataProvider {
     }
 
     private void prepareYouthIntermediateDTOTable() {
-        youthIntermediateDTOTable.addAll(
+        youthMidLevelDTOTable.addAll(
                 List.of(
-                        YouthIntermediateDTO.builder()
+                        YouthMidLevelDTO.builder()
                                 .id(1L)
                                 .firstName("Joseph")
                                 .lastName("Shokry")
                                 .meetingLevel(3)
                                 .familyId(3L)
                                 .build(),
-                        YouthIntermediateDTO.builder()
+                        YouthMidLevelDTO.builder()
                                 .id(2L)
                                 .firstName("Isaac")
                                 .lastName("Vector")
                                 .meetingLevel(2)
                                 .familyId(2L)
                                 .build(),
-                        YouthIntermediateDTO.builder()
+                        YouthMidLevelDTO.builder()
                                 .id(3L)
                                 .firstName("Adel")
                                 .lastName("Makram")
                                 .meetingLevel(1)
                                 .familyId(1L)
                                 .build(),
-                        YouthIntermediateDTO.builder()
+                        YouthMidLevelDTO.builder()
                                 .id(4L)
                                 .firstName("Fady")
                                 .lastName("Shokry")
                                 .meetingLevel(4)
                                 .familyId(4L)
                                 .build(),
-                        YouthIntermediateDTO.builder()
+                        YouthMidLevelDTO.builder()
                                 .id(5L)
                                 .firstName("Kiro")
                                 .lastName("Soliman")
                                 .meetingLevel(2)
                                 .familyId(2L)
                                 .build(),
-                        YouthIntermediateDTO.builder()
+                        YouthMidLevelDTO.builder()
                                 .id(6L)
                                 .firstName("Jolie")
                                 .lastName("Atef")

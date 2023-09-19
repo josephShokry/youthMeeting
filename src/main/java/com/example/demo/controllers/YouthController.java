@@ -2,7 +2,7 @@ package com.example.demo.controllers;
 
 import com.example.demo.models.DTOs.YouthDTO;
 import com.example.demo.models.DTOs.YouthFiltersDTO;
-import com.example.demo.models.DTOs.YouthIntermediateDTO;
+import com.example.demo.models.DTOs.YouthMidLevelDTO;
 import com.example.demo.services.implementations.YouthService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +20,12 @@ public class YouthController {
     private YouthService youthService;
 
     @PostMapping("add")
-    public ResponseEntity<String> addYouth(@Valid @RequestBody YouthDTO youthDTO) {
-        youthService.addYouth(youthDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body("youth added!");
+    public ResponseEntity<Boolean> addYouth(@Valid @RequestBody YouthDTO youthDTO) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(youthService.addYouth(youthDTO));
     }
 
     @PostMapping("get_all")
-    public ResponseEntity<Page<YouthIntermediateDTO>> getAll(@Valid @RequestBody(required = false)
+    public ResponseEntity<Page<YouthMidLevelDTO>> getAll(@Valid @RequestBody(required = false)
                                                              YouthFiltersDTO youthFiltersDTO) {
         return ResponseEntity.status(HttpStatus.OK).body(youthService.findAll(youthFiltersDTO));
     }
@@ -37,8 +36,7 @@ public class YouthController {
     }
 
     @PatchMapping("edit")
-    public ResponseEntity<String> editYouth(@RequestBody YouthDTO youthDTO) {
-        youthService.editYouth(youthDTO);
-        return ResponseEntity.status(HttpStatus.OK).body("youth edited successfully!!");
+    public ResponseEntity<Boolean> editYouth(@RequestBody YouthDTO youthDTO) {
+        return ResponseEntity.status(HttpStatus.OK).body(youthService.editYouth(youthDTO));
     }
 }

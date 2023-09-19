@@ -21,5 +21,4 @@ public class FamilyController {
     public ResponseEntity<Iterable<LightDTO>> getAll(){
         return ResponseEntity.status(HttpStatus.OK).body(familyService.findAll());
     }
-
 }

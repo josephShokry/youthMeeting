@@ -14,8 +14,8 @@ public class Street {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "street_name")
-    private String streetName;
+    @Column(name = "name")
+    private String name;
 //    @OneToMany(mappedBy = "street",orphanRemoval = true)
 //    private List<Youth> youthList;
     @ManyToOne(cascade = CascadeType.PERSIST)

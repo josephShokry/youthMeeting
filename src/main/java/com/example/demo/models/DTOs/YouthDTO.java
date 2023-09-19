@@ -5,52 +5,52 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Getter
+@Setter
 public class YouthDTO {
 
     @JsonProperty("id")
-    public Long id;
+    private Long id;
     @JsonProperty("firstName")
     @NotBlank(message = "please specify the first name")
-    public String firstName;
+    private String firstName;
     @JsonProperty("lastName")
     @NotBlank(message = "please specify the last name")
-    public String lastName;
+    private String lastName;
     @JsonProperty("phoneNumber")
     @Size(min = 11,max = 11)
     @NotBlank(message = "please specify the phone number")
     @Pattern(regexp = "01[0-2,5]\\d{8}", message = "please specify a valid phone number")
-    public String phoneNumber;
+    private String phoneNumber;
     @JsonProperty("dayOfBirth")
     @Pattern(regexp = "^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2]\\d|3[0-1])$",
             message = "please specify a proper format of the day of brith in the format of '2002-02-22'")
-    public String dayOfBirth;
+    private String dayOfBirth;
     @JsonProperty("university")
-    public String university;
+    private String university;
     @JsonProperty("college")
-    public String college;
+    private String college;
     @JsonProperty("collegeLevel")
-    public String collegeLevel;
+    private String collegeLevel;
     @JsonProperty("gradLevel")
-    public Integer gradLevel;
+    private Integer gradLevel;
     @JsonProperty("meetingLevel")
     @Min(1)
-    public Integer meetingLevel;
+    private Integer meetingLevel;
     @JsonProperty("notes")
-    public String notes;
+    private String notes;
     @JsonProperty("familyId")
     @Min(1)
-    public Long familyId;
+    private Long familyId;
     @JsonProperty("streetId")
     @Min(1)
-    public Long streetId;
+    private Long streetId;
     @JsonProperty("buildingNumber")
     @Min(1)
-    public Integer buildingNumber;
+    private Integer buildingNumber;
 }

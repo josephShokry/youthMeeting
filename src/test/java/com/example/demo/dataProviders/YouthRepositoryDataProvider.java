@@ -34,10 +34,10 @@ public class YouthRepositoryDataProvider {
         areasTable.addAll(
                 List.of(
                         Area.builder()
-                                .areaName("Moharm bek")
+                                .name("Moharm bek")
                                 .build(),
                         Area.builder()
-                                .areaName("bab geded")
+                                .name("bab geded")
                                 .build()
                 )
         );
@@ -46,11 +46,11 @@ public class YouthRepositoryDataProvider {
         streetsTable.addAll(
                 List.of(
                         Street.builder()
-                                .streetName("Ishaky")
+                                .name("Ishaky")
                                 .area(areasTable.get(0))
                                 .build(),
                         Street.builder()
-                                .streetName("thoryia")
+                                .name("thoryia")
                                 .area(areasTable.get(1))
                                 .build()
                 )
@@ -60,13 +60,13 @@ public class YouthRepositoryDataProvider {
         familiesTable.addAll(
                 List.of(
                         Family.builder()
-                                .familyName("Mark")
-                                .familyLevel(3)
+                                .name("Mark")
+                                .family_level(3)
                                 .joiningYear(2021)
                                 .build(),
                         Family.builder()
-                                .familyName("John")
-                                .familyLevel(1)
+                                .name("John")
+                                .family_level(1)
                                 .joiningYear(2023)
                                 .build()
                 )

@@ -17,20 +17,20 @@ public class YouthSpecificationImpl implements YouthSpecification{
         List<Predicate> predicates = new ArrayList<>();
 
         // Add your filter criteria
-        if(youthFiltersDTO != null && youthFiltersDTO.familyId != null)
-            predicates.add(criteriaBuilder.equal(root.join("family", JoinType.LEFT).get("id"), youthFiltersDTO.familyId));
-        if(youthFiltersDTO != null && youthFiltersDTO.streetId != null)
-            predicates.add(criteriaBuilder.equal(root.join("street", JoinType.LEFT).get("id"), youthFiltersDTO.streetId));
-        if(youthFiltersDTO != null && youthFiltersDTO.namePart != null)
-            predicates.add(criteriaBuilder.like(criteriaBuilder.concat(root.get("firstName"), root.get("lastName")),
-                "%" + youthFiltersDTO.namePart.toLowerCase() + "%"));
-        if(youthFiltersDTO != null && youthFiltersDTO.year != null){
+        if(youthFiltersDTO != null && youthFiltersDTO.getFamilyId() != null)
+            predicates.add(criteriaBuilder.equal(root.join("family", JoinType.LEFT).get("id"), youthFiltersDTO.getFamilyId()));
+        if(youthFiltersDTO != null && youthFiltersDTO.getStreetId() != null)
+            predicates.add(criteriaBuilder.equal(root.join("street", JoinType.LEFT).get("id"), youthFiltersDTO.getStreetId()));
+        if(youthFiltersDTO != null && youthFiltersDTO.getNamePart() != null)
+            predicates.add(criteriaBuilder.like(criteriaBuilder.concat(criteriaBuilder.concat(
+                    root.get("firstName"), " "), root.get("lastName")), "%" + youthFiltersDTO.getNamePart() + "%"));
+        if(youthFiltersDTO != null && youthFiltersDTO.getYear() != null){
             Expression<Integer> yearExpression = criteriaBuilder.function("YEAR", Integer.class, root.get("dayOfBirth"));
-            predicates.add(criteriaBuilder.equal(yearExpression, youthFiltersDTO.year));
+            predicates.add(criteriaBuilder.equal(yearExpression, youthFiltersDTO.getYear()));
         }
-        if(youthFiltersDTO != null && youthFiltersDTO.month != null){
+        if(youthFiltersDTO != null && youthFiltersDTO.getMonth() != null){
             Expression<Integer> monthExpression = criteriaBuilder.function("MONTH", Integer.class, root.get("dayOfBirth"));
-            predicates.add(criteriaBuilder.equal(monthExpression, youthFiltersDTO.month));
+            predicates.add(criteriaBuilder.equal(monthExpression, youthFiltersDTO.getMonth()));
         }//todo add gender
         return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
     }

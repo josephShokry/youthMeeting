@@ -58,8 +58,8 @@ class YouthMapperTest {
         verify(streetServices).findById(1L);
         assertThat(targetYouth.getFamily()).isNotNull();
         assertThat(targetYouth.getStreet()).isNotNull();
-        assertThat(targetYouth.getFamily().getFamilyName()).isEqualTo("mark");
-        assertThat(targetYouth.getStreet().getStreetName()).isEqualTo("ishaky");
+        assertThat(targetYouth.getFamily().getName()).isEqualTo("mark");
+        assertThat(targetYouth.getStreet().getName()).isEqualTo("ishaky");
     }
 
 
@@ -93,18 +93,18 @@ class YouthMapperTest {
 //        youth.setStreet(street);
 
         YouthDTO targetYouthDTO = youthMapper.youthToYouthDto(youth,new YouthDTO());
-        assertThat(targetYouthDTO.firstName).isEqualTo("Joseph");
-        assertThat(targetYouthDTO.lastName).isEqualTo("Shokry");
-        assertThat(targetYouthDTO.phoneNumber).isEqualTo("01284024832");
-        assertThat(targetYouthDTO.dayOfBirth).isEqualTo("2002-09-04");
-        assertThat(targetYouthDTO.university).isEqualTo("Alex");
-        assertThat(targetYouthDTO.college).isEqualTo("eng");
-        assertThat(targetYouthDTO.collegeLevel).isEqualTo("3");
-        assertThat(targetYouthDTO.gradLevel).isEqualTo(5);
-        assertThat(targetYouthDTO.meetingLevel).isEqualTo(3);
-        assertThat(targetYouthDTO.notes).isEqualTo("good person");
-        assertThat(targetYouthDTO.buildingNumber).isEqualTo(16);
-        assertThat(targetYouthDTO.familyId).isEqualTo(1);
-        assertThat(targetYouthDTO.streetId).isEqualTo(1);
+        assertThat(targetYouthDTO.getFirstName()).isEqualTo("Joseph");
+        assertThat(targetYouthDTO.getLastName()).isEqualTo("Shokry");
+        assertThat(targetYouthDTO.getPhoneNumber()).isEqualTo("01284024832");
+        assertThat(targetYouthDTO.getDayOfBirth()).isEqualTo("2002-09-04");
+        assertThat(targetYouthDTO.getUniversity()).isEqualTo("Alex");
+        assertThat(targetYouthDTO.getCollege()).isEqualTo("eng");
+        assertThat(targetYouthDTO.getCollegeLevel()).isEqualTo("3");
+        assertThat(targetYouthDTO.getGradLevel()).isEqualTo(5);
+        assertThat(targetYouthDTO.getMeetingLevel()).isEqualTo(3);
+        assertThat(targetYouthDTO.getNotes()).isEqualTo("good person");
+        assertThat(targetYouthDTO.getBuildingNumber()).isEqualTo(16);
+        assertThat(targetYouthDTO.getFamilyId()).isEqualTo(1);
+        assertThat(targetYouthDTO.getStreetId()).isEqualTo(1);
     }
 }

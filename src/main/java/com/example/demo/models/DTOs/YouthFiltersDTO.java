@@ -2,25 +2,22 @@ package com.example.demo.models.DTOs;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
 @Getter
-@Builder
-public class YouthFiltersDTO {
+@SuperBuilder
+public class YouthFiltersDTO extends PaginationDTO{
     @JsonProperty("familyId")
-    public Long familyId;
+    private Long familyId;
     @JsonProperty("streetId")
-    public Long streetId;
+    private Long streetId;
     @JsonProperty("namePart")
-    public String namePart;
+    private String namePart;
     @JsonProperty("month")
-    public Integer month;
+    private Integer month;
     @JsonProperty("year")
-    public Integer year;
-    @JsonProperty("size")
-    public Integer size;
-    @JsonProperty("page")
-    public Integer page;// TODO: put the paging in super class of this class
+    private Integer year;
 }

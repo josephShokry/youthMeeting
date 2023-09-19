@@ -11,7 +11,7 @@ CREATE TABLE persons (
     college_level VARCHAR(255),
     grad_level INTEGER,
     meeting_level INTEGER,
-    NOTes VARCHAR(255),
+    Notes VARCHAR(255),
     university VARCHAR(255),
     street_id bigint,
     family_id bigint,

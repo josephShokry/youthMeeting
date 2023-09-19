@@ -1,22 +1,22 @@
 package com.example.demo.models.DTOs;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class YouthIntermediateDTO { //TODO change the name
+@Getter
+@Setter
+public class YouthMidLevelDTO {
     @JsonProperty("id")
-    public Long id;
+    private Long id;
     @JsonProperty("firstName")
-    public String firstName;
+    private String firstName;
     @JsonProperty("lastName")
-    public String lastName;
+    private String lastName;
     @JsonProperty("meetingLevel")
-    public Integer meetingLevel;
+    private Integer meetingLevel;
     @JsonProperty("familyId")
-    public Long familyId;
+    private Long familyId;
 }

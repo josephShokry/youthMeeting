@@ -59,20 +59,20 @@ class YouthRepositoryTest {
     //Assertion methods to check equality of objects depending on the values instead of the reference
     private void assertFamilyEquals(Family expected, Family actual) {
         if(assertNull(expected, actual))return;
-        assertThat(actual.getFamilyName()).isEqualTo(expected.getFamilyName());
-        assertThat(actual.getFamilyLevel()).isEqualTo(expected.getFamilyLevel());
+        assertThat(actual.getName()).isEqualTo(expected.getName());
+        assertThat(actual.getFamily_level()).isEqualTo(expected.getFamily_level());
         assertThat(actual.getJoiningYear()).isEqualTo(expected.getJoiningYear());
     }
 
     private void assertStreetEquals(Street expected, Street actual) {
         if(assertNull(expected, actual))return;
-        assertThat(actual.getStreetName()).isEqualTo(expected.getStreetName());
+        assertThat(actual.getName()).isEqualTo(expected.getName());
         assertAreaEquals(expected.getArea(), actual.getArea());
     }
 
     private void assertAreaEquals(Area expected, Area actual) {
         if(assertNull(expected, actual))return;
-        assertThat(actual.getAreaName()).isEqualTo(expected.getAreaName());
+        assertThat(actual.getName()).isEqualTo(expected.getName());
     }
 
     private boolean assertNull(Object expected, Object actual){

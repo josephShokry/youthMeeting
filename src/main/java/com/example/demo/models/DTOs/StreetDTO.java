@@ -2,15 +2,13 @@ package com.example.demo.models.DTOs;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
+import lombok.Getter;
+import lombok.Setter;
 
-public class StreetDTO {
-    @JsonProperty("id")
-    public Long id;
-    @JsonProperty("streetName")
-    @NotBlank(message = "please specify the street name")
-    public String streetName;
+@Getter
+@Setter
+public class StreetDTO extends LightDTO{
     @JsonProperty("areaId")
     @Min(1)
-    public Long areaId;
+    private Long areaId;
 }

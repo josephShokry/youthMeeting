@@ -3,7 +3,7 @@ package com.example.demo.services.implementations;
 import com.example.demo.exceptions.exceptions.DataNotFoundException;
 import com.example.demo.models.DTOs.YouthDTO;
 import com.example.demo.models.DTOs.YouthFiltersDTO;
-import com.example.demo.models.DTOs.YouthIntermediateDTO;
+import com.example.demo.models.DTOs.YouthMidLevelDTO;
 import com.example.demo.models.entities.Youth;
 import com.example.demo.models.mappers.YouthMapper;
 import com.example.demo.repositories.YouthRepository;
@@ -30,9 +30,10 @@ public class YouthService implements IYouthService {
     @Autowired
     private YouthMapper youthMapper;
 
-    public void addYouth(YouthDTO youthDTO) {
-        Youth youth = youthMapper.youthDtoToYouth(youthDTO, new Youth(), familyService, streetService);
-        youthRepository.save(youth);
+    public Boolean addYouth(YouthDTO youthDTO) {
+        Youth youth = new Youth();
+        youthRepository.save(youthMapper.youthDtoToYouth(youthDTO, youth, familyService, streetService));
+        return true;
     }
     public Youth findYouthById(Long youthId){
         // TODO: need something to catch this exceptions
@@ -44,18 +45,18 @@ public class YouthService implements IYouthService {
         return youthMapper.youthToYouthDto(findYouthById(youthId), new YouthDTO());
     }
 
-    public Page<YouthIntermediateDTO> findAll(YouthFiltersDTO youthFiltersDTO) {
+    public Page<YouthMidLevelDTO> findAll(YouthFiltersDTO youthFiltersDTO) {
         youthFiltersDTO.setPage(Optional.ofNullable(youthFiltersDTO.getPage()).map(page -> page - 1).orElse(0));
         youthFiltersDTO.setSize(Optional.ofNullable(youthFiltersDTO.getSize()).orElse(10));
-        Pageable paging = PageRequest.of(youthFiltersDTO.page, youthFiltersDTO.size);
+        Pageable paging = PageRequest.of(youthFiltersDTO.getPage(), youthFiltersDTO.getSize());
         Specification<Youth> specification = new YouthSpecificationImpl(youthFiltersDTO);
         Page<Youth> youths = youthRepository.findAll(specification, paging);
         return youthMapper.youthsToPageYouthIntermediateDtos(youths);
     }
 
-    public void editYouth(YouthDTO youthDTO) {
-        Youth youth = findYouthById(youthDTO.id);
-        youthMapper.youthDtoToYouth(youthDTO, youth, familyService, streetService);
-        youthRepository.save(youth);
+    public Boolean editYouth(YouthDTO youthDTO) {
+        Youth youth = findYouthById(youthDTO.getId());
+        youthRepository.save(youthMapper.youthDtoToYouth(youthDTO, youth, familyService, streetService));
+        return true;
     }
 }
