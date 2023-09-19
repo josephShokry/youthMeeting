@@ -1,4 +1,5 @@
 package com.example.demo.models.mappers;
+
 import com.example.demo.models.DTOs.YouthDTO;
 import com.example.demo.models.DTOs.YouthMidLevelDTO;
 import com.example.demo.models.entities.Youth;
@@ -10,8 +11,6 @@ import org.springframework.data.domain.PageImpl;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
@@ -37,13 +36,14 @@ public interface YouthMapper {
     @Mapping(target = "familyId", source = "family.id")
     YouthMidLevelDTO youthToYouthIntermediateDto(Youth youth, @MappingTarget YouthMidLevelDTO youthMidLevelDTO);
 
-    default Iterable<YouthMidLevelDTO> youthsToYouthIntermediateDtos(Iterable<Youth> youths){
-        return StreamSupport.stream(youths.spliterator(), false)
-                .map(entity -> youthToYouthIntermediateDto(entity,new YouthMidLevelDTO()))
-                .collect(Collectors.toList());
-    }
-    default Page<YouthMidLevelDTO> youthsToPageYouthIntermediateDtos(Page<Youth> YouthsPage) {
-        List<YouthMidLevelDTO> dtoList = (List<YouthMidLevelDTO>) youthsToYouthIntermediateDtos(YouthsPage.getContent());
-        return new PageImpl<>(dtoList, YouthsPage.getPageable(), YouthsPage.getTotalElements());
+//    default Iterable<YouthMidLevelDTO> youthsToYouthIntermediateDtos(Iterable<Youth> youths){
+//        return StreamSupport.stream(youths.spliterator(), false)
+//                .map(entity -> youthToYouthIntermediateDto(entity,new YouthMidLevelDTO()))
+//                .collect(Collectors.toList());
+//    }
+    List<YouthMidLevelDTO> youthsToYouthIntermediateDtos(List<Youth> youths);
+    default Page<YouthMidLevelDTO> youthsToPageYouthIntermediateDtos(Page<Youth> youthsPage) {
+        List<YouthMidLevelDTO> dtoList = youthsToYouthIntermediateDtos(youthsPage.getContent());
+        return new PageImpl<>(dtoList, youthsPage.getPageable(), youthsPage.getTotalElements());
     }
 }

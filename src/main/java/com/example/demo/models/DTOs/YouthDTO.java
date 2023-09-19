@@ -1,10 +1,8 @@
 package com.example.demo.models.DTOs;
 
+import com.example.demo.util.Gender;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.*;
 
 @AllArgsConstructor
@@ -53,4 +51,7 @@ public class YouthDTO {
     @JsonProperty("buildingNumber")
     @Min(1)
     private Integer buildingNumber;
+    @JsonProperty("gender")
+    @NotNull(message = "please specify the gender")
+    private Gender gender;
 }

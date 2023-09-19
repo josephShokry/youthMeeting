@@ -1,5 +1,6 @@
 package com.example.demo.models.entities;
 
+import com.example.demo.util.Gender;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -18,18 +19,9 @@ import java.time.LocalDate;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Table(name = "persons")
 @SuperBuilder
-public class Person { // TODO: change the inheritance
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column(name = "first_name")
-    private String firstName;
-    @Column(name = "last_name")
-    private String lastName;
+public class Person extends BasicPerson{
     @Column(name = "day_of_birth")
     private LocalDate dayOfBirth;
-    @Column(name = "phone_number")
-    private String phoneNumber;
     @Column(name = "building_number")
     private Integer buildingNumber;
     @Column(name = "floor")
@@ -38,4 +30,7 @@ public class Person { // TODO: change the inheritance
     @JoinColumn(name = "street_id", referencedColumnName = "id")
     @JsonIgnore
     private Street street;
+    @Column(name = "gender")
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
 }

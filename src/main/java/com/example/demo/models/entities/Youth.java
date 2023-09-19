@@ -14,7 +14,6 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-//@Builder
 @SuperBuilder
 public class Youth extends Person{
     @Column(name = "university")
@@ -31,10 +30,6 @@ public class Youth extends Person{
     private Family family;
     @Column(name = "meeting_level")
     private Integer meetingLevel;
-//    private Father father;
     @Column(name = "notes")
     private String notes;
-//    public Youth(Long id, String firstName, String lastName, String dayOfBirth, String phoneNumber) {
-//        super(id, firstName, lastName, LocalDate.parse(dayOfBirth), phoneNumber, null, null, null);
-//    }
 }

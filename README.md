@@ -35,10 +35,14 @@
   - [x] remove the `@context` of the mappers
   - [x] make sure to unify the logic across entities
   - [x] use private in all DTOs
-  - [ ] add gender to youth, to mapper, to filterDTO, to specification
+  - [x] change the inheritance of the person
+  - [x] add gender to youth, youthDto, mapper, filterDTO, specification
   - [ ] exceptions
+  - [x] add an exception handler for catching the exception to enum 
   - [ ] rename the end points
+  - [ ] messages
   - [ ] sonarlint
+  - [ ] simplify the names of mappers methods
   - 
   
 ----

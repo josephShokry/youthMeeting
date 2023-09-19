@@ -1,5 +1,6 @@
 package com.example.demo.models.DTOs;
 
+import com.example.demo.util.Gender;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -20,4 +21,6 @@ public class YouthFiltersDTO extends PaginationDTO{
     private Integer month;
     @JsonProperty("year")
     private Integer year;
+    @JsonProperty("gender")
+    private Gender gender;
 }
