@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 
-public class FamilyDTO {
+public class FamilyDTO { //TODO: try to extend the from the light DTO
+    @JsonProperty("Id")
+    public Long id;
     @JsonProperty("familyName")
     @NotBlank(message = "please specify the family name")
     public String familyName;
@@ -13,7 +15,5 @@ public class FamilyDTO {
     public Integer familyLevel;
     @JsonProperty("joiningYear")
     public Integer joiningYear;
-    @JsonProperty("Id")
-    public Long id;
 
 }

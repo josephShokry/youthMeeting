@@ -1,9 +1,7 @@
-package com.example.demo.models;
+package com.example.demo.models.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.List;
 
 @Entity
 @Table(name = "streets")
@@ -18,8 +16,8 @@ public class Street {
     private Long id;
     @Column(name = "street_name")
     private String streetName;
-    @OneToMany(mappedBy = "street",orphanRemoval = true)
-    private List<Youth> youthList;
+//    @OneToMany(mappedBy = "street",orphanRemoval = true)
+//    private List<Youth> youthList;
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "area_id", referencedColumnName = "id")
 //    @JsonIgnore

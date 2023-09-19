@@ -3,7 +3,7 @@ package com.example.demo.controllers;
 import com.example.demo.models.DTOs.YouthDTO;
 import com.example.demo.models.DTOs.YouthFiltersDTO;
 import com.example.demo.models.DTOs.YouthIntermediateDTO;
-import com.example.demo.services.YouthService;
+import com.example.demo.services.implementations.YouthService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

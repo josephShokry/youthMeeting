@@ -1,9 +1,7 @@
-package com.example.demo.models;
+package com.example.demo.models.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.List;
 
 @Entity
 @Table(name = "areas")
@@ -18,6 +16,6 @@ public class Area {
     private Long id;
     @Column(name = "area_name")
     private String areaName;
-    @OneToMany(mappedBy = "area",orphanRemoval = true)
-    private List<Street> streets;
+//    @OneToMany(mappedBy = "area",orphanRemoval = true)
+//    private List<Street> streets;
 }

@@ -2,7 +2,7 @@ package com.example.demo.controllers;
 
 import com.example.demo.models.DTOs.AreaDTO;
 import com.example.demo.models.DTOs.LightDTO;
-import com.example.demo.services.AreaService;
+import com.example.demo.services.implementations.AreaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

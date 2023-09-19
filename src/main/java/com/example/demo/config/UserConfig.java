@@ -1,2 +1,4 @@
-package com.example.demo.config;public class UserConfig {
+package com.example.demo.config;
+
+public class UserConfig {
 }

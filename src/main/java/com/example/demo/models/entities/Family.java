@@ -1,9 +1,7 @@
-package com.example.demo.models;
+package com.example.demo.models.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.List;
 
 @Entity
 @Table(name = "families")
@@ -20,8 +18,8 @@ public class Family {
     private String familyName;
     @Column(name = "family_level")
     private Integer familyLevel;
-    @OneToMany(mappedBy = "family",orphanRemoval = true)
-    private List<Youth> youthList;
+//    @OneToMany(mappedBy = "family",orphanRemoval = true)
+//    private List<Youth> youthList;
  //   private List<Servant> servantList;
     @Column(name = "joining_year")
     private Integer joiningYear;

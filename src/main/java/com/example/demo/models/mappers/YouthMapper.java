@@ -1,9 +1,9 @@
 package com.example.demo.models.mappers;
 import com.example.demo.models.DTOs.YouthDTO;
 import com.example.demo.models.DTOs.YouthIntermediateDTO;
-import com.example.demo.models.Youth;
-import com.example.demo.services.FamilyService;
-import com.example.demo.services.StreetService;
+import com.example.demo.models.entities.Youth;
+import com.example.demo.services.implementations.FamilyService;
+import com.example.demo.services.implementations.StreetService;
 import org.mapstruct.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;

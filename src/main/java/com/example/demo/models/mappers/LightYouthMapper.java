@@ -1,14 +1,14 @@
 package com.example.demo.models.mappers;
 
 import com.example.demo.models.DTOs.LightDTO;
-import com.example.demo.models.Youth;
+import com.example.demo.models.entities.Youth;
 import org.mapstruct.*;
 
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface LightYouthMapper {
+public interface LightYouthMapper { // TODO: add to youth mapper
     @Mapping(expression = "java(youth.getFirstName() + ' ' + youth.getLastName())", target = "name")
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     LightDTO youthToYouthLightDto(Youth youth, @MappingTarget LightDTO lightDTO);

@@ -1,6 +1,6 @@
-package com.example.demo.services;
+package com.example.demo.services.implementations;
 
-import com.example.demo.exceptions.DataNotFoundException;
+import com.example.demo.exceptions.exceptions.DataNotFoundException;
 import com.example.demo.models.DTOs.YouthDTO;
 import com.example.demo.models.DTOs.YouthFiltersDTO;
 import com.example.demo.models.DTOs.YouthIntermediateDTO;
@@ -8,6 +8,7 @@ import com.example.demo.models.entities.Youth;
 import com.example.demo.models.mappers.YouthMapper;
 import com.example.demo.repositories.YouthRepository;
 import com.example.demo.repositories.YouthSpecificationImpl;
+import com.example.demo.services.IYouthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,7 +20,7 @@ import java.util.Optional;
 
 
 @Service
-public class YouthService implements IYouthService{
+public class YouthService implements IYouthService {
     @Autowired
     private YouthRepository youthRepository;
     @Autowired

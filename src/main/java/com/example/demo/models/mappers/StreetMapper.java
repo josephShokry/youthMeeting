@@ -2,8 +2,8 @@ package com.example.demo.models.mappers;
 
 import com.example.demo.models.DTOs.LightDTO;
 import com.example.demo.models.DTOs.StreetDTO;
-import com.example.demo.models.Street;
-import com.example.demo.services.AreaService;
+import com.example.demo.models.entities.Street;
+import com.example.demo.services.implementations.AreaService;
 import org.mapstruct.*;
 
 import java.util.stream.Collectors;
@@ -13,9 +13,9 @@ import java.util.stream.StreamSupport;
 
 public interface StreetMapper {
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    Street streetDtoToStreet(StreetDTO streetDTO, @MappingTarget Street street, @Context AreaService areaService);
+    Street streetDtoToStreet(StreetDTO streetDTO, @MappingTarget Street street, AreaService areaService);// TODO: removed @context
     @AfterMapping
-    default void attachArea(StreetDTO streetDTO, @MappingTarget Street street, @Context AreaService areaService){
+    default void attachArea(StreetDTO streetDTO, @MappingTarget Street street, AreaService areaService){
         street.setArea(areaService.findById(streetDTO.areaId));
     }
     @Mapping(source = "streetName", target = "name")

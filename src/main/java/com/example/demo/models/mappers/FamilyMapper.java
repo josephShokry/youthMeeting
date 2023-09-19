@@ -2,7 +2,7 @@ package com.example.demo.models.mappers;
 
 import com.example.demo.models.DTOs.FamilyDTO;
 import com.example.demo.models.DTOs.LightDTO;
-import com.example.demo.models.Family;
+import com.example.demo.models.entities.Family;
 import org.mapstruct.*;
 
 import java.util.stream.Collectors;
