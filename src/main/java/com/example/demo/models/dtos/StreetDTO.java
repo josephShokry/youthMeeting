@@ -1,4 +1,4 @@
-package com.example.demo.models.DTOs;
+package com.example.demo.models.dtos;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Min;
@@ -9,6 +9,6 @@ import lombok.Setter;
 @Setter
 public class StreetDTO extends LightDTO{
     @JsonProperty("areaId")
-    @Min(1)
+    @Min(value = 1, message = "validation.error.areaId.min")
     private Long areaId;
 }

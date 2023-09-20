@@ -1,6 +1,7 @@
 package com.example.demo.dataProviders;
 
 import com.example.demo.models.entities.*;
+import com.example.demo.util.Gender;
 import lombok.Getter;
 import org.springframework.stereotype.Component;
 
@@ -61,12 +62,12 @@ public class YouthRepositoryDataProvider {
                 List.of(
                         Family.builder()
                                 .name("Mark")
-                                .family_level(3)
+                                .familyLevel(3)
                                 .joiningYear(2021)
                                 .build(),
                         Family.builder()
                                 .name("John")
-                                .family_level(1)
+                                .familyLevel(1)
                                 .joiningYear(2023)
                                 .build()
                 )
@@ -80,6 +81,7 @@ public class YouthRepositoryDataProvider {
                                 .lastName("Shokry")
                                 .dayOfBirth(LocalDate.parse("2002-04-09"))
                                 .phoneNumber("01284024832")
+                                .gender(Gender.MALE)
                                 .family(familiesTable.get(0))
                                 .street(streetsTable.get(0))
                                 .build(),
@@ -88,6 +90,7 @@ public class YouthRepositoryDataProvider {
                                 .lastName("Vector")
                                 .dayOfBirth(LocalDate.parse("2003-09-04"))
                                 .phoneNumber("01278497512")
+                                .gender(Gender.MALE)
                                 .family(familiesTable.get(1))
                                 .street(streetsTable.get(1))
                                 .build(),
@@ -96,6 +99,7 @@ public class YouthRepositoryDataProvider {
                                 .lastName("Makram")
                                 .dayOfBirth(LocalDate.parse("1998-10-14"))
                                 .phoneNumber("01579486321")
+                                .gender(Gender.MALE)
                                 .family(familiesTable.get(0))
                                 .street(streetsTable.get(0))
                                 .build(),
@@ -104,6 +108,7 @@ public class YouthRepositoryDataProvider {
                                 .lastName("Shokry")
                                 .dayOfBirth(LocalDate.parse("2003-05-04"))
                                 .phoneNumber("01147547894")
+                                .gender(Gender.MALE)
                                 .family(familiesTable.get(1))
                                 .street(streetsTable.get(1))
                                 .build(),
@@ -112,6 +117,7 @@ public class YouthRepositoryDataProvider {
                                 .lastName("Soliman")
                                 .dayOfBirth(LocalDate.parse("2004-11-22"))
                                 .phoneNumber("01075471369")
+                                .gender(Gender.MALE)
                                 .family(familiesTable.get(0))
                                 .street(streetsTable.get(0))
                                 .build(),
@@ -120,6 +126,7 @@ public class YouthRepositoryDataProvider {
                                 .lastName("Atef")
                                 .dayOfBirth(LocalDate.parse("2001-01-30"))
                                 .phoneNumber("01578945617")
+                                .gender(Gender.FEMALE)
                                 .family(familiesTable.get(1))
                                 .street(streetsTable.get(1))
                                 .build()

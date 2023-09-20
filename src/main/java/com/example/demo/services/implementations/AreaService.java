@@ -2,7 +2,7 @@ package com.example.demo.services.implementations;
 
 import com.example.demo.exceptions.exceptions.DataNotFoundException;
 import com.example.demo.models.entities.Area;
-import com.example.demo.models.DTOs.LightDTO;
+import com.example.demo.models.dtos.LightDTO;
 import com.example.demo.models.mappers.AreaMapper;
 import com.example.demo.models.mappers.LightDTOMapper;
 import com.example.demo.repositories.AreaRepository;
@@ -14,7 +14,7 @@ import java.util.Optional;
 
 
 @Service
-public class AreaService implements IAreaService {//todo: add interfaces for all the srevices
+public class AreaService implements IAreaService {
     @Autowired
     private AreaRepository areaRepository;
     @Autowired
@@ -27,11 +27,10 @@ public class AreaService implements IAreaService {//todo: add interfaces for all
         areaRepository.save(areaMapper.getAreaFromDto(areaLightDTO, area));
         return area.getId();
     }
-//    todo: search for resource bundles
     public Area findById(Long areaId) {
-        Optional.ofNullable(areaId).orElseThrow(() -> new DataNotFoundException("the Area id is null"));
+        Optional.ofNullable(areaId).orElseThrow(() -> new DataNotFoundException("validation.error.areaId"));
         return areaRepository.findById(areaId).orElseThrow(
-                 () -> new DataNotFoundException("the required area is not present"));
+                 () -> new DataNotFoundException("validation.error.area"));
     }
 
     public Iterable<LightDTO> findAll() {

@@ -1,7 +1,7 @@
 package com.example.demo.models.mappers;
 
-import com.example.demo.models.DTOs.YouthDTO;
-import com.example.demo.models.DTOs.YouthMidLevelDTO;
+import com.example.demo.models.dtos.YouthDTO;
+import com.example.demo.models.dtos.YouthMidLevelDTO;
 import com.example.demo.models.entities.Youth;
 import com.example.demo.services.implementations.FamilyService;
 import com.example.demo.services.implementations.StreetService;
@@ -35,12 +35,6 @@ public interface YouthMapper {
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "familyId", source = "family.id")
     YouthMidLevelDTO youthToYouthIntermediateDto(Youth youth, @MappingTarget YouthMidLevelDTO youthMidLevelDTO);
-
-//    default Iterable<YouthMidLevelDTO> youthsToYouthIntermediateDtos(Iterable<Youth> youths){
-//        return StreamSupport.stream(youths.spliterator(), false)
-//                .map(entity -> youthToYouthIntermediateDto(entity,new YouthMidLevelDTO()))
-//                .collect(Collectors.toList());
-//    }
     List<YouthMidLevelDTO> youthsToYouthIntermediateDtos(List<Youth> youths);
     default Page<YouthMidLevelDTO> youthsToPageYouthIntermediateDtos(Page<Youth> youthsPage) {
         List<YouthMidLevelDTO> dtoList = youthsToYouthIntermediateDtos(youthsPage.getContent());

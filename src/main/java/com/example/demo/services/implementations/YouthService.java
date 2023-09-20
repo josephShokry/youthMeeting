@@ -1,9 +1,9 @@
 package com.example.demo.services.implementations;
 
 import com.example.demo.exceptions.exceptions.DataNotFoundException;
-import com.example.demo.models.DTOs.YouthDTO;
-import com.example.demo.models.DTOs.YouthFiltersDTO;
-import com.example.demo.models.DTOs.YouthMidLevelDTO;
+import com.example.demo.models.dtos.YouthDTO;
+import com.example.demo.models.dtos.YouthFiltersDTO;
+import com.example.demo.models.dtos.YouthMidLevelDTO;
 import com.example.demo.models.entities.Youth;
 import com.example.demo.models.mappers.YouthMapper;
 import com.example.demo.repositories.YouthRepository;
@@ -36,10 +36,9 @@ public class YouthService implements IYouthService {
         return true;
     }
     public Youth findYouthById(Long youthId){
-        // TODO: need something to catch this exceptions
-        Optional.ofNullable(youthId).orElseThrow(() -> new DataNotFoundException("the youth id is null"));
+        Optional.ofNullable(youthId).orElseThrow(() -> new DataNotFoundException("validation.error.youthId"));
         return youthRepository.findById(youthId).orElseThrow(
-                () -> new DataNotFoundException("the required youth is not present"));
+                () -> new DataNotFoundException("validation.error.youth"));
     }
     public YouthDTO findYouthDtoById(Long youthId){
         return youthMapper.youthToYouthDto(findYouthById(youthId), new YouthDTO());

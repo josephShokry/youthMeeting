@@ -1,4 +1,4 @@
-package com.example.demo.models.DTOs;
+package com.example.demo.models.dtos;
 
 import com.example.demo.util.Gender;
 import com.fasterxml.jackson.annotation.JsonProperty;

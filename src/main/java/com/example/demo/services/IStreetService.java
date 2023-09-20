@@ -1,7 +1,7 @@
 package com.example.demo.services;
 
-import com.example.demo.models.DTOs.LightDTO;
-import com.example.demo.models.DTOs.StreetDTO;
+import com.example.demo.models.dtos.LightDTO;
+import com.example.demo.models.dtos.StreetDTO;
 import com.example.demo.models.entities.Street;
 
 public interface IStreetService {

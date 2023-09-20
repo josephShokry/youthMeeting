@@ -1,8 +1,8 @@
 package com.example.demo.services;
 
-import com.example.demo.models.DTOs.YouthDTO;
-import com.example.demo.models.DTOs.YouthFiltersDTO;
-import com.example.demo.models.DTOs.YouthMidLevelDTO;
+import com.example.demo.models.dtos.YouthDTO;
+import com.example.demo.models.dtos.YouthFiltersDTO;
+import com.example.demo.models.dtos.YouthMidLevelDTO;
 import com.example.demo.models.entities.Youth;
 import org.springframework.data.domain.Page;
 

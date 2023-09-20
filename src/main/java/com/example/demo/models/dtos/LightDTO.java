@@ -1,4 +1,4 @@
-package com.example.demo.models.DTOs;
+package com.example.demo.models.dtos;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
@@ -17,6 +17,6 @@ public class LightDTO {
     @JsonProperty("Id")
     private Long id;
     @JsonProperty("name")
-    @NotBlank(message = "please specify the name")
+    @NotBlank(message = "validation.error.name")
     private String name;
 }

@@ -1,6 +1,6 @@
 package com.example.demo.models.mappers;
 
-import com.example.demo.models.DTOs.FamilyDTO;
+import com.example.demo.models.dtos.FamilyDTO;
 import com.example.demo.models.entities.Family;
 import org.mapstruct.*;
 

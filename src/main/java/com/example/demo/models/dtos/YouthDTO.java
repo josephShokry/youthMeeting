@@ -1,4 +1,4 @@
-package com.example.demo.models.DTOs;
+package com.example.demo.models.dtos;
 
 import com.example.demo.util.Gender;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -15,19 +15,19 @@ public class YouthDTO {
     @JsonProperty("id")
     private Long id;
     @JsonProperty("firstName")
-    @NotBlank(message = "please specify the first name")
+    @NotBlank(message = "validation.error.firstName")
     private String firstName;
     @JsonProperty("lastName")
-    @NotBlank(message = "please specify the last name")
+    @NotBlank(message = "validation.error.lastName")
     private String lastName;
     @JsonProperty("phoneNumber")
-    @Size(min = 11,max = 11)
-    @NotBlank(message = "please specify the phone number")
-    @Pattern(regexp = "01[0-2,5]\\d{8}", message = "please specify a valid phone number")
+    @Size(min = 11,max = 11, message = "validation.error.phoneNumber.size")
+    @NotBlank(message = "validation.error.phoneNumber")
+    @Pattern(regexp = "01[0-2,5]\\d{8}", message = "validation.error.phoneNumber.pattern")
     private String phoneNumber;
     @JsonProperty("dayOfBirth")
     @Pattern(regexp = "^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2]\\d|3[0-1])$",
-            message = "please specify a proper format of the day of brith in the format of '2002-02-22'")
+            message = "validation.error.dayOfBirth.pattern")
     private String dayOfBirth;
     @JsonProperty("university")
     private String university;
@@ -38,20 +38,20 @@ public class YouthDTO {
     @JsonProperty("gradLevel")
     private Integer gradLevel;
     @JsonProperty("meetingLevel")
-    @Min(1)
+    @Min(value = 1, message = "validation.error.meetingLevel.min")
     private Integer meetingLevel;
     @JsonProperty("notes")
     private String notes;
     @JsonProperty("familyId")
-    @Min(1)
+    @Min(value = 1, message = "validation.error.familyId.min")
     private Long familyId;
     @JsonProperty("streetId")
-    @Min(1)
+    @Min(value = 1, message = "validation.error.streetId.min")
     private Long streetId;
     @JsonProperty("buildingNumber")
-    @Min(1)
+    @Min(value = 1, message = "validation.error.buildingNumber.min")
     private Integer buildingNumber;
     @JsonProperty("gender")
-    @NotNull(message = "please specify the gender")
+    @NotNull(message = "validation.error.gender")
     private Gender gender;
 }

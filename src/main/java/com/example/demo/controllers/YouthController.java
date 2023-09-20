@@ -1,8 +1,8 @@
 package com.example.demo.controllers;
 
-import com.example.demo.models.DTOs.YouthDTO;
-import com.example.demo.models.DTOs.YouthFiltersDTO;
-import com.example.demo.models.DTOs.YouthMidLevelDTO;
+import com.example.demo.models.dtos.YouthDTO;
+import com.example.demo.models.dtos.YouthFiltersDTO;
+import com.example.demo.models.dtos.YouthMidLevelDTO;
 import com.example.demo.services.implementations.YouthService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +25,7 @@ public class YouthController {
     }
 
     @PostMapping("get_all")
-    public ResponseEntity<Page<YouthMidLevelDTO>> getAll(@Valid @RequestBody(required = false)
-                                                             YouthFiltersDTO youthFiltersDTO) {
+    public ResponseEntity<Page<YouthMidLevelDTO>> getAll(@Valid @RequestBody YouthFiltersDTO youthFiltersDTO) {
         return ResponseEntity.status(HttpStatus.OK).body(youthService.findAll(youthFiltersDTO));
     }
 

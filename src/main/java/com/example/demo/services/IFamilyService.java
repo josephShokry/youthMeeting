@@ -1,7 +1,7 @@
 package com.example.demo.services;
 
-import com.example.demo.models.DTOs.FamilyDTO;
-import com.example.demo.models.DTOs.LightDTO;
+import com.example.demo.models.dtos.FamilyDTO;
+import com.example.demo.models.dtos.LightDTO;
 import com.example.demo.models.entities.Family;
 
 public interface IFamilyService {

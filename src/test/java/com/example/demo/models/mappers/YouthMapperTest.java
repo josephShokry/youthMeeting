@@ -1,6 +1,6 @@
 package com.example.demo.models.mappers;
 
-import com.example.demo.models.DTOs.YouthDTO;
+import com.example.demo.models.dtos.YouthDTO;
 import com.example.demo.models.entities.Family;
 import com.example.demo.models.entities.Street;
 import com.example.demo.models.entities.Youth;
@@ -24,8 +24,6 @@ import static org.mockito.Mockito.when;
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
 class YouthMapperTest {
-    // TODO: add test for checking the father in the mapper of the youth
-    // i added all the youths to father id = 1 and didn't attach any father
     @InjectMocks
     private YouthMapper youthMapper = Mappers.getMapper(YouthMapper.class);
     @MockBean private FamilyService familyServices;

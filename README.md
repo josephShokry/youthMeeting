@@ -16,6 +16,7 @@
 - mappers using MapStruct
 - DataBase migration with flyway
 - clean code with sonarLint
+- resource Bundle
 </details>
 
 ---
@@ -37,13 +38,16 @@
   - [x] use private in all DTOs
   - [x] change the inheritance of the person
   - [x] add gender to youth, youthDto, mapper, filterDTO, specification
-  - [ ] exceptions
   - [x] add an exception handler for catching the exception to enum 
+  - [x] exceptions
+  - [x] add tests of the gender and its exceptions and filter
   - [ ] rename the end points
   - [ ] messages
-  - [ ] sonarlint
   - [ ] simplify the names of mappers methods
-  - 
+  - [ ] sonarlint
+  - [ ] merge with swagger branch
+  - [ ] finish the pull request and squash and merge to the develop branch
+  - [ ] pagination constrains 
   
 ----
 # done tasks

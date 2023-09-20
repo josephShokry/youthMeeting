@@ -1,7 +1,8 @@
-package com.example.demo.models.DTOs;
+package com.example.demo.models.dtos;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,9 +10,10 @@ import lombok.Setter;
 @Setter
 public class FamilyDTO extends LightDTO {
     @JsonProperty("familyLevel")
-    @Min(1)
-    private Integer family_level;
+    @Min(value = 1, message = "validation.error.familyId.min")
+    private Integer familyLevel;
     @JsonProperty("joiningYear")
+    @NotNull(message = "validation.error.joiningYear")
     private Integer joiningYear;
 
 }

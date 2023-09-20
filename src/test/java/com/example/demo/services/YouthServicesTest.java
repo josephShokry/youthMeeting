@@ -2,9 +2,9 @@ package com.example.demo.services;
 
 import com.example.demo.dataProviders.YouthServicesDataProvider;
 import com.example.demo.exceptions.exceptions.DataNotFoundException;
-import com.example.demo.models.DTOs.YouthDTO;
-import com.example.demo.models.DTOs.YouthFiltersDTO;
-import com.example.demo.models.DTOs.YouthMidLevelDTO;
+import com.example.demo.models.dtos.YouthDTO;
+import com.example.demo.models.dtos.YouthFiltersDTO;
+import com.example.demo.models.dtos.YouthMidLevelDTO;
 import com.example.demo.models.entities.Family;
 import com.example.demo.models.entities.Youth;
 import com.example.demo.models.mappers.YouthMapper;
@@ -105,7 +105,7 @@ class YouthServicesTest {
         emptyYouthDto.setId(1L);
         fullYouth.setFirstName("isaak");
         fullYouth.setLastName("vector");
-        Family family = Family.builder().id(1L).name("mark").family_level(3).joiningYear(2021).build();
+        Family family = Family.builder().id(1L).name("mark").familyLevel(3).joiningYear(2021).build();
         fullYouth.setFamily(family);
         when(youthRepository.findById(emptyYouthDto.getId())).thenReturn(Optional.of(youthsTable.get(0)));
         when(youthMapper.youthDtoToYouth(eq(emptyYouthDto),eq(youthsTable.get(0)),any(FamilyService.class),
@@ -123,7 +123,7 @@ class YouthServicesTest {
         emptyYouthDto.setId(100L);
         fullYouth.setFirstName("isaak");
         fullYouth.setLastName("vector");
-        Family family = Family.builder().id(1L).name("mark").family_level(3).joiningYear(2021).build();
+        Family family = Family.builder().id(1L).name("mark").familyLevel(3).joiningYear(2021).build();
         fullYouth.setFamily(family);
         when(youthRepository.findById(emptyYouthDto.getId())).thenReturn(Optional.empty());
         assertThatThrownBy(() -> youthService.editYouth(emptyYouthDto))
@@ -141,7 +141,7 @@ class YouthServicesTest {
         emptyYouthDto.setId(null);
         fullYouth.setFirstName("isaak");
         fullYouth.setLastName("vector");
-        Family family = Family.builder().id(1L).name("mark").family_level(3).joiningYear(2021).build();
+        Family family = Family.builder().id(1L).name("mark").familyLevel(3).joiningYear(2021).build();
         fullYouth.setFamily(family);
         assertThatThrownBy(() -> youthService.editYouth(emptyYouthDto))
                 .isInstanceOf(DataNotFoundException.class)

@@ -16,11 +16,8 @@ public class Street {
     private Long id;
     @Column(name = "name")
     private String name;
-//    @OneToMany(mappedBy = "street",orphanRemoval = true)
-//    private List<Youth> youthList;
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "area_id", referencedColumnName = "id")
-//    @JsonIgnore
     private Area area;
 
 }

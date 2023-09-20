@@ -1,6 +1,6 @@
 package com.example.demo.dataProviders;
 
-import com.example.demo.models.DTOs.YouthMidLevelDTO;
+import com.example.demo.models.dtos.YouthMidLevelDTO;
 import com.example.demo.models.entities.Youth;
 import lombok.Getter;
 import org.springframework.stereotype.Component;

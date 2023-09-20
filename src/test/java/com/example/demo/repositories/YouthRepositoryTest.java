@@ -1,11 +1,12 @@
 package com.example.demo.repositories;
 
 import com.example.demo.dataProviders.YouthRepositoryDataProvider;
-import com.example.demo.models.DTOs.YouthFiltersDTO;
+import com.example.demo.models.dtos.YouthFiltersDTO;
 import com.example.demo.models.entities.Area;
 import com.example.demo.models.entities.Family;
 import com.example.demo.models.entities.Street;
 import com.example.demo.models.entities.Youth;
+import com.example.demo.util.Gender;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -60,7 +61,7 @@ class YouthRepositoryTest {
     private void assertFamilyEquals(Family expected, Family actual) {
         if(assertNull(expected, actual))return;
         assertThat(actual.getName()).isEqualTo(expected.getName());
-        assertThat(actual.getFamily_level()).isEqualTo(expected.getFamily_level());
+        assertThat(actual.getFamilyLevel()).isEqualTo(expected.getFamilyLevel());
         assertThat(actual.getJoiningYear()).isEqualTo(expected.getJoiningYear());
     }
 
@@ -85,12 +86,13 @@ class YouthRepositoryTest {
     private void assertYouthEquals(Youth expected, Youth actual) {
         assertThat(actual.getFirstName()).isEqualTo(expected.getFirstName());
         assertThat(actual.getLastName()).isEqualTo(expected.getLastName());
+        assertThat(actual.getGender()).isEqualTo(expected.getGender());
         assertFamilyEquals(expected.getFamily(), actual.getFamily());
         assertStreetEquals(expected.getStreet(), actual.getStreet());
     }
 
     private void assertYouthsEquals(List<Youth> expected, List<Youth> actual) {
-        assertThat(expected.size()).isEqualTo(actual.size());
+        assertThat(expected).hasSameSizeAs(actual);
         for (int i = 0; i < expected.size(); i++) {
             assertYouthEquals(expected.get(i), actual.get(i));
         }
@@ -224,21 +226,29 @@ class YouthRepositoryTest {
     }
     @ParameterizedTest
     @CsvSource({
-            " , , , , , 0 1 2 3 4 5",
-            " , 2002, , , , 0",
-            " , 2001, , , , 5",
-            " , 2002, 4, , , 0",
-            " , 2002, 5, , , ",
-            " , , , 1, , 0 2 4",
-            " , , , 2, , 1 3 5",
-            " , , , 1, 2, ",
-            " , , , 1, 1, 0 2 4",
-            "Joseph, , , , , 0 5",
-            "Joseph, , , 1, , 0",
+            " , , , , , , 0 1 2 3 4 5",
+            " , 2002, , , , , 0",
+            " , 2001, , , , , 5",
+            " , 2001, , , , MALE, ",
+            " , 2001, , , , FEMALE, 5",
+            " , 2002, 4, , , , 0",
+            " , 2002, 5, , , , ",
+            " , , , 1, , , 0 2 4",
+            " , , , 2, , , 1 3 5",
+            " , , , 2, , MALE, 1 3",
+            " , , , 1, 2, , ",
+            " , , , 1, 1, , 0 2 4",
+            "Joseph, , , , , , 0 5",
+            "Joseph, , , , , MALE, 0",
+            "Joseph, , , , , FEMALE, 5",
+            "Joseph, , , 1, , , 0",
+            " , , , , , MALE, 0 1 2 3 4",
+            " , , , , , FEMALE, 5",
+
     })
-    void findAllWithFiltering(String namePart, Integer year, Integer month, Long familyId, Long streetId, String expectedIndexes){
+    void findAllWithFiltering(String namePart, Integer year, Integer month, Long familyId, Long streetId, Gender gender, String expectedIndexes){
         YouthFiltersDTO youthFiltersDTO = YouthFiltersDTO.builder().namePart(namePart).year(year).month(month)
-                .familyId(familyId).streetId(streetId).build();
+                .familyId(familyId).streetId(streetId).gender(gender).build();
         Page<Youth> actualYouthPage = new PageImpl<>(getListOfYouths(expectedIndexes));
         Pageable paging = PageRequest.of(0,10);
         Specification<Youth> specification = new YouthSpecificationImpl(youthFiltersDTO);

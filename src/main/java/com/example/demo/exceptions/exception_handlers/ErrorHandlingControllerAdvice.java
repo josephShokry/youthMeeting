@@ -1,7 +1,10 @@
-package com.example.demo.exceptions.exceptionsHandlers;
+package com.example.demo.exceptions.exception_handlers;
 
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -15,6 +18,8 @@ import java.util.Map;
 
 @ControllerAdvice
 class ErrorHandlingControllerAdvice {
+    @Autowired
+    private MessageSource messageSource;
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
@@ -22,7 +27,7 @@ class ErrorHandlingControllerAdvice {
             ConstraintViolationException e) {
         Map<String, String> error = new HashMap<>();
         for (ConstraintViolation violation : e.getConstraintViolations()) {
-            error.put("message", violation.getMessage());
+            error.put("message", messageSource.getMessage(violation.getMessage(), null, LocaleContextHolder.getLocale()));
         }
         return error;
     }
@@ -30,16 +35,10 @@ class ErrorHandlingControllerAdvice {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
     Map<String,String> onMethodArgumentNotValidException(MethodArgumentNotValidException e) {
-        //TODO: Alternative solutions which is better
         Map<String, String> errors = new HashMap<>();
-//        String errorMessage = "";
         for (FieldError fieldError : e.getBindingResult().getFieldErrors()) {
-            errors.put(fieldError.getField(),fieldError.getDefaultMessage());
-//            errorMessage += fieldError.getDefaultMessage();
-//            errorMessage+=" & ";
+            errors.put(fieldError.getField(), messageSource.getMessage(fieldError.getDefaultMessage(), null, LocaleContextHolder.getLocale()));
         }
-//        errorMessage = errorMessage.substring(0,errorMessage.length()-2);
-//            errors.put("message",errorMessage);
         return errors;
     }
 

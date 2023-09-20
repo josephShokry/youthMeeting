@@ -17,10 +17,7 @@ public class Family {
     @Column(name = "name")
     private String name;
     @Column(name = "family_level")
-    private Integer family_level;
-//    @OneToMany(mappedBy = "family",orphanRemoval = true)
-//    private List<Youth> youthList;
- //   private List<Servant> servantList;
+    private Integer familyLevel;
     @Column(name = "joining_year")
     private Integer joiningYear;
 }

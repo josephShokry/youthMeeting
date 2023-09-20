@@ -1,8 +1,8 @@
 package com.example.demo.services.implementations;
 
 import com.example.demo.exceptions.exceptions.DataNotFoundException;
-import com.example.demo.models.DTOs.LightDTO;
-import com.example.demo.models.DTOs.StreetDTO;
+import com.example.demo.models.dtos.LightDTO;
+import com.example.demo.models.dtos.StreetDTO;
 import com.example.demo.models.entities.Street;
 import com.example.demo.models.mappers.LightDTOMapper;
 import com.example.demo.models.mappers.StreetMapper;
@@ -32,9 +32,9 @@ public class StreetService implements IStreetService {
     }
 
     public Street findById(Long streetId) {
-        Optional.ofNullable(streetId).orElseThrow(() -> new DataNotFoundException("the street id is null"));
+        Optional.ofNullable(streetId).orElseThrow(() -> new DataNotFoundException("validation.error.streetId"));
         return streetRepository.findById(streetId).orElseThrow(
-                () ->new DataNotFoundException("the required street not present"));
+                () ->new DataNotFoundException("validation.error.street"));
     }
 
     public Iterable<LightDTO> findAll() {

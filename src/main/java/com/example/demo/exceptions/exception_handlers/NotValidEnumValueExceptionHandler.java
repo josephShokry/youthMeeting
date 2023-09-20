@@ -1,4 +1,4 @@
-package com.example.demo.exceptions.exceptionsHandlers;
+package com.example.demo.exceptions.exception_handlers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -15,7 +15,7 @@ public class NotValidEnumValueExceptionHandler {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
-    Map<String, String> onConstraintValidationException(HttpMessageNotReadableException e) {
+    Map<String, String> onNotValidEnumValueException(HttpMessageNotReadableException e) {
         Map<String, String> error = new HashMap<>();
         error.put("message", e.getMessage());
         return error;
