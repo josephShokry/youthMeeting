@@ -46,8 +46,8 @@
   - [x] sonarlint
   - [x] rename the end points
   - [x] pagination constrains 
-  - [ ] merge with swagger branch
-  - [ ] finish the pull request and squash and merge to the develop branch
+  - [x] merge with swagger branch
+  - [x] finish the pull request and squash and merge to the develop branch
   
 ----
 # done tasks
