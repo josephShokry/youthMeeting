@@ -6,7 +6,7 @@ import com.example.demo.models.entities.Street;
 import com.example.demo.models.entities.Youth;
 import com.example.demo.services.implementations.FamilyService;
 import com.example.demo.services.implementations.StreetService;
-import com.example.demo.util.Gender;
+import com.example.demo.models.enums.Gender;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mapstruct.factory.Mappers;
@@ -48,7 +48,7 @@ class YouthMapperTest {
         when(familyServices.findFamilyById(1L)).thenReturn(new Family(1L,"mark",3, 2020));
         when(streetServices.findById(1L)).thenReturn(new Street(1L,"ishaky", null));
 
-        Youth targetYouth = youthMapper.youthDtoToYouth(youthDTO, new Youth(),familyServices, streetServices);
+        Youth targetYouth = youthMapper.mapYouthDTO(youthDTO, new Youth(),familyServices, streetServices);
 
         assertThat(targetYouth.getFirstName()).isEqualTo("Joseph");
         assertThat(targetYouth.getLastName()).isEqualTo("Shokry");
@@ -83,7 +83,7 @@ class YouthMapperTest {
                 .family(family).notes("good person").collegeLevel("3")
                 .gradLevel(5).meetingLevel(3).gender(Gender.MALE)
                 .build();
-        YouthDTO targetYouthDTO = youthMapper.youthToYouthDto(youth,new YouthDTO());
+        YouthDTO targetYouthDTO = youthMapper.mapYouth(youth,new YouthDTO());
         assertThat(targetYouthDTO.getFirstName()).isEqualTo("Joseph");
         assertThat(targetYouthDTO.getLastName()).isEqualTo("Shokry");
         assertThat(targetYouthDTO.getPhoneNumber()).isEqualTo("01284024832");

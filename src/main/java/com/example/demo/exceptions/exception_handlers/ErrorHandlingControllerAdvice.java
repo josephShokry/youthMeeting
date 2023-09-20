@@ -1,6 +1,5 @@
 package com.example.demo.exceptions.exception_handlers;
 
-import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -13,8 +12,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @ControllerAdvice
 class ErrorHandlingControllerAdvice {
@@ -23,23 +23,22 @@ class ErrorHandlingControllerAdvice {
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
-    Map<String, String> onConstraintValidationException(
-            ConstraintViolationException e) {
-        Map<String, String> error = new HashMap<>();
-        for (ConstraintViolation violation : e.getConstraintViolations()) {
-            error.put("message", messageSource.getMessage(violation.getMessage(), null, LocaleContextHolder.getLocale()));
-        }
-        return error;
+    Map<String, String> onConstraintValidationException(ConstraintViolationException e) {
+        return e.getConstraintViolations().stream()
+                .collect(Collectors.toMap(
+                        key -> "message",
+                        fieldError -> messageSource.getMessage(fieldError.getMessage(), null, LocaleContextHolder.getLocale())
+                ));
     }
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
     Map<String,String> onMethodArgumentNotValidException(MethodArgumentNotValidException e) {
-        Map<String, String> errors = new HashMap<>();
-        for (FieldError fieldError : e.getBindingResult().getFieldErrors()) {
-            errors.put(fieldError.getField(), messageSource.getMessage(fieldError.getDefaultMessage(), null, LocaleContextHolder.getLocale()));
-        }
-        return errors;
+        return e.getBindingResult().getFieldErrors().stream()
+                .collect(Collectors.toMap(FieldError::getField,
+                        fieldError -> messageSource.getMessage(Objects.requireNonNull(
+                                fieldError.getDefaultMessage()), null, LocaleContextHolder.getLocale())));
+
     }
 
 }

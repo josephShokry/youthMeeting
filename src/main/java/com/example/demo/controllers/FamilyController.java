@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.*;
 public class FamilyController {
     @Autowired
     private FamilyService familyService;
-    @PostMapping("add_family")
+    @PostMapping
     public ResponseEntity<Long> addFamily(@RequestBody FamilyDTO familyDTO){
         return ResponseEntity.status(HttpStatus.CREATED).body(familyService.addFamily(familyDTO));
     }
-    @GetMapping("get_all")
+    @GetMapping("all")
     public ResponseEntity<Iterable<LightDTO>> getAll(){
         return ResponseEntity.status(HttpStatus.OK).body(familyService.findAll());
     }

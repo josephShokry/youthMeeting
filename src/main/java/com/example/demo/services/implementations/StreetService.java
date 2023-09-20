@@ -27,18 +27,18 @@ public class StreetService implements IStreetService {
 
     public Long addStreet(StreetDTO streetDTO) {
         Street street = new Street();
-        streetRepository.save(streetMapper.streetDtoToStreet(streetDTO, street, areaService));
+        streetRepository.save(streetMapper.mapStreetDTO(streetDTO, street, areaService));
         return street.getId();
     }
 
     public Street findById(Long streetId) {
-        Optional.ofNullable(streetId).orElseThrow(() -> new DataNotFoundException("validation.error.streetId"));
+        streetId = Optional.ofNullable(streetId).orElseThrow(() -> new DataNotFoundException("validation.error.streetId"));
         return streetRepository.findById(streetId).orElseThrow(
                 () ->new DataNotFoundException("validation.error.street"));
     }
 
     public Iterable<LightDTO> findAll() {
-        return lightDTOMapper.streetsToLightDtos(streetRepository.findAll());
+        return lightDTOMapper.mapListOfStreets(streetRepository.findAll());
 
     }
 }

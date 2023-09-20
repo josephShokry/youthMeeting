@@ -6,7 +6,7 @@ import com.example.demo.models.entities.Area;
 import com.example.demo.models.entities.Family;
 import com.example.demo.models.entities.Street;
 import com.example.demo.models.entities.Youth;
-import com.example.demo.util.Gender;
+import com.example.demo.models.enums.Gender;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -160,7 +160,7 @@ class YouthRepositoryTest {
     })
     void findAllWithNamePartFilterAndDefaultPagination(String namePart, String expectedIndexes) {
         YouthFiltersDTO youthFiltersDTO = YouthFiltersDTO.builder().namePart(namePart).build();
-        Page<Youth> actualYouthPage = new PageImpl<>(getListOfYouths(expectedIndexes));//List.of(youthsTable.get(0), youthsTable.get(3)));
+        Page<Youth> actualYouthPage = new PageImpl<>(getListOfYouths(expectedIndexes));
         Pageable paging = PageRequest.of(0,10);
         Specification<Youth> specification = new YouthSpecificationImpl(youthFiltersDTO);
         Page<Youth> result = youthRepository.findAll(specification, paging);

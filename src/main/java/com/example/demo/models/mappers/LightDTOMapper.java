@@ -11,15 +11,15 @@ import java.util.List;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface LightDTOMapper {
-    LightDTO areaToLightDto(Area area, @MappingTarget LightDTO lightDTO);
-    List<LightDTO> areasToLightDtos(List<Area> areas);
+    LightDTO mapArea(Area area, @MappingTarget LightDTO lightDTO);
+    List<LightDTO> mapListOfAreas(List<Area> areas);
 
-    LightDTO familyToLightDto(Family family, @MappingTarget LightDTO lightDTO);
-    List<LightDTO> familiesToLightDtos(List<Family> families);
+    LightDTO mapFamily(Family family, @MappingTarget LightDTO lightDTO);
+    List<LightDTO> mapListOfFamilies(List<Family> families);
     @Mapping(expression = "java(youth.getFirstName() + ' ' + youth.getLastName())", target = "name")
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    LightDTO youthToYouthLightDto(Youth youth, @MappingTarget LightDTO lightDTO);
-    List<LightDTO> youthsToYouthLightDto(List<Youth> youths);
-    LightDTO streetToLightDto(Street street, @MappingTarget LightDTO lightDTO);
-    List<LightDTO> streetsToLightDtos(List<Street> streets);
+    LightDTO mapYouth(Youth youth, @MappingTarget LightDTO lightDTO);
+    List<LightDTO> mapListOfYouths(List<Youth> youths);
+    LightDTO mapStreet(Street street, @MappingTarget LightDTO lightDTO);
+    List<LightDTO> mapListOfStreets(List<Street> streets);
 }

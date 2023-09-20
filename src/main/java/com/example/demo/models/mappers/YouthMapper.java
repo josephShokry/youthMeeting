@@ -18,8 +18,8 @@ public interface YouthMapper {
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "dayOfBirth", expression = "java(youthDTO.getDayOfBirth() != null ?" +
             " java.time.LocalDate.parse(youthDTO.getDayOfBirth()) : null)")
-    Youth youthDtoToYouth(YouthDTO youthDTO, @MappingTarget Youth youth,
-                          FamilyService familyService, StreetService streetService);
+    Youth mapYouthDTO(YouthDTO youthDTO, @MappingTarget Youth youth,
+                      FamilyService familyService, StreetService streetService);
 
     @AfterMapping
     default void attachEntities(YouthDTO youthDTO, @MappingTarget Youth youth,
@@ -31,13 +31,13 @@ public interface YouthMapper {
     }
     @Mapping(target = "familyId", source = "family.id")
     @Mapping(target = "streetId", source = "street.id")
-    YouthDTO youthToYouthDto(Youth youth, @MappingTarget YouthDTO youthDTO);
+    YouthDTO mapYouth(Youth youth, @MappingTarget YouthDTO youthDTO);
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "familyId", source = "family.id")
-    YouthMidLevelDTO youthToYouthIntermediateDto(Youth youth, @MappingTarget YouthMidLevelDTO youthMidLevelDTO);
-    List<YouthMidLevelDTO> youthsToYouthIntermediateDtos(List<Youth> youths);
-    default Page<YouthMidLevelDTO> youthsToPageYouthIntermediateDtos(Page<Youth> youthsPage) {
-        List<YouthMidLevelDTO> dtoList = youthsToYouthIntermediateDtos(youthsPage.getContent());
+    YouthMidLevelDTO mapYouth(Youth youth, @MappingTarget YouthMidLevelDTO youthMidLevelDTO);
+    List<YouthMidLevelDTO> mapListOfYouths(List<Youth> youths);
+    default Page<YouthMidLevelDTO> mapPageOfYouths(Page<Youth> youthsPage) {
+        List<YouthMidLevelDTO> dtoList = mapListOfYouths(youthsPage.getContent());
         return new PageImpl<>(dtoList, youthsPage.getPageable(), youthsPage.getTotalElements());
     }
 }

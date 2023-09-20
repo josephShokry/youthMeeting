@@ -24,17 +24,17 @@ public class FamilyService implements IFamilyService {
 
     public Long addFamily(FamilyDTO familyDTO) {
         Family family = new Family();
-        familyRepository.save(familyMapper.familyDtoToFamily(familyDTO, family));
+        familyRepository.save(familyMapper.mapFamilyDTO(familyDTO, family));
         return family.getId();
     }
 
     public Family findFamilyById(Long familyId) {
-        Optional.ofNullable(familyId).orElseThrow(() -> new DataNotFoundException("validation.error.familyId"));
+        familyId = Optional.ofNullable(familyId).orElseThrow(() -> new DataNotFoundException("validation.error.familyId"));
         return familyRepository.findById(familyId).orElseThrow(
                 ()-> new DataNotFoundException("validation.error.family"));
     }
 
     public Iterable<LightDTO> findAll() {
-        return lightDTOMapper.familiesToLightDtos(familyRepository.findAll());
+        return lightDTOMapper.mapListOfFamilies(familyRepository.findAll());
     }
 }

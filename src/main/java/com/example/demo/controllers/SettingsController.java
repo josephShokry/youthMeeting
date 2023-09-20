@@ -11,7 +11,7 @@ import java.util.Locale;
 @RestController
 @RequestMapping("/settings")
 public class SettingsController {
-    @PostMapping("/change-language")
+    @PostMapping("language")
     public void changeLanguage(HttpServletRequest request, @RequestParam String language) {
         request.getSession().setAttribute("org.springframework.web.servlet.i18n.SessionLocaleResolver.LOCALE",
                 Locale.forLanguageTag(language));

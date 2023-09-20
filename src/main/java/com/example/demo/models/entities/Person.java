@@ -1,6 +1,6 @@
 package com.example.demo.models.entities;
 
-import com.example.demo.util.Gender;
+import com.example.demo.models.enums.Gender;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

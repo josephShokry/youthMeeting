@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.*;
 public class AreaController {
     @Autowired
     private AreaService areaService;
-    @PostMapping("add_area")
+    @PostMapping
     public ResponseEntity<Long> addArea(@RequestBody LightDTO areaLightDTO){
         return ResponseEntity.status(HttpStatus.CREATED).body(areaService.addArea(areaLightDTO));
     }
-    @GetMapping("get_all")
+    @GetMapping("all")
     public ResponseEntity<Iterable<LightDTO>> getAll(){
         return ResponseEntity.status(HttpStatus.OK).body(areaService.findAll());
     }

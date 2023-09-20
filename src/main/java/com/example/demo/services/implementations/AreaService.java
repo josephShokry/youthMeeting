@@ -1,8 +1,8 @@
 package com.example.demo.services.implementations;
 
 import com.example.demo.exceptions.exceptions.DataNotFoundException;
-import com.example.demo.models.entities.Area;
 import com.example.demo.models.dtos.LightDTO;
+import com.example.demo.models.entities.Area;
 import com.example.demo.models.mappers.AreaMapper;
 import com.example.demo.models.mappers.LightDTOMapper;
 import com.example.demo.repositories.AreaRepository;
@@ -24,16 +24,16 @@ public class AreaService implements IAreaService {
 
     public Long addArea(LightDTO areaLightDTO) {
         Area area = new Area();
-        areaRepository.save(areaMapper.getAreaFromDto(areaLightDTO, area));
+        areaRepository.save(areaMapper.mapLightDTO(areaLightDTO, area));
         return area.getId();
     }
     public Area findById(Long areaId) {
-        Optional.ofNullable(areaId).orElseThrow(() -> new DataNotFoundException("validation.error.areaId"));
+        areaId = Optional.ofNullable(areaId).orElseThrow(() -> new DataNotFoundException("validation.error.areaId"));
         return areaRepository.findById(areaId).orElseThrow(
                  () -> new DataNotFoundException("validation.error.area"));
     }
 
     public Iterable<LightDTO> findAll() {
-        return lightDTOMapper.areasToLightDtos(areaRepository.findAll());
+        return lightDTOMapper.mapListOfAreas(areaRepository.findAll());
     }
 }

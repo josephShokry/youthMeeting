@@ -32,16 +32,16 @@ public class YouthService implements IYouthService {
 
     public Boolean addYouth(YouthDTO youthDTO) {
         Youth youth = new Youth();
-        youthRepository.save(youthMapper.youthDtoToYouth(youthDTO, youth, familyService, streetService));
+        youthRepository.save(youthMapper.mapYouthDTO(youthDTO, youth, familyService, streetService));
         return true;
     }
     public Youth findYouthById(Long youthId){
-        Optional.ofNullable(youthId).orElseThrow(() -> new DataNotFoundException("validation.error.youthId"));
+        youthId = Optional.ofNullable(youthId).orElseThrow(() -> new DataNotFoundException("validation.error.youthId"));
         return youthRepository.findById(youthId).orElseThrow(
                 () -> new DataNotFoundException("validation.error.youth"));
     }
     public YouthDTO findYouthDtoById(Long youthId){
-        return youthMapper.youthToYouthDto(findYouthById(youthId), new YouthDTO());
+        return youthMapper.mapYouth(findYouthById(youthId), new YouthDTO());
     }
 
     public Page<YouthMidLevelDTO> findAll(YouthFiltersDTO youthFiltersDTO) {
@@ -50,12 +50,12 @@ public class YouthService implements IYouthService {
         Pageable paging = PageRequest.of(youthFiltersDTO.getPage(), youthFiltersDTO.getSize());
         Specification<Youth> specification = new YouthSpecificationImpl(youthFiltersDTO);
         Page<Youth> youths = youthRepository.findAll(specification, paging);
-        return youthMapper.youthsToPageYouthIntermediateDtos(youths);
+        return youthMapper.mapPageOfYouths(youths);
     }
 
     public Boolean editYouth(YouthDTO youthDTO) {
         Youth youth = findYouthById(youthDTO.getId());
-        youthRepository.save(youthMapper.youthDtoToYouth(youthDTO, youth, familyService, streetService));
+        youthRepository.save(youthMapper.mapYouthDTO(youthDTO, youth, familyService, streetService));
         return true;
     }
 }

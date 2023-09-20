@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.*;
 public class StreetController {
     @Autowired
     private StreetService streetService;
-    @PostMapping("add_street")
+    @PostMapping
     public ResponseEntity<Long> addStreet(@RequestBody StreetDTO streetDTO){
         return ResponseEntity.status(HttpStatus.CREATED).body(streetService.addStreet(streetDTO));
     }
-    @GetMapping("get_all")
+    @GetMapping("all")
     public ResponseEntity<Iterable<LightDTO>> getAll(){
         return ResponseEntity.status(HttpStatus.OK).body(streetService.findAll());
     }

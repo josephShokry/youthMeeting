@@ -1,6 +1,6 @@
 package com.example.demo.models.dtos;
 
-import com.example.demo.util.Gender;
+import com.example.demo.models.enums.Gender;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import lombok.experimental.SuperBuilder;

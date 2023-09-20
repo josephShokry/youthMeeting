@@ -41,13 +41,13 @@
   - [x] add an exception handler for catching the exception to enum 
   - [x] exceptions
   - [x] add tests of the gender and its exceptions and filter
-  - [ ] rename the end points
-  - [ ] messages
-  - [ ] simplify the names of mappers methods
-  - [ ] sonarlint
+  - [x] messages
+  - [x] simplify the names of mappers methods
+  - [x] sonarlint
+  - [x] rename the end points
+  - [x] pagination constrains 
   - [ ] merge with swagger branch
   - [ ] finish the pull request and squash and merge to the develop branch
-  - [ ] pagination constrains 
   
 ----
 # done tasks

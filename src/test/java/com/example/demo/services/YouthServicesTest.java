@@ -36,7 +36,6 @@ import static org.mockito.Mockito.*;
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
 class YouthServicesTest {
-    // TODO: add test for father in the youth
     @InjectMocks
     private YouthService youthService;
     @MockBean private YouthRepository youthRepository;
@@ -55,10 +54,10 @@ class YouthServicesTest {
 
     @Test
     void testAddYouth() {
-        when(youthMapper.youthDtoToYouth(eq(emptyYouthDto),any(Youth.class),any(FamilyService.class),
+        when(youthMapper.mapYouthDTO(eq(emptyYouthDto),any(Youth.class),any(FamilyService.class),
                 any(StreetService.class))).thenReturn(youthsTable.get(0));
         youthService.addYouth(emptyYouthDto);
-        verify(youthMapper, times(1)).youthDtoToYouth(eq(emptyYouthDto),any(Youth.class)
+        verify(youthMapper, times(1)).mapYouthDTO(eq(emptyYouthDto),any(Youth.class)
                 ,any(FamilyService.class), any(StreetService.class));
         verify(youthRepository, times(1)).save(youthsTable.get(0));
     }
@@ -74,7 +73,7 @@ class YouthServicesTest {
         when(youthRepository.findById(1L)).thenReturn(Optional.empty());
         assertThatThrownBy(() -> youthService.findYouthById(1L))
                 .isInstanceOf(DataNotFoundException.class)
-                .hasMessage("the required youth is not present");
+                .hasMessage("validation.error.youth");
         verify(youthRepository).findById(1L);
     }
 
@@ -84,19 +83,19 @@ class YouthServicesTest {
                 .id(1L).firstName("Joseph").lastName("Shokry").phoneNumber("01284024832")
                 .build();
         when(youthRepository.findById(1L)).thenReturn(Optional.of(youthsTable.get(0)));
-        when(youthMapper.youthToYouthDto(eq(youthsTable.get(0)), any(YouthDTO.class))).thenReturn(fullYouthDto);
+        when(youthMapper.mapYouth(eq(youthsTable.get(0)), any(YouthDTO.class))).thenReturn(fullYouthDto);
         assertThat(youthService.findYouthDtoById(1L)).isEqualTo(fullYouthDto);
         verify(youthRepository,times(1)).findById(1L);
-        verify(youthMapper,times(1)).youthToYouthDto(eq(youthsTable.get(0)),any(YouthDTO.class));
+        verify(youthMapper,times(1)).mapYouth(eq(youthsTable.get(0)),any(YouthDTO.class));
     }
     @Test
     void testGetYouthDtoByIdWithWrongId() {
         when(youthRepository.findById(1L)).thenReturn(Optional.empty());
         assertThatThrownBy(() -> youthService.findYouthDtoById(1L))
                 .isInstanceOf(DataNotFoundException.class)
-                .hasMessage("the required youth is not present");
+                .hasMessage("validation.error.youth");
         verify(youthRepository).findById(1L);
-        verify(youthMapper, times(0)).youthToYouthDto(any(Youth.class),any(YouthDTO.class));
+        verify(youthMapper, times(0)).mapYouth(any(Youth.class),any(YouthDTO.class));
     }
 
     @Test
@@ -108,10 +107,10 @@ class YouthServicesTest {
         Family family = Family.builder().id(1L).name("mark").familyLevel(3).joiningYear(2021).build();
         fullYouth.setFamily(family);
         when(youthRepository.findById(emptyYouthDto.getId())).thenReturn(Optional.of(youthsTable.get(0)));
-        when(youthMapper.youthDtoToYouth(eq(emptyYouthDto),eq(youthsTable.get(0)),any(FamilyService.class),
+        when(youthMapper.mapYouthDTO(eq(emptyYouthDto),eq(youthsTable.get(0)),any(FamilyService.class),
                 any(StreetService.class))).thenReturn(fullYouth);
         youthService.editYouth(emptyYouthDto);
-        verify(youthMapper, times(1)).youthDtoToYouth(eq(emptyYouthDto),any(Youth.class)
+        verify(youthMapper, times(1)).mapYouthDTO(eq(emptyYouthDto),any(Youth.class)
                 ,any(FamilyService.class), any(StreetService.class));
         verify(youthRepository, times(1)).save(fullYouth);
         verify(youthRepository,times(1)).findById(emptyYouthDto.getId());
@@ -128,9 +127,9 @@ class YouthServicesTest {
         when(youthRepository.findById(emptyYouthDto.getId())).thenReturn(Optional.empty());
         assertThatThrownBy(() -> youthService.editYouth(emptyYouthDto))
                 .isInstanceOf(DataNotFoundException.class)
-                .hasMessage("the required youth is not present");
+                .hasMessage("validation.error.youth");
         verify(youthRepository,times(1)).findById(emptyYouthDto.getId());
-        verify(youthMapper, times(0)).youthDtoToYouth(eq(emptyYouthDto),any(Youth.class)
+        verify(youthMapper, times(0)).mapYouthDTO(eq(emptyYouthDto),any(Youth.class)
                 ,any(FamilyService.class), any(StreetService.class));
         verify(youthRepository, times(0)).save(fullYouth);
     }
@@ -145,9 +144,9 @@ class YouthServicesTest {
         fullYouth.setFamily(family);
         assertThatThrownBy(() -> youthService.editYouth(emptyYouthDto))
                 .isInstanceOf(DataNotFoundException.class)
-                .hasMessage("the youth id is null");
+                .hasMessage("validation.error.youthId");
         verify(youthRepository,times(0)).findById(emptyYouthDto.getId());
-        verify(youthMapper, times(0)).youthDtoToYouth(eq(emptyYouthDto),any(Youth.class)
+        verify(youthMapper, times(0)).mapYouthDTO(eq(emptyYouthDto),any(Youth.class)
                 ,any(FamilyService.class), any(StreetService.class));
         verify(youthRepository, times(0)).save(fullYouth);
     }
@@ -164,11 +163,11 @@ class YouthServicesTest {
                 youthMidLevelDTOTable.get(1), youthMidLevelDTOTable.get(2), youthMidLevelDTOTable.get(3),
                 youthMidLevelDTOTable.get(4), youthMidLevelDTOTable.get(5));
         Page<YouthMidLevelDTO> mockedIntermediateDtoPage = new PageImpl<>(mockedIntermediateDtoList);
-        when(youthMapper.youthsToPageYouthIntermediateDtos(any(Page.class))).thenReturn(mockedIntermediateDtoPage);
+        when(youthMapper.mapPageOfYouths(any(Page.class))).thenReturn(mockedIntermediateDtoPage);
         Page<YouthMidLevelDTO> result = youthService.findAll(youthFiltersDTO);
         assertThat(result).isEqualTo(mockedIntermediateDtoPage);
         verify(youthRepository, times(1)).findAll(any(Specification.class), any(Pageable.class));
-        verify(youthMapper, times(1)).youthsToPageYouthIntermediateDtos(any(Page.class));
+        verify(youthMapper, times(1)).mapPageOfYouths(any(Page.class));
     }
 
     @Test

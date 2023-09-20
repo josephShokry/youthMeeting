@@ -19,22 +19,22 @@ public class YouthController {
     @Autowired
     private YouthService youthService;
 
-    @PostMapping("add")
+    @PostMapping
     public ResponseEntity<Boolean> addYouth(@Valid @RequestBody YouthDTO youthDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(youthService.addYouth(youthDTO));
     }
 
-    @PostMapping("get_all")
+    @PostMapping("all")
     public ResponseEntity<Page<YouthMidLevelDTO>> getAll(@Valid @RequestBody YouthFiltersDTO youthFiltersDTO) {
         return ResponseEntity.status(HttpStatus.OK).body(youthService.findAll(youthFiltersDTO));
     }
 
-    @GetMapping("get")
+    @GetMapping
     public ResponseEntity<YouthDTO> getYouth(@RequestParam Long youthId) {
         return ResponseEntity.status(HttpStatus.OK).body(youthService.findYouthDtoById(youthId));
     }
 
-    @PatchMapping("edit")
+    @PatchMapping
     public ResponseEntity<Boolean> editYouth(@RequestBody YouthDTO youthDTO) {
         return ResponseEntity.status(HttpStatus.OK).body(youthService.editYouth(youthDTO));
     }

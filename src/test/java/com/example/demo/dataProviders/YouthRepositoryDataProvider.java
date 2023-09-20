@@ -1,7 +1,7 @@
 package com.example.demo.dataProviders;
 
 import com.example.demo.models.entities.*;
-import com.example.demo.util.Gender;
+import com.example.demo.models.enums.Gender;
 import lombok.Getter;
 import org.springframework.stereotype.Component;
 
