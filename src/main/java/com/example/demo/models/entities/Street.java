@@ -3,8 +3,6 @@ package com.example.demo.models.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
-
 @Entity
 @Table(name = "streets")
 @Getter
@@ -15,14 +13,11 @@ import java.util.List;
 public class Street {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    @Column(name = "street_name")
-    private String streetName;
-    @OneToMany(mappedBy = "street",orphanRemoval = true)
-    private List<Youth> youthList;
+    private Long id;
+    @Column(name = "name")
+    private String name;
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(referencedColumnName = "id")
-//    @JsonIgnore
+    @JoinColumn(name = "area_id", referencedColumnName = "id")
     private Area area;
 
 }

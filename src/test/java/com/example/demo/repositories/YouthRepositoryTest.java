@@ -1,8 +1,12 @@
 package com.example.demo.repositories;
 
 import com.example.demo.dataProviders.YouthRepositoryDataProvider;
-import com.example.demo.models.DTOs.YouthFiltersDTO;
-import com.example.demo.models.entities.*;
+import com.example.demo.models.dtos.YouthFiltersDTO;
+import com.example.demo.models.entities.Area;
+import com.example.demo.models.entities.Family;
+import com.example.demo.models.entities.Street;
+import com.example.demo.models.entities.Youth;
+import com.example.demo.models.enums.Gender;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -21,7 +25,6 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.jdbc.datasource.init.ScriptUtils;
 
 import javax.sql.DataSource;
-import javax.swing.text.html.Option;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -57,20 +60,20 @@ class YouthRepositoryTest {
     //Assertion methods to check equality of objects depending on the values instead of the reference
     private void assertFamilyEquals(Family expected, Family actual) {
         if(assertNull(expected, actual))return;
-        assertThat(actual.getFamilyName()).isEqualTo(expected.getFamilyName());
+        assertThat(actual.getName()).isEqualTo(expected.getName());
         assertThat(actual.getFamilyLevel()).isEqualTo(expected.getFamilyLevel());
         assertThat(actual.getJoiningYear()).isEqualTo(expected.getJoiningYear());
     }
 
     private void assertStreetEquals(Street expected, Street actual) {
         if(assertNull(expected, actual))return;
-        assertThat(actual.getStreetName()).isEqualTo(expected.getStreetName());
+        assertThat(actual.getName()).isEqualTo(expected.getName());
         assertAreaEquals(expected.getArea(), actual.getArea());
     }
 
     private void assertAreaEquals(Area expected, Area actual) {
         if(assertNull(expected, actual))return;
-        assertThat(actual.getAreaName()).isEqualTo(expected.getAreaName());
+        assertThat(actual.getName()).isEqualTo(expected.getName());
     }
 
     private void assertFatherEquals(Father expected, Father actual) {
@@ -89,13 +92,14 @@ class YouthRepositoryTest {
     private void assertYouthEquals(Youth expected, Youth actual) {
         assertThat(actual.getFirstName()).isEqualTo(expected.getFirstName());
         assertThat(actual.getLastName()).isEqualTo(expected.getLastName());
+        assertThat(actual.getGender()).isEqualTo(expected.getGender());
         assertFamilyEquals(expected.getFamily(), actual.getFamily());
         assertStreetEquals(expected.getStreet(), actual.getStreet());
         assertFatherEquals(expected.getFather(), actual.getFather());
     }
 
     private void assertYouthsEquals(List<Youth> expected, List<Youth> actual) {
-        assertThat(expected.size()).isEqualTo(actual.size());
+        assertThat(expected).hasSameSizeAs(actual);
         for (int i = 0; i < expected.size(); i++) {
             assertYouthEquals(expected.get(i), actual.get(i));
         }
@@ -163,7 +167,7 @@ class YouthRepositoryTest {
     })
     void findAllWithNamePartFilterAndDefaultPagination(String namePart, String expectedIndexes) {
         YouthFiltersDTO youthFiltersDTO = YouthFiltersDTO.builder().namePart(namePart).build();
-        Page<Youth> actualYouthPage = new PageImpl<>(getListOfYouths(expectedIndexes));//List.of(youthsTable.get(0), youthsTable.get(3)));
+        Page<Youth> actualYouthPage = new PageImpl<>(getListOfYouths(expectedIndexes));
         Pageable paging = PageRequest.of(0,10);
         Specification<Youth> specification = new YouthSpecificationImpl(youthFiltersDTO);
         Page<Youth> result = youthRepository.findAll(specification, paging);
@@ -198,7 +202,7 @@ class YouthRepositoryTest {
     }
     @Test
     void findAllWithFamily() {
-        int familyIdForSearch = 1;
+        Long familyIdForSearch = 1L;
         YouthFiltersDTO youthFiltersDTO = YouthFiltersDTO.builder().familyId(familyIdForSearch).build();
         Page<Youth> actualYouthPage = new PageImpl<>(List.of(youthsTable.get(0), youthsTable.get(2), youthsTable.get(4)));
         Pageable paging = PageRequest.of(0,10);
@@ -208,7 +212,7 @@ class YouthRepositoryTest {
     }
     @Test
     void findAllWithStreet() {
-        int streetIdForSearch = 2;
+        Long streetIdForSearch = 2L;
         YouthFiltersDTO youthFiltersDTO = YouthFiltersDTO.builder().streetId(streetIdForSearch).build();
         Page<Youth> actualYouthPage = new PageImpl<>(List.of(youthsTable.get(1), youthsTable.get(3), youthsTable.get(5)));
         Pageable paging = PageRequest.of(0,10);
@@ -219,7 +223,7 @@ class YouthRepositoryTest {
 
     @Test
     void findAllWithNamePartAndStreet() {
-        int streetIdForSearch = 2;
+        Long streetIdForSearch = 2L;
         YouthFiltersDTO youthFiltersDTO = YouthFiltersDTO.builder().streetId(streetIdForSearch).namePart("aa").build();
         Page<Youth> actualYouthPage = new PageImpl<>(List.of(youthsTable.get(1)));
         Pageable paging = PageRequest.of(0,10);
@@ -229,21 +233,29 @@ class YouthRepositoryTest {
     }
     @ParameterizedTest
     @CsvSource({
-            " , , , , , 0 1 2 3 4 5",
-            " , 2002, , , , 0",
-            " , 2001, , , , 5",
-            " , 2002, 4, , , 0",
-            " , 2002, 5, , , ",
-            " , , , 1, , 0 2 4",
-            " , , , 2, , 1 3 5",
-            " , , , 1, 2, ",
-            " , , , 1, 1, 0 2 4",
-            "Joseph, , , , , 0 5",
-            "Joseph, , , 1, , 0",
+            " , , , , , , 0 1 2 3 4 5",
+            " , 2002, , , , , 0",
+            " , 2001, , , , , 5",
+            " , 2001, , , , MALE, ",
+            " , 2001, , , , FEMALE, 5",
+            " , 2002, 4, , , , 0",
+            " , 2002, 5, , , , ",
+            " , , , 1, , , 0 2 4",
+            " , , , 2, , , 1 3 5",
+            " , , , 2, , MALE, 1 3",
+            " , , , 1, 2, , ",
+            " , , , 1, 1, , 0 2 4",
+            "Joseph, , , , , , 0 5",
+            "Joseph, , , , , MALE, 0",
+            "Joseph, , , , , FEMALE, 5",
+            "Joseph, , , 1, , , 0",
+            " , , , , , MALE, 0 1 2 3 4",
+            " , , , , , FEMALE, 5",
+
     })
-    void findAllWithFiltering(String namePart, Integer year, Integer month, Integer familyId, Integer streetId, String expectedIndexes){
+    void findAllWithFiltering(String namePart, Integer year, Integer month, Long familyId, Long streetId, Gender gender, String expectedIndexes){
         YouthFiltersDTO youthFiltersDTO = YouthFiltersDTO.builder().namePart(namePart).year(year).month(month)
-                .familyId(familyId).streetId(streetId).build();
+                .familyId(familyId).streetId(streetId).gender(gender).build();
         Page<Youth> actualYouthPage = new PageImpl<>(getListOfYouths(expectedIndexes));
         Pageable paging = PageRequest.of(0,10);
         Specification<Youth> specification = new YouthSpecificationImpl(youthFiltersDTO);

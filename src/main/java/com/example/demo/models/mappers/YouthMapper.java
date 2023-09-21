@@ -1,11 +1,16 @@
 package com.example.demo.models.mappers;
-import com.example.demo.models.DTOs.YouthDTO;
-import com.example.demo.models.entities.Youth;
-import com.example.demo.services.FamilyServices;
-import com.example.demo.services.FatherServices;
-import com.example.demo.services.StreetServices;
-import org.mapstruct.*;
 
+import com.example.demo.models.dtos.YouthDTO;
+import com.example.demo.models.dtos.YouthMidLevelDTO;
+import com.example.demo.models.entities.Youth;
+import com.example.demo.services.FatherServices;
+import com.example.demo.services.implementations.FamilyService;
+import com.example.demo.services.implementations.StreetService;
+import org.mapstruct.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+
+import java.util.List;
 import java.util.Optional;
 
 
@@ -13,30 +18,35 @@ import java.util.Optional;
 public interface YouthMapper {
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    @Mapping(target = "dayOfBirth",expression = "java(youthDTO.dayOfBirth != null ?" +
-            " java.time.LocalDate.parse(youthDTO.dayOfBirth) : null)")
-    Youth youthDtoToYouth(YouthDTO youthDTO, @MappingTarget Youth youth,
-                          @Context FamilyServices familyServices,
-                          @Context StreetServices streetServices,
-                          @Context FatherServices fatherServices);
-
+    @Mapping(target = "dayOfBirth", expression = "java(youthDTO.getDayOfBirth() != null ?" +
+            " java.time.LocalDate.parse(youthDTO.getDayOfBirth()) : null)")
+    Youth mapYouthDTO(YouthDTO youthDTO, @MappingTarget Youth youth,
+                      FamilyService familyService, StreetService streetService, FatherServices fatherServices);
 
     @AfterMapping
-    default void get(YouthDTO youthDTO, @MappingTarget Youth youth,
-                     @Context FamilyServices familyServices,
-                     @Context StreetServices streetServices,
-                     @Context FatherServices fatherServices){
-        Optional.ofNullable(youthDTO.familyId).ifPresent(
-                youthId -> youth.setFamily(familyServices.getFamilyById(youthId)));
-        Optional.ofNullable(youthDTO.streetId).ifPresent(
-                streetId -> youth.setStreet(streetServices.getById(streetId)));
-        Optional.ofNullable(youthDTO.fatherId).ifPresent(
+    default void attachEntities(YouthDTO youthDTO, @MappingTarget Youth youth,
+                                FamilyService familyService, StreetService streetService){
+        Optional.ofNullable(youthDTO.getFamilyId()).ifPresent(
+                youthId -> youth.setFamily(familyService.findFamilyById(youthId)));
+        Optional.ofNullable(youthDTO.getStreetId()).ifPresent(
+                streetId -> youth.setStreet(streetService.findById(streetId)));
+        Optional.ofNullable(youthDTO.getFatherId()).ifPresent(
                 fatherId -> youth.setFather(fatherServices.getById(fatherId)));
     }
 
     @Mapping(target = "familyId", source = "family.id")
     @Mapping(target = "streetId", source = "street.id")
     @Mapping(target = "fatherId", source = "father.id")
-    YouthDTO youthToYouthDto(Youth youth, @MappingTarget YouthDTO youthDTO);
+    YouthDTO mapYouth(Youth youth, @MappingTarget YouthDTO youthDTO);
 
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mapping(target = "familyId", source = "family.id")
+    YouthMidLevelDTO mapYouth(Youth youth, @MappingTarget YouthMidLevelDTO youthMidLevelDTO);
+
+    List<YouthMidLevelDTO> mapListOfYouths(List<Youth> youths);
+
+    default Page<YouthMidLevelDTO> mapPageOfYouths(Page<Youth> youthsPage) {
+        List<YouthMidLevelDTO> dtoList = mapListOfYouths(youthsPage.getContent());
+        return new PageImpl<>(dtoList, youthsPage.getPageable(), youthsPage.getTotalElements());
+    }
 }

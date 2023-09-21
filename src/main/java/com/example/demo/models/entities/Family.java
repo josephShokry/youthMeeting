@@ -1,9 +1,8 @@
 package com.example.demo.models.entities;
 
+import java.util.List;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.List;
 
 @Entity
 @Table(name = "families")
@@ -15,16 +14,13 @@ import java.util.List;
 public class Family {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    @Column(name = "family_name")
-    private String familyName;
+    private Long id;
+    @Column(name = "name")
+    private String name;
     @Column(name = "family_level")
     private Integer familyLevel;
-    @OneToMany(mappedBy = "family",orphanRemoval = true)
-    private List<Youth> youthList;
-    @OneToMany(mappedBy = "family",orphanRemoval = true)
-    private List<Servant> servantList;
     @Column(name = "joining_year")
     private Integer joiningYear;
-
+    @OneToMany(mappedBy = "family",orphanRemoval = true)
+    private List<Servant> servantList;
 }

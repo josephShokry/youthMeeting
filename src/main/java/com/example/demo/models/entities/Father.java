@@ -16,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public class Father extends Person{
+public class Father extends BasicPerson {
     private String church;
     @OneToMany(mappedBy = "father", orphanRemoval = true)
     private List<Youth> youths;
