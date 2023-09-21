@@ -1,6 +1,6 @@
-package com.example.demo.services;
+package com.example.demo.services.implementations;
 
-import com.example.demo.exceptions.DataNotFoundException;
+import com.example.demo.exceptions.exceptions.DataNotFoundException;
 import com.example.demo.models.DTOs.ServantDTO;
 import com.example.demo.models.entities.Servant;
 import com.example.demo.models.mappers.ServantMapper;
@@ -9,17 +9,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ServantServices {
+public class ServantService {
     @Autowired
     private ServantRepository servantRepository;
     @Autowired
-    private FamilyServices familyServices;
+    private FamilyService familyService;
     @Autowired
     private ServantMapper servantMapper;
 
     public Integer addServant(ServantDTO servantDTO) {
         Servant servant = new Servant();
-        servantRepository.save(servantMapper.servantDtoToServant(servantDTO, new Servant(), familyServices));
+        servantRepository.save(servantMapper.servantDtoToServant(servantDTO, new Servant(), familyService));
         return servant.getId();
     }
 

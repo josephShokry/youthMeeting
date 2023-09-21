@@ -1,6 +1,6 @@
-package com.example.demo.services;
+package com.example.demo.services.implementations;
 
-import com.example.demo.exceptions.DataNotFoundException;
+import com.example.demo.exceptions.exceptions.DataNotFoundException;
 import com.example.demo.models.DTOs.LightDTO;
 import com.example.demo.models.DTOs.StreetDTO;
 import com.example.demo.models.entities.Street;
@@ -13,17 +13,17 @@ import java.util.Optional;
 
 @Service
 
-public class StreetServices {
+public class StreetService {
     @Autowired
     private StreetRepository streetRepository;
     @Autowired
-    private AreaServices areaServices;
+    private AreaService areaService;
     @Autowired
     private StreetMapper streetMapper;
 
     public Integer addStreet(StreetDTO streetDTO) {
         Street street = new Street();
-        streetRepository.save(streetMapper.getStreetFromDto(streetDTO, street, areaServices));
+        streetRepository.save(streetMapper.getStreetFromDto(streetDTO, street, areaService));
         return street.getId();
     }
 

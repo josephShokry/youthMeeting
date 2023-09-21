@@ -1,4 +1,4 @@
-package com.example.demo.exceptions.exceptionsBodies;
+package com.example.demo.exceptions.exception_handlers;
 
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;

@@ -8,7 +8,7 @@ import com.example.demo.models.entities.Servant;
 import com.example.demo.models.entities.Youth;
 import com.example.demo.security.Roles;
 import com.example.demo.models.entities.User;
-import com.example.demo.services.YouthServices;
+import com.example.demo.services.implementations.YouthService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -17,7 +17,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.validation.Validator;
 
 import java.util.List;
 
@@ -34,7 +33,7 @@ class YouthControllerTest {
     @Autowired
     private MockMvc mockMvc;
     @MockBean
-    private YouthServices youthServices;
+    private YouthService youthService;
 
     List<Family> families = List.of(
             new Family(1, "mark",null,null,null,null),
@@ -56,7 +55,7 @@ class YouthControllerTest {
     @Test
     void addYouthWithAuthorizedServantHead() throws Exception {
         //TODO: find a way to mock the body validator
-        doNothing().when(youthServices).addYouth(any(YouthDTO.class));
+        doNothing().when(youthService).addYouth(any(YouthDTO.class));
         mockMvc.perform(post("/youth/add")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
@@ -66,12 +65,12 @@ class YouthControllerTest {
                                  "familyId":1}""")
                         .with(user(users.get(0))))
                 .andExpect(status().isCreated());
-        verify(youthServices,times(1)).addYouth(any(YouthDTO.class));
+        verify(youthService,times(1)).addYouth(any(YouthDTO.class));
     }
 
     @Test
     void addYouthWithAuthorizedServant() throws Exception {
-        doNothing().when(youthServices).addYouth(any(YouthDTO.class));
+        doNothing().when(youthService).addYouth(any(YouthDTO.class));
         mockMvc.perform(post("/youth/add")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
@@ -81,12 +80,12 @@ class YouthControllerTest {
                                    "phoneNumber":"01579435782"}""")
                         .with(user(users.get(1))))
                 .andExpect(status().isCreated());
-        verify(youthServices, times(1)).addYouth(any(YouthDTO.class));
+        verify(youthService, times(1)).addYouth(any(YouthDTO.class));
     }
 
     @Test
     void addYouthWithUnAuthorizedServant() throws Exception {
-        doNothing().when(youthServices).addYouth(any(YouthDTO.class));
+        doNothing().when(youthService).addYouth(any(YouthDTO.class));
         mockMvc.perform(post("/youth/add")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
@@ -96,7 +95,7 @@ class YouthControllerTest {
                                    "phoneNumber":"01579435782"}""")
                         .with(user(users.get(2))))
                 .andExpect(status().isForbidden());
-        verify(youthServices, times(0)).addYouth(any(YouthDTO.class));
+        verify(youthService, times(0)).addYouth(any(YouthDTO.class));
     }
     @Test
     @WithAnonymousUser
@@ -109,13 +108,13 @@ class YouthControllerTest {
 /////////////////// test the get all
     @Test
     void getAllWithHeadServant() throws Exception {
-        when(youthServices.getAll(any(YouthFiltersDTO.class))).thenReturn(null);
+        when(youthService.getAll(any(YouthFiltersDTO.class))).thenReturn(null);
         mockMvc.perform(post("/youth/get_all")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{}")
                         .with(user(users.get(0))))
                 .andExpect(status().isOk());
-        verify(youthServices,times(1)).getAll(any(YouthFiltersDTO.class));
+        verify(youthService,times(1)).getAll(any(YouthFiltersDTO.class));
     }
 
     @Test
@@ -135,40 +134,40 @@ class YouthControllerTest {
 
     @Test
     void getYouthWithAuthorizedServantHead() throws Exception {
-        when(youthServices.getYouthDtoById(1)).thenReturn(null);
+        when(youthService.getYouthDtoById(1)).thenReturn(null);
         mockMvc.perform(get("/youth/get")
                         .param("youthId","1")
                         .with(user(users.get(0))))
                 .andExpect(status().isOk());
-        verify(youthServices, times(1)).getYouthDtoById(1);
+        verify(youthService, times(1)).getYouthDtoById(1);
     }
 
     @Test
     void getYouthWithAuthorizedServant() throws Exception {
         Youth youth = new Youth();
         youth.setFamily(families.get(0));
-        when(youthServices.getYouthDtoById(1)).thenReturn(null);
-        when(youthServices.getYouthById(1)).thenReturn(youth);
+        when(youthService.getYouthDtoById(1)).thenReturn(null);
+        when(youthService.getYouthById(1)).thenReturn(youth);
         mockMvc.perform(get("/youth/get")
                         .param("youthId", "1")
                         .with(user(users.get(1))))
                 .andExpect(status().isOk());
-        verify(youthServices, times(1)).getYouthDtoById(1);
-        verify(youthServices, times(1)).getYouthById(1);
+        verify(youthService, times(1)).getYouthDtoById(1);
+        verify(youthService, times(1)).getYouthById(1);
     }
 
     @Test
     void getYouthWithUnAuthorizedServant() throws Exception {
         Youth youth = new Youth();
         youth.setFamily(families.get(0));
-        when(youthServices.getYouthById(1)).thenReturn(youth);
-        when(youthServices.getYouthDtoById(1)).thenReturn(null);
+        when(youthService.getYouthById(1)).thenReturn(youth);
+        when(youthService.getYouthDtoById(1)).thenReturn(null);
         mockMvc.perform(get("/youth/get")
                         .param("youthId", "1")
                         .with(user(users.get(2))))
                 .andExpect(status().isForbidden());
-        verify(youthServices, times(0)).getYouthDtoById(1);
-        verify(youthServices, times(1)).getYouthById(1);
+        verify(youthService, times(0)).getYouthDtoById(1);
+        verify(youthService, times(1)).getYouthById(1);
     }
     @Test
     @WithAnonymousUser
@@ -181,7 +180,7 @@ class YouthControllerTest {
 //////////// test the edit youth
     @Test
     void editYouthWithAuthorizedServantHead() throws Exception {
-        doNothing().when(youthServices).editYouth(any(YouthDTO.class));
+        doNothing().when(youthService).editYouth(any(YouthDTO.class));
         mockMvc.perform(patch("/youth/edit")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
@@ -191,12 +190,12 @@ class YouthControllerTest {
                                    "phoneNumber":"01579435782"}""")
                         .with(user(users.get(0))))
                 .andExpect(status().isOk());
-        verify(youthServices,times(1)).editYouth(any(YouthDTO.class));
+        verify(youthService,times(1)).editYouth(any(YouthDTO.class));
     }
 
     @Test
     void editYouthWithAuthorizedServant() throws Exception {
-        doNothing().when(youthServices).editYouth(any(YouthDTO.class));
+        doNothing().when(youthService).editYouth(any(YouthDTO.class));
         mockMvc.perform(patch("/youth/edit")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
@@ -206,12 +205,12 @@ class YouthControllerTest {
                                    "phoneNumber":"01579435782"}""")
                         .with(user(users.get(1))))
                 .andExpect(status().isOk());
-        verify(youthServices, times(1)).editYouth(any(YouthDTO.class));
+        verify(youthService, times(1)).editYouth(any(YouthDTO.class));
     }
 
     @Test
     void editYouthWithUnAuthorizedServant() throws Exception {
-        doNothing().when(youthServices).editYouth(any(YouthDTO.class));
+        doNothing().when(youthService).editYouth(any(YouthDTO.class));
         mockMvc.perform(patch("/youth/edit")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
@@ -221,7 +220,7 @@ class YouthControllerTest {
                                    "phoneNumber":"01579435782"}""")
                         .with(user(users.get(2))))
                 .andExpect(status().isForbidden());
-        verify(youthServices, times(0)).editYouth(any(YouthDTO.class));
+        verify(youthService, times(0)).editYouth(any(YouthDTO.class));
     }
 
     @Test
@@ -239,7 +238,7 @@ class YouthControllerTest {
 /////////////// exceptions
     @Test
     void editYouthWithNonHeadServantWithNoFamilyId() throws Exception {
-        doNothing().when(youthServices).editYouth(any(YouthDTO.class));
+        doNothing().when(youthService).editYouth(any(YouthDTO.class));
         mockMvc.perform(patch("/youth/edit")
                         .contentType(MediaType.APPLICATION_JSON)
                         .with(user(users.get(1)))
@@ -248,12 +247,12 @@ class YouthControllerTest {
                                    "lastName":"shokry",
                                    "phoneNumber":"01579435782"}"""))
                 .andExpect(status().isBadRequest());
-        verify(youthServices, times(0)).editYouth(any(YouthDTO.class));
+        verify(youthService, times(0)).editYouth(any(YouthDTO.class));
     }
 
     @Test
     void editYouthWithHeadServantWithNoFamilyId() throws Exception {
-        doNothing().when(youthServices).editYouth(any(YouthDTO.class));
+        doNothing().when(youthService).editYouth(any(YouthDTO.class));
         mockMvc.perform(patch("/youth/edit")
                         .contentType(MediaType.APPLICATION_JSON)
                         .with(user(users.get(0)))
@@ -262,12 +261,12 @@ class YouthControllerTest {
                                    "lastName":"shokry",
                                    "phoneNumber":"01579435782"}"""))
                 .andExpect(status().isBadRequest());
-        verify(youthServices, times(0)).editYouth(any(YouthDTO.class));
+        verify(youthService, times(0)).editYouth(any(YouthDTO.class));
     }
 
     @Test
     void editYouthWithNonHeadServantWithNoFirstName() throws Exception {
-        doNothing().when(youthServices).editYouth(any(YouthDTO.class));
+        doNothing().when(youthService).editYouth(any(YouthDTO.class));
         mockMvc.perform(patch("/youth/edit")
                         .contentType(MediaType.APPLICATION_JSON)
                         .with(user(users.get(1)))
@@ -275,11 +274,11 @@ class YouthControllerTest {
                                 {  "lastName":"shokry",
                                    "phoneNumber":"01579435782"}"""))
                 .andExpect(status().isBadRequest());
-        verify(youthServices, times(0)).editYouth(any(YouthDTO.class));
+        verify(youthService, times(0)).editYouth(any(YouthDTO.class));
     }
     @Test
     void editYouthWithNonHeadServantWithNoLastName() throws Exception {
-        doNothing().when(youthServices).editYouth(any(YouthDTO.class));
+        doNothing().when(youthService).editYouth(any(YouthDTO.class));
         mockMvc.perform(patch("/youth/edit")
                         .contentType(MediaType.APPLICATION_JSON)
                         .with(user(users.get(1)))
@@ -287,11 +286,11 @@ class YouthControllerTest {
                                 {  "firstName":"joseph",
                                    "phoneNumber":"01579435782"}"""))
                 .andExpect(status().isBadRequest());
-        verify(youthServices, times(0)).editYouth(any(YouthDTO.class));
+        verify(youthService, times(0)).editYouth(any(YouthDTO.class));
     }
     @Test
     void editYouthWithNonHeadServantWithNoPhoneNumber() throws Exception {
-        doNothing().when(youthServices).editYouth(any(YouthDTO.class));
+        doNothing().when(youthService).editYouth(any(YouthDTO.class));
         mockMvc.perform(patch("/youth/edit")
                         .contentType(MediaType.APPLICATION_JSON)
                         .with(user(users.get(1)))
@@ -299,15 +298,15 @@ class YouthControllerTest {
                                 {  "firstName":"joseph",
                                    "lastName":"shokry"}"""))
                 .andExpect(status().isBadRequest());
-        verify(youthServices, times(0)).editYouth(any(YouthDTO.class));
+        verify(youthService, times(0)).editYouth(any(YouthDTO.class));
     }
     @Test
     void editYouthWithNonHeadServantWithNoBody() throws Exception {
-        doNothing().when(youthServices).editYouth(any(YouthDTO.class));
+        doNothing().when(youthService).editYouth(any(YouthDTO.class));
         mockMvc.perform(patch("/youth/edit")
                         .with(user(users.get(1))))
                 .andExpect(status().isBadRequest());
-        verify(youthServices, times(0)).editYouth(any(YouthDTO.class));
+        verify(youthService, times(0)).editYouth(any(YouthDTO.class));
     }
 
 

@@ -1,7 +1,7 @@
 package com.example.demo.services;
 
 import com.example.demo.dataProviders.YouthServicesDataProvider;
-import com.example.demo.exceptions.DataNotFoundException;
+import com.example.demo.exceptions.exceptions.DataNotFoundException;
 import com.example.demo.models.DTOs.YouthDTO;
 import com.example.demo.models.DTOs.YouthFiltersDTO;
 import com.example.demo.models.DTOs.YouthIntermediateDTO;
@@ -10,6 +10,7 @@ import com.example.demo.models.entities.Youth;
 import com.example.demo.models.mappers.YouthIntermediateMapper;
 import com.example.demo.models.mappers.YouthMapper;
 import com.example.demo.repositories.YouthRepository;
+import com.example.demo.services.implementations.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -32,33 +33,33 @@ import static org.mockito.Mockito.*;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
-class YouthServicesTest {
+class YouthServiceTest {
     // TODO: add test for father in the youth
     @InjectMocks
-    private YouthServices youthService;
+    private YouthService youthService;
     @MockBean private YouthRepository youthRepository;
-    @MockBean private FamilyServices familyServices;
-    @MockBean private AreaServices areaServices;
-    @MockBean private StreetServices streetServices;
-    @MockBean private FatherServices fatherServices;
+    @MockBean private FamilyService familyService;
+    @MockBean private AreaService areaService;
+    @MockBean private StreetService streetService;
+    @MockBean private FatherService fatherService;
     @MockBean private YouthMapper youthMapper;
     @MockBean private YouthIntermediateMapper youthIntermediateMapper;
     private final YouthDTO emptyYouthDto = new YouthDTO();
     private final List<Youth> youthsTable;
     private final List<YouthIntermediateDTO> youthIntermediateDTOTable;
 
-    public YouthServicesTest(@Autowired final YouthServicesDataProvider youthServicesDataProvider) {
+    public YouthServiceTest(@Autowired final YouthServicesDataProvider youthServicesDataProvider) {
         youthsTable = youthServicesDataProvider.getYouthsTable();
         youthIntermediateDTOTable = youthServicesDataProvider.getYouthIntermediateDTOTable();
     }
 
     @Test
     void testAddYouth() {
-        when(youthMapper.youthDtoToYouth(eq(emptyYouthDto),any(Youth.class),any(FamilyServices.class),
-                any(StreetServices.class),any(FatherServices.class))).thenReturn(youthsTable.get(0));
+        when(youthMapper.youthDtoToYouth(eq(emptyYouthDto),any(Youth.class),any(FamilyService.class),
+                any(StreetService.class),any(FatherService.class))).thenReturn(youthsTable.get(0));
         youthService.addYouth(emptyYouthDto);
         verify(youthMapper, times(1)).youthDtoToYouth(eq(emptyYouthDto),any(Youth.class)
-                ,any(FamilyServices.class), any(StreetServices.class),any(FatherServices.class));
+                ,any(FamilyService.class), any(StreetService.class),any(FatherService.class));
         verify(youthRepository, times(1)).save(youthsTable.get(0));
     }
     @Test
@@ -107,11 +108,11 @@ class YouthServicesTest {
         Family family = Family.builder().id(1).familyName("mark").familyLevel(3).joiningYear(2021).build();
         fullYouth.setFamily(family);
         when(youthRepository.findById(emptyYouthDto.id)).thenReturn(Optional.of(youthsTable.get(0)));
-        when(youthMapper.youthDtoToYouth(eq(emptyYouthDto),eq(youthsTable.get(0)),any(FamilyServices.class),
-                any(StreetServices.class),any(FatherServices.class))).thenReturn(fullYouth);
+        when(youthMapper.youthDtoToYouth(eq(emptyYouthDto),eq(youthsTable.get(0)),any(FamilyService.class),
+                any(StreetService.class),any(FatherService.class))).thenReturn(fullYouth);
         youthService.editYouth(emptyYouthDto);
         verify(youthMapper, times(1)).youthDtoToYouth(eq(emptyYouthDto),any(Youth.class)
-                ,any(FamilyServices.class), any(StreetServices.class),any(FatherServices.class));
+                ,any(FamilyService.class), any(StreetService.class),any(FatherService.class));
         verify(youthRepository, times(1)).save(fullYouth);
         verify(youthRepository,times(1)).findById(emptyYouthDto.id);
     }
@@ -130,7 +131,7 @@ class YouthServicesTest {
                 .hasMessage("the required youth is not present");
         verify(youthRepository,times(1)).findById(emptyYouthDto.id);
         verify(youthMapper, times(0)).youthDtoToYouth(eq(emptyYouthDto),any(Youth.class)
-                ,any(FamilyServices.class), any(StreetServices.class),any(FatherServices.class));
+                ,any(FamilyService.class), any(StreetService.class),any(FatherService.class));
         verify(youthRepository, times(0)).save(fullYouth);
     }
 
@@ -147,7 +148,7 @@ class YouthServicesTest {
                 .hasMessage("the youth id is null");
         verify(youthRepository,times(0)).findById(emptyYouthDto.id);
         verify(youthMapper, times(0)).youthDtoToYouth(eq(emptyYouthDto),any(Youth.class)
-                ,any(FamilyServices.class), any(StreetServices.class),any(FatherServices.class));
+                ,any(FamilyService.class), any(StreetService.class),any(FatherService.class));
         verify(youthRepository, times(0)).save(fullYouth);
     }
 

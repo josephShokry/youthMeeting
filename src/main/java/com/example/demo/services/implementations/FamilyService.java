@@ -1,6 +1,6 @@
-package com.example.demo.services;
+package com.example.demo.services.implementations;
 
-import com.example.demo.exceptions.DataNotFoundException;
+import com.example.demo.exceptions.exceptions.DataNotFoundException;
 import com.example.demo.models.DTOs.FamilyDTO;
 import com.example.demo.models.DTOs.LightDTO;
 import com.example.demo.models.entities.Family;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class FamilyServices {
+public class FamilyService {
     @Autowired
     private FamilyRepository familyRepository;
     @Autowired

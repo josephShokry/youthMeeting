@@ -1,6 +1,6 @@
-package com.example.demo.services;
+package com.example.demo.services.implementations;
 
-import com.example.demo.exceptions.DataNotFoundException;
+import com.example.demo.exceptions.exceptions.DataNotFoundException;
 import com.example.demo.models.DTOs.YouthDTO;
 import com.example.demo.models.DTOs.YouthFiltersDTO;
 import com.example.demo.models.DTOs.YouthIntermediateDTO;
@@ -20,17 +20,17 @@ import java.util.Optional;
 
 
 @Service
-public class YouthServices {
+public class YouthService {
     @Autowired
     private YouthRepository youthRepository;
     @Autowired
-    private FamilyServices familyServices;
+    private FamilyService familyService;
     @Autowired
-    private AreaServices areaServices;
+    private AreaService areaService;
     @Autowired
-    private FatherServices fatherServices;
+    private FatherService fatherService;
     @Autowired
-    private StreetServices streetServices;
+    private StreetService streetService;
     @Autowired
     private YouthMapper youthMapper;
     @Autowired
@@ -38,7 +38,7 @@ public class YouthServices {
 
 
     public void addYouth(YouthDTO youthDTO) {
-        Youth youth = youthMapper.youthDtoToYouth(youthDTO, new Youth(), familyServices, streetServices, fatherServices);
+        Youth youth = youthMapper.youthDtoToYouth(youthDTO, new Youth(), familyService, streetService, fatherService);
         youthRepository.save(youth);
     }
     public Youth getYouthById(Integer youthId){
@@ -66,7 +66,7 @@ public class YouthServices {
 
     public void editYouth(YouthDTO youthDTO) {
         Youth youth = getYouthById(youthDTO.id);
-        youthMapper.youthDtoToYouth(youthDTO, youth, familyServices, streetServices, fatherServices);
+        youthMapper.youthDtoToYouth(youthDTO, youth, familyService, streetService, fatherService);
         youthRepository.save(youth);
     }
 }

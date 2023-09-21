@@ -1,6 +1,6 @@
-package com.example.demo.services;
+package com.example.demo.services.implementations;
 
-import com.example.demo.exceptions.DataNotFoundException;
+import com.example.demo.exceptions.exceptions.DataNotFoundException;
 import com.example.demo.models.DTOs.AreaDTO;
 import com.example.demo.models.DTOs.LightDTO;
 import com.example.demo.models.entities.Area;
@@ -13,7 +13,7 @@ import java.util.Optional;
 
 
 @Service
-public class AreaServices {
+public class AreaService {
     @Autowired
     private AreaRepository areaRepository;
     @Autowired

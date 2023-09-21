@@ -1,4 +1,4 @@
-package com.example.demo.services;
+package com.example.demo.services.implementations;
 
 import com.example.demo.models.DTOs.UserDTO;
 import com.example.demo.models.entities.User;
@@ -12,18 +12,18 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserServices implements UserDetailsService {
+public class UserService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private ServantServices servantServices;
+    private ServantService servantService;
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
     private UserMapper userMapper;
     public void addUser(UserDTO userDTO) {
         User user = new User();
-        userRepository.save(userMapper.userDtoToUser(userDTO, user,servantServices));
+        userRepository.save(userMapper.userDtoToUser(userDTO, user, servantService));
     }
 
     @Override

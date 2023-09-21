@@ -4,9 +4,9 @@ import com.example.demo.models.DTOs.YouthDTO;
 import com.example.demo.models.entities.Family;
 import com.example.demo.models.entities.Street;
 import com.example.demo.models.entities.Youth;
-import com.example.demo.services.FamilyServices;
-import com.example.demo.services.FatherServices;
-import com.example.demo.services.StreetServices;
+import com.example.demo.services.implementations.FamilyService;
+import com.example.demo.services.implementations.FatherService;
+import com.example.demo.services.implementations.StreetService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mapstruct.factory.Mappers;
@@ -28,9 +28,9 @@ class YouthMapperTest {
     // i added all the youths to father id = 1 and didn't attach any father
     @InjectMocks
     private YouthMapper youthMapper = Mappers.getMapper(YouthMapper.class);
-    @MockBean private FamilyServices familyServices;
-    @MockBean private StreetServices streetServices;
-    @MockBean private FatherServices fatherServices;
+    @MockBean private FamilyService familyService;
+    @MockBean private StreetService streetService;
+    @MockBean private FatherService fatherService;
 
 
 
@@ -40,10 +40,10 @@ class YouthMapperTest {
                 "2002-09-04", "Alex", "eng", 3, 5, 3,
                 "good person", 1, 1, 16,"first",1);
 
-        when(familyServices.getFamilyById(1)).thenReturn(new Family(1,"mark",3,null,null,2020));
-        when(streetServices.getById(1)).thenReturn(new Street(1,"ishaky", null, null));
+        when(familyService.getFamilyById(1)).thenReturn(new Family(1,"mark",3,null,null,2020));
+        when(streetService.getById(1)).thenReturn(new Street(1,"ishaky", null, null));
 
-        Youth targetYouth = youthMapper.youthDtoToYouth(youthDTO, new Youth(),familyServices, streetServices, fatherServices);
+        Youth targetYouth = youthMapper.youthDtoToYouth(youthDTO, new Youth(), familyService, streetService, fatherService);
 
         assertThat(targetYouth.getFirstName()).isEqualTo("Joseph");
         assertThat(targetYouth.getLastName()).isEqualTo("Shokry");
@@ -56,8 +56,8 @@ class YouthMapperTest {
         assertThat(targetYouth.getMeetingLevel()).isEqualTo(3);
         assertThat(targetYouth.getNotes()).isEqualTo("good person");
         assertThat(targetYouth.getBuildingNumber()).isEqualTo(16);
-        verify(familyServices).getFamilyById(1);
-        verify(streetServices).getById(1);
+        verify(familyService).getFamilyById(1);
+        verify(streetService).getById(1);
         assertThat(targetYouth.getFamily()).isNotNull();
         assertThat(targetYouth.getStreet()).isNotNull();
         assertThat(targetYouth.getFamily().getFamilyName()).isEqualTo("mark");
