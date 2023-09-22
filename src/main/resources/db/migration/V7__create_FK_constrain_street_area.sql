@@ -1,0 +1,1 @@
+ALTER TABLE streets ADD CONSTRAINT FKld9x6u449arvd73j74w07tfgb FOREIGN KEY (area_id) REFERENCES areas (id);

@@ -1,11 +1,12 @@
 package com.example.demo.services.implementations;
 
 import com.example.demo.exceptions.exceptions.DataNotFoundException;
-import com.example.demo.models.DTOs.AreaDTO;
-import com.example.demo.models.DTOs.LightDTO;
+import com.example.demo.models.dtos.LightDTO;
 import com.example.demo.models.entities.Area;
 import com.example.demo.models.mappers.AreaMapper;
+import com.example.demo.models.mappers.LightDTOMapper;
 import com.example.demo.repositories.AreaRepository;
+import com.example.demo.services.IAreaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,26 +14,26 @@ import java.util.Optional;
 
 
 @Service
-public class AreaService {
+public class AreaService implements IAreaService {
     @Autowired
     private AreaRepository areaRepository;
     @Autowired
     private AreaMapper areaMapper;
+    @Autowired
+    private LightDTOMapper lightDTOMapper;
 
-    public Integer addArea(AreaDTO areaDTO) {
+    public Long addArea(LightDTO areaLightDTO) {
         Area area = new Area();
-        areaRepository.save(areaMapper.getAreaFromDto(areaDTO, area));
+        areaRepository.save(areaMapper.mapLightDTO(areaLightDTO, area));
         return area.getId();
     }
-
-    public Area getById(Integer areaId) {
-        Optional.ofNullable(areaId).orElseThrow(() -> new DataNotFoundException("the Area id is null"));
-        Area area = areaRepository.findById(areaId).orElseThrow(
-                 () -> new DataNotFoundException("the required area is not present"));
-        return area;
+    public Area findById(Long areaId) {
+        areaId = Optional.ofNullable(areaId).orElseThrow(() -> new DataNotFoundException("validation.error.areaId"));
+        return areaRepository.findById(areaId).orElseThrow(
+                 () -> new DataNotFoundException("validation.error.area"));
     }
 
-    public Iterable<LightDTO> getAll() {
-        return areaMapper.areasToLightDtos(areaRepository.findAll());
+    public Iterable<LightDTO> findAll() {
+        return lightDTOMapper.mapListOfAreas(areaRepository.findAll());
     }
 }

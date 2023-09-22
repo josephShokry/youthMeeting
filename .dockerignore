@@ -1,0 +1,7 @@
+# Exclude log files
+logs/
+
+# Exclude development-specific files
+*.log
+.git/
+.idea/

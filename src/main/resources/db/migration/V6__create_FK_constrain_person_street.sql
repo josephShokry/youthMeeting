@@ -1,0 +1,1 @@
+ALTER TABLE persons ADD CONSTRAINT FKqaftafg588ruvlmrikopgc1vs FOREIGN KEY (street_id) REFERENCES streets (id);

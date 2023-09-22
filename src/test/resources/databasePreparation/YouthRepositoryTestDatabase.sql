@@ -15,38 +15,38 @@ INSERT INTO families (family_name, family_level, joining_year) VALUES ('Mark', 3
 INSERT INTO families (family_name, family_level, joining_year) VALUES ('John', 1, 2023);
 
 -- Insert youths
-INSERT INTO persons (DTYPE, first_name, last_name, day_of_birth, phone_number, family_id, street_id, father_id)
-VALUES ('Youth', 'Joseph', 'Shokry', '2002-04-09', '01284024832',
+INSERT INTO persons (DTYPE, first_name, last_name, day_of_birth, phone_number, gender, family_id, street_id, father_id)
+VALUES ('Youth', 'Joseph', 'Shokry', '2002-04-09', '01284024832', 'MALE',
 (SELECT id FROM families WHERE family_name = 'Mark'),
 (SELECT id FROM streets WHERE street_name = 'Ishaky'),
 (SELECT id FROM persons WHERE first_name = 'angelos' and church = 'malak'));
 
-INSERT INTO persons (DTYPE, first_name, last_name, day_of_birth, phone_number, family_id, street_id, father_id)
-VALUES ('Youth', 'Isaac', 'Vector', '2003-09-04', '01278497512',
+INSERT INTO persons (DTYPE, first_name, last_name, day_of_birth, phone_number, gender, family_id, street_id, father_id)
+VALUES ('Youth', 'Isaac', 'Vector', '2003-09-04', '01278497512', 'MALE',
 (SELECT id FROM families WHERE family_name = 'John'),
 (SELECT id FROM streets WHERE street_name = 'thoryia'),
 (SELECT id FROM persons WHERE first_name = 'mina' and church = 'mary'));
 
-INSERT INTO persons (DTYPE, first_name, last_name, day_of_birth, phone_number, family_id, street_id, father_id)
-VALUES ('Youth', 'Adel', 'Makram', '1998-10-14', '01579486321',
+INSERT INTO persons (DTYPE, first_name, last_name, day_of_birth, phone_number, gender, family_id, street_id, father_id)
+VALUES ('Youth', 'Adel', 'Makram', '1998-10-14', '01579486321', 'MALE',
 (SELECT id FROM families WHERE family_name = 'Mark'),
 (SELECT id FROM streets WHERE street_name = 'Ishaky'),
 (SELECT id FROM persons WHERE first_name = 'angelos' and church = 'malak'));
 
-INSERT INTO persons (DTYPE, first_name, last_name, day_of_birth, phone_number, family_id, street_id, father_id)
-VALUES ('Youth', 'Fady', 'Shokry', '2003-05-04', '01147547894',
+INSERT INTO persons (DTYPE, first_name, last_name, day_of_birth, phone_number, gender, family_id, street_id, father_id)
+VALUES ('Youth', 'Fady', 'Shokry', '2003-05-04', '01147547894', 'MALE',
 (SELECT id FROM families WHERE family_name = 'John'),
 (SELECT id FROM streets WHERE street_name = 'thoryia'),
 (SELECT id FROM persons WHERE first_name = 'mina' and church = 'mary'));
 
-INSERT INTO persons (DTYPE, first_name, last_name, day_of_birth, phone_number, family_id, street_id, father_id)
-VALUES ('Youth', 'Kiro', 'Soliman', '2004-11-22', '01075471369',
+INSERT INTO persons (DTYPE, first_name, last_name, day_of_birth, phone_number, gender, family_id, street_id, father_id)
+VALUES ('Youth', 'Kiro', 'Soliman', '2004-11-22', '01075471369', 'MALE',
 (SELECT id FROM families WHERE family_name = 'Mark'),
 (SELECT id FROM streets WHERE street_name = 'Ishaky'),
 (SELECT id FROM persons WHERE first_name = 'angelos' and church = 'malak'));
 
-INSERT INTO persons (DTYPE, first_name, last_name, day_of_birth, phone_number, family_id, street_id, father_id)
-VALUES ('Youth', 'Josephine', 'Atef', '2001-01-30', '01578945617',
+INSERT INTO persons (DTYPE, first_name, last_name, day_of_birth, phone_number, gender, family_id, street_id, father_id)
+VALUES ('Youth', 'Josephine', 'Atef', '2001-01-30', '01578945617', 'FeMALE',
 (SELECT id FROM families WHERE family_name = 'John'),
 (SELECT id FROM streets WHERE street_name = 'thoryia'),
 (SELECT id FROM persons WHERE first_name = 'mina' and church = 'mary'));
