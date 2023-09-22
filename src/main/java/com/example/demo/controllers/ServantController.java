@@ -16,7 +16,7 @@ public class ServantController {
 
     @PostMapping("add_servant")
     @PreAuthorize("hasRole('ROLE_Servant_Head')")
-    public ResponseEntity<Integer> addServant(@RequestBody ServantDTO servantDTO){
+    public ResponseEntity<Long> addServant(@RequestBody ServantDTO servantDTO){
         return ResponseEntity.status(HttpStatus.CREATED).body(servantService.addServant(servantDTO));
     }
 

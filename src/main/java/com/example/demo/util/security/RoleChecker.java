@@ -1,6 +1,6 @@
-package com.example.demo.security;
+package com.example.demo.util.security;
 
-import com.example.demo.models.DTOs.YouthDTO;
+import com.example.demo.models.dtos.YouthDTO;
 import com.example.demo.models.entities.Servant;
 import com.example.demo.models.entities.User;
 import com.example.demo.models.entities.Youth;
@@ -18,17 +18,19 @@ public class RoleChecker {
     private YouthService youthService;
     @Autowired
     private ServantService servantService;
-    public Boolean sameFamily(Authentication authentication, Integer youthId){
+    public Boolean sameFamily(Authentication authentication, Long youthId){
         User principal = (User) authentication.getPrincipal();
         Servant servant = (Servant)principal.getPerson();
-        Youth youth = youthService.getYouthById(youthId);
+        Youth youth = youthService.findYouthById(youthId);
         return Objects.equals(youth.getFamily().getId(), servant.getFamily().getId());
     }
 
     public Boolean sameFamily(Authentication authentication, YouthDTO youthDTO){
         //TODO: find a better way of the casting
         User principal = (User) authentication.getPrincipal();
-        Integer userFamilyId = ((Servant)principal.getPerson()).getFamily().getId();
-        return Objects.equals(youthDTO.familyId, userFamilyId);
+        Long userFamilyId = ((Servant)principal.getPerson()).getFamily().getId();
+        Long youthDtoFamilyId = youthDTO.getFamilyId();
+        Boolean out = Objects.equals(youthDtoFamilyId, userFamilyId);
+        return out;
     }
 }

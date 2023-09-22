@@ -34,7 +34,7 @@ public class YouthService implements IYouthService {
 
     public Boolean addYouth(YouthDTO youthDTO) {
         Youth youth = new Youth();
-        youthRepository.save(youthMapper.mapYouthDTO(youthDTO, youth, familyService, streetService));
+        youthRepository.save(youthMapper.mapYouthDTO(youthDTO, youth, familyService, streetService, fatherService));
         return true;
     }
     public Youth findYouthById(Long youthId){
@@ -57,7 +57,7 @@ public class YouthService implements IYouthService {
 
     public Boolean editYouth(YouthDTO youthDTO) {
         Youth youth = findYouthById(youthDTO.getId());
-        youthRepository.save(youthMapper.mapYouthDTO(youthDTO, youth, familyService, streetService));
+        youthRepository.save(youthMapper.mapYouthDTO(youthDTO, youth, familyService, streetService, fatherService));
         return true;
     }
 }

@@ -10,7 +10,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ServantDTO {
-    public Integer id;
+    public Long id;
     public String firstName;
-    public Integer familyId;
+    public Long familyId;
 }

@@ -13,7 +13,7 @@ public interface ServantMapper {
     @AfterMapping
     default void attachObjects(ServantDTO servantDTO, @MappingTarget Servant servant, @Context FamilyService familyService){
         Optional.ofNullable(servantDTO.familyId).ifPresent(
-                familyId -> servant.setFamily(familyService.getFamilyById(familyId)));
+                familyId -> servant.setFamily(familyService.findFamilyById(familyId)));
     }
     ServantDTO servantToServantDto(Servant servant, @MappingTarget ServantDTO servantDTO);
 }

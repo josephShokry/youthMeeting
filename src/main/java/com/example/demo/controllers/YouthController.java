@@ -67,7 +67,7 @@ public class YouthController {
     })
     @PatchMapping
     @PreAuthorize("hasRole('ROLE_Servant_Head') or @roleChecker.sameFamily(authentication, #youthDTO)")
-    public ResponseEntity<Boolean> editYouth(@RequestBody YouthDTO youthDTO) {
+    public ResponseEntity<Boolean> editYouth(@Valid @RequestBody YouthDTO youthDTO) {
         return ResponseEntity.status(HttpStatus.OK).body(youthService.editYouth(youthDTO));
     }
 }

@@ -9,7 +9,7 @@ import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 
-@Entity
+@Entity(name = "fathers")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Setter
 @Getter

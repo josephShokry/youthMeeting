@@ -1,6 +1,6 @@
 package com.example.demo.models.entities;
 
-import com.example.demo.security.Roles;
+import com.example.demo.models.enums.Roles;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;

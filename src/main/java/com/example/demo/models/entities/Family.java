@@ -3,6 +3,8 @@ package com.example.demo.models.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "families")
 @Getter

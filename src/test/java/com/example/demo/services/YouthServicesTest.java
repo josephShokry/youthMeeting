@@ -9,10 +9,7 @@ import com.example.demo.models.entities.Family;
 import com.example.demo.models.entities.Youth;
 import com.example.demo.models.mappers.YouthMapper;
 import com.example.demo.repositories.YouthRepository;
-import com.example.demo.services.implementations.AreaService;
-import com.example.demo.services.implementations.FamilyService;
-import com.example.demo.services.implementations.StreetService;
-import com.example.demo.services.implementations.YouthService;
+import com.example.demo.services.implementations.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -42,6 +39,8 @@ class YouthServicesTest {
     @MockBean private FamilyService familyService;
     @MockBean private AreaService areaService;
     @MockBean private StreetService streetService;
+    @MockBean private FatherService fatherService;
+
     @MockBean private YouthMapper youthMapper;
     private final YouthDTO emptyYouthDto = new YouthDTO();
     private final List<Youth> youthsTable;
@@ -55,10 +54,10 @@ class YouthServicesTest {
     @Test
     void testAddYouth() {
         when(youthMapper.mapYouthDTO(eq(emptyYouthDto),any(Youth.class),any(FamilyService.class),
-                any(StreetService.class))).thenReturn(youthsTable.get(0));
+                any(StreetService.class),any(FatherService.class))).thenReturn(youthsTable.get(0));
         youthService.addYouth(emptyYouthDto);
         verify(youthMapper, times(1)).mapYouthDTO(eq(emptyYouthDto),any(Youth.class)
-                ,any(FamilyService.class), any(StreetService.class));
+                ,any(FamilyService.class), any(StreetService.class),any(FatherService.class));
         verify(youthRepository, times(1)).save(youthsTable.get(0));
     }
     @Test
@@ -108,10 +107,10 @@ class YouthServicesTest {
         fullYouth.setFamily(family);
         when(youthRepository.findById(emptyYouthDto.getId())).thenReturn(Optional.of(youthsTable.get(0)));
         when(youthMapper.mapYouthDTO(eq(emptyYouthDto),eq(youthsTable.get(0)),any(FamilyService.class),
-                any(StreetService.class))).thenReturn(fullYouth);
+                any(StreetService.class),any(FatherService.class))).thenReturn(fullYouth);
         youthService.editYouth(emptyYouthDto);
         verify(youthMapper, times(1)).mapYouthDTO(eq(emptyYouthDto),any(Youth.class)
-                ,any(FamilyService.class), any(StreetService.class));
+                ,any(FamilyService.class), any(StreetService.class),any(FatherService.class));
         verify(youthRepository, times(1)).save(fullYouth);
         verify(youthRepository,times(1)).findById(emptyYouthDto.getId());
     }
@@ -130,7 +129,7 @@ class YouthServicesTest {
                 .hasMessage("validation.error.youth");
         verify(youthRepository,times(1)).findById(emptyYouthDto.getId());
         verify(youthMapper, times(0)).mapYouthDTO(eq(emptyYouthDto),any(Youth.class)
-                ,any(FamilyService.class), any(StreetService.class));
+                ,any(FamilyService.class), any(StreetService.class),any(FatherService.class));
         verify(youthRepository, times(0)).save(fullYouth);
     }
 
@@ -147,7 +146,7 @@ class YouthServicesTest {
                 .hasMessage("validation.error.youthId");
         verify(youthRepository,times(0)).findById(emptyYouthDto.getId());
         verify(youthMapper, times(0)).mapYouthDTO(eq(emptyYouthDto),any(Youth.class)
-                ,any(FamilyService.class), any(StreetService.class));
+                ,any(FamilyService.class), any(StreetService.class),any(FatherService.class));
         verify(youthRepository, times(0)).save(fullYouth);
     }
 

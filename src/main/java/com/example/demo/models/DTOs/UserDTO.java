@@ -1,6 +1,6 @@
 package com.example.demo.models.DTOs;
 
-import com.example.demo.security.Roles;
+import com.example.demo.models.enums.Roles;
 import lombok.*;
 
 @Getter
@@ -14,5 +14,5 @@ public class UserDTO {
 //    public boolean enabled;
 //    public List<Roles> roles;
     public Roles roles;
-    public Integer personId;
+    public Long personId;
 }

@@ -17,13 +17,13 @@ public class ServantService {
     @Autowired
     private ServantMapper servantMapper;
 
-    public Integer addServant(ServantDTO servantDTO) {
+    public Long addServant(ServantDTO servantDTO) {
         Servant servant = new Servant();
         servantRepository.save(servantMapper.servantDtoToServant(servantDTO, new Servant(), familyService));
         return servant.getId();
     }
 
-    public Servant getServantById(Integer id) {
+    public Servant getServantById(Long id) {
         return servantRepository.findById(id).orElseThrow(
                 () -> new DataNotFoundException("the required servant is not present"));
     }

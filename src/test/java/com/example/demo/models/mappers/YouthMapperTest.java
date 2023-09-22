@@ -37,10 +37,10 @@ class YouthMapperTest {
 
     @Test
     void TestYouthDtoToYouth() {
-        YouthDTO youthDTO = new YouthDTO(1L, "Joseph", "Shokry", "01284024832",
-                "2002-09-04", "Alex", "eng", "3", 5, 3,
-                "good person", 1L, 1L, 16,Gender.FEMALE);
-        YouthDTO youthDTO1 = YouthDTO.builder()
+//        YouthDTO youthDTO = new YouthDTO(1L, "Joseph", "Shokry", "01284024832",
+//                "2002-09-04", "Alex", "eng", "3", 5, 3,
+//                "good person", 1L, 1L, 16,Gender.FEMALE);
+        YouthDTO youthDTO = YouthDTO.builder()
                 .id(1L).firstName("Joseph").lastName("Shokry")
                 .dayOfBirth("2002-09-04")
                 .phoneNumber("01284024832").buildingNumber(16)
@@ -49,7 +49,7 @@ class YouthMapperTest {
                 .gradLevel(5).meetingLevel(3).gender(Gender.FEMALE)
                 .build();
 
-        when(familyService.findFamilyById(1L)).thenReturn(new Family(1L,"mark",3, 2020));
+        when(familyService.findFamilyById(1L)).thenReturn(new Family(1L,"mark",3, 2020,null));
         when(streetService.findById(1L)).thenReturn(new Street(1L,"ishaky", null));
 
         Youth targetYouth = youthMapper.mapYouthDTO(youthDTO, new Youth(),familyService, streetService, fatherService);
@@ -77,7 +77,7 @@ class YouthMapperTest {
 
     @Test
     void youthToYouthDto() {
-        Family family = new Family(1L,"mark",3,2020);
+        Family family = new Family(1L,"mark",3,2020, null);
         Street street = new Street(1L,"ishaky", null);
         Youth youth = Youth.builder()
                 .id(1L).firstName("Joseph").lastName("Shokry")

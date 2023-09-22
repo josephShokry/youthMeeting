@@ -1,7 +1,7 @@
 package com.example.demo.controllers;
 
 import com.example.demo.models.DTOs.FatherDTO;
-import com.example.demo.models.DTOs.LightDTO;
+import com.example.demo.models.dtos.LightDTO;
 import com.example.demo.services.implementations.FatherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,7 +17,7 @@ public class FatherController {
 
     @PostMapping("add_father")
     @PreAuthorize("hasRole('ROLE_Servant_Head')")
-    public ResponseEntity<Integer> addFather(@RequestBody FatherDTO fatherDTO){
+    public ResponseEntity<Long> addFather(@RequestBody FatherDTO fatherDTO){
         return ResponseEntity.status(HttpStatus.CREATED).body(fatherService.addFather(fatherDTO));
     }
     @GetMapping("get_all")

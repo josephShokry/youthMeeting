@@ -44,7 +44,10 @@ public class YouthDTO {
     private String notes;
     @JsonProperty("familyId")
     @Min(value = 1, message = "validation.error.familyId.min")
+    @NotNull(message = "validation.error.familyId")
     private Long familyId;
+    @Min(value = 1, message = "validation.error.fatherId.min")
+    private Long fatherId;
     @JsonProperty("streetId")
     @Min(value = 1, message = "validation.error.streetId.min")
     private Long streetId;
