@@ -1,9 +1,10 @@
 package com.example.demo.models.entities;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.*;
-
-import java.util.List;
+import lombok.experimental.SuperBuilder;
 
 @Entity
 @Table(name = "families")
@@ -11,17 +12,12 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class Family {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+@SuperBuilder
+public class Family extends BasicEntity{
     @Column(name = "name")
     private String name;
     @Column(name = "family_level")
     private Integer familyLevel;
     @Column(name = "joining_year")
     private Integer joiningYear;
-    @OneToMany(mappedBy = "family",orphanRemoval = true)
-    private List<Servant> servantList;
 }

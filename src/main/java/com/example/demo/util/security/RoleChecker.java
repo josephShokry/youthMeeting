@@ -26,11 +26,9 @@ public class RoleChecker {
     }
 
     public Boolean sameFamily(Authentication authentication, YouthDTO youthDTO){
-        //TODO: find a better way of the casting
+        //should I find a better way of the casting
         User principal = (User) authentication.getPrincipal();
         Long userFamilyId = ((Servant)principal.getPerson()).getFamily().getId();
-        Long youthDtoFamilyId = youthDTO.getFamilyId();
-        Boolean out = Objects.equals(youthDtoFamilyId, userFamilyId);
-        return out;
+        return Objects.equals(youthDTO.getFamilyId(), userFamilyId);
     }
 }

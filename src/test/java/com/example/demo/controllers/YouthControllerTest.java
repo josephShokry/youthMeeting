@@ -1,9 +1,11 @@
 package com.example.demo.controllers;
 
+import com.example.demo.dataProviders.YouthControllerDataProvider;
 import com.example.demo.models.dtos.YouthDTO;
 import com.example.demo.models.dtos.YouthFiltersDTO;
-import com.example.demo.models.entities.*;
-import com.example.demo.models.enums.Roles;
+import com.example.demo.models.entities.Family;
+import com.example.demo.models.entities.User;
+import com.example.demo.models.entities.Youth;
 import com.example.demo.services.implementations.YouthService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,21 +33,13 @@ class YouthControllerTest {
     @MockBean
     private YouthService youthService;
 
-    List<Family> families = List.of(
-            new Family(1L, "mark",null,null,null),
-            new Family(2L, "john",null,null,null)
-            );
+    private final List<Family> families;
+    private final List<User> users;
 
-    List<Person> persons = List.of(
-            new Servant(families.get(0)),
-            new Servant(families.get(1))
-    );
-
-    List<User> users = List.of(
-            new User("head","pas",true, Roles.ROLE_Servant_Head,null,true),
-            new User("servant 1","pas",true, Roles.ROLE_Servant,persons.get(0),true),
-            new User("servant 2","pas",true, Roles.ROLE_Servant,persons.get(1),true)
-            );
+    public YouthControllerTest(@Autowired final YouthControllerDataProvider youthControllerDataProvider) {
+        families = youthControllerDataProvider.getFamiliesTable();
+        users = youthControllerDataProvider.getUsersTable();
+    }
 
     //test the add youth
     @Test

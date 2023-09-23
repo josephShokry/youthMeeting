@@ -4,16 +4,14 @@ import com.example.demo.models.enums.Gender;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@SuperBuilder
 @Getter
 @Setter
-public class YouthDTO {
-
-    @JsonProperty("id")
-    private Long id;
+public class YouthDTO extends BasicEntityDTO{
     @JsonProperty("firstName")
     @NotBlank(message = "validation.error.firstName")
     private String firstName;

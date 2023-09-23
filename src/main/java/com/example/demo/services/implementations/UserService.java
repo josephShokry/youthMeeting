@@ -1,6 +1,6 @@
 package com.example.demo.services.implementations;
 
-import com.example.demo.models.DTOs.UserDTO;
+import com.example.demo.models.dtos.UserDTO;
 import com.example.demo.models.entities.User;
 import com.example.demo.models.mappers.UserMapper;
 import com.example.demo.repositories.UserRepository;
@@ -21,9 +21,10 @@ public class UserService implements UserDetailsService {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private UserMapper userMapper;
-    public void addUser(UserDTO userDTO) {
+    public Boolean addUser(UserDTO userDTO) {
         User user = new User();
-        userRepository.save(userMapper.userDtoToUser(userDTO, user, servantService));
+        userRepository.save(userMapper.mapToUser(userDTO, user, servantService));
+        return true;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import com.example.demo.util.security.EndPoints;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -12,7 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/street")
+@RequestMapping(EndPoints.STREET)
 public class StreetController {
     @Autowired
     private StreetService streetService;
@@ -22,7 +23,7 @@ public class StreetController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "The street is added successfully")
     })
-    @PostMapping
+    @PostMapping(EndPoints.ADD_STREET)
     public ResponseEntity<Long> addStreet(@RequestBody StreetDTO streetDTO){
         return ResponseEntity.status(HttpStatus.CREATED).body(streetService.addStreet(streetDTO));
     }
@@ -32,7 +33,7 @@ public class StreetController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "The street retrieved successfully")
     })
-    @GetMapping("all")
+    @GetMapping(EndPoints.GET_ALL)
     public ResponseEntity<Iterable<LightDTO>> getAll(){
         return ResponseEntity.status(HttpStatus.OK).body(streetService.findAll());
     }

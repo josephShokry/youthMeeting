@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import com.example.demo.util.security.EndPoints;
 import com.example.demo.models.dtos.YouthDTO;
 import com.example.demo.models.dtos.YouthFiltersDTO;
 import com.example.demo.models.dtos.YouthMidLevelDTO;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/youth")
+@RequestMapping(EndPoints.YOUTH)
 @CrossOrigin
 public class YouthController {
     @Autowired
@@ -29,8 +30,8 @@ public class YouthController {
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "the youth added successfully")
     })
-    @PostMapping
-    @PreAuthorize("hasRole('ROLE_Servant_Head') or @roleChecker.sameFamily(authentication, #youthDTO) ")
+    @PostMapping(EndPoints.ADD_YOUTH)
+    @PreAuthorize("hasRole('ROLE_SERVANT_HEAD') or @roleChecker.sameFamily(authentication, #youthDTO) ")
     public ResponseEntity<Boolean> addYouth(@Valid @RequestBody YouthDTO youthDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(youthService.addYouth(youthDTO));
     }
@@ -41,8 +42,8 @@ public class YouthController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "The youths retrieved successfully")
     })
-    @PostMapping("all")
-    @PreAuthorize("hasRole('ROLE_Servant_Head')")
+    @PostMapping(EndPoints.GET_ALL)
+    @PreAuthorize("hasRole('ROLE_SERVANT_HEAD')")
     public ResponseEntity<Page<YouthMidLevelDTO>> getAll(@Valid @RequestBody YouthFiltersDTO youthFiltersDTO) {
         return ResponseEntity.status(HttpStatus.OK).body(youthService.findAll(youthFiltersDTO));
     }
@@ -53,8 +54,8 @@ public class YouthController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "The youth retrieved successfully")
     })
-    @GetMapping
-    @PreAuthorize("hasRole('ROLE_Servant_Head') or @roleChecker.sameFamily(authentication, #youthId)")
+    @GetMapping(EndPoints.GET_YOUTH)
+    @PreAuthorize("hasRole('ROLE_SERVANT_HEAD') or @roleChecker.sameFamily(authentication, #youthId)")
     public ResponseEntity<YouthDTO> getYouth(@RequestParam Long youthId) {
         return ResponseEntity.status(HttpStatus.OK).body(youthService.findYouthDtoById(youthId));
     }
@@ -65,8 +66,8 @@ public class YouthController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "The youth edited successfully")
     })
-    @PatchMapping
-    @PreAuthorize("hasRole('ROLE_Servant_Head') or @roleChecker.sameFamily(authentication, #youthDTO)")
+    @PatchMapping(EndPoints.EDIT_YOUTH)
+    @PreAuthorize("hasRole('ROLE_SERVANT_HEAD') or @roleChecker.sameFamily(authentication, #youthDTO)")
     public ResponseEntity<Boolean> editYouth(@Valid @RequestBody YouthDTO youthDTO) {
         return ResponseEntity.status(HttpStatus.OK).body(youthService.editYouth(youthDTO));
     }

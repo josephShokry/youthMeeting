@@ -1,4 +1,4 @@
-package com.example.demo.models.DTOs;
+package com.example.demo.models.dtos;
 
 import com.example.demo.models.enums.Roles;
 import lombok.*;
@@ -9,10 +9,8 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDTO {
-    public String username;
-    public String password;
-//    public boolean enabled;
-//    public List<Roles> roles;
-    public Roles roles;
-    public Long personId;
+    private String username;
+    private String password;
+    private Roles role;
+    private Long personId;
 }

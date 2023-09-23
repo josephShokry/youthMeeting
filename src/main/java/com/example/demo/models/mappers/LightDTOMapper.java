@@ -1,10 +1,7 @@
 package com.example.demo.models.mappers;
 
 import com.example.demo.models.dtos.LightDTO;
-import com.example.demo.models.entities.Area;
-import com.example.demo.models.entities.Family;
-import com.example.demo.models.entities.Street;
-import com.example.demo.models.entities.Youth;
+import com.example.demo.models.entities.*;
 import org.mapstruct.*;
 
 import java.util.List;
@@ -22,4 +19,8 @@ public interface LightDTOMapper {
     List<LightDTO> mapListOfYouths(List<Youth> youths);
     LightDTO mapStreet(Street street, @MappingTarget LightDTO lightDTO);
     List<LightDTO> mapListOfStreets(List<Street> streets);
+
+    @Mapping(source = "firstName", target = "name")
+    LightDTO fatherToLightDto(Father father, @MappingTarget LightDTO lightDTO);
+    List<LightDTO> mapListOfFathers(List<Father> fathers);
 }

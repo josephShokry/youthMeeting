@@ -19,4 +19,4 @@ VALUES ('fady servant', 'password', 'ROLE_Servant', (SELECT id FROM persons WHER
 ------------------------------------------------------------------------------------
 
 INSERT INTO users (username, password, roles, person_id,authenticated,enabled)
-VALUES ('joseph head', 'password', 'ROLE_Servant_Head', null,0,0);
+VALUES ('joseph head', 'password', 'ROLE_SERVANT_HEAD', null,0,0);

@@ -2,6 +2,7 @@ package com.example.demo.models.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 @Entity
 @Table(name = "streets")
@@ -9,11 +10,8 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class Street {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+@SuperBuilder
+public class Street extends BasicEntity{
     @Column(name = "name")
     private String name;
     @ManyToOne(cascade = CascadeType.PERSIST)

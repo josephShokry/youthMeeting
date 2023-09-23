@@ -1,7 +1,7 @@
 package com.example.demo.models.enums;
 
 public enum Roles {
-    ROLE_Servant,
-    ROLE_Servant_Head,
-    ROLE_Father
+    ROLE_SERVANT,
+    ROLE_SERVANT_HEAD,
+    ROLE_FATHER
 }

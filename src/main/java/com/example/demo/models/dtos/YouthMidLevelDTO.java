@@ -2,15 +2,14 @@ package com.example.demo.models.dtos;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@SuperBuilder
 @Getter
 @Setter
-public class YouthMidLevelDTO {
-    @JsonProperty("id")
-    private Long id;
+public class YouthMidLevelDTO extends BasicEntityDTO{
     @JsonProperty("firstName")
     private String firstName;
     @JsonProperty("lastName")

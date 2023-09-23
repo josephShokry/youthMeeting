@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import com.example.demo.util.security.EndPoints;
 import com.example.demo.models.dtos.LightDTO;
 import com.example.demo.services.implementations.AreaService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -11,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/area")
+@RequestMapping(EndPoints.AREA)
 public class AreaController {
     @Autowired
     private AreaService areaService;
@@ -22,7 +23,7 @@ public class AreaController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "The area is added successfully")
     })
-    @PostMapping
+    @PostMapping(EndPoints.ADD_AREA)
     public ResponseEntity<Long> addArea(@RequestBody LightDTO areaLightDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(areaService.addArea(areaLightDTO));
     }
@@ -32,7 +33,7 @@ public class AreaController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "The areas retrieved successfully")
     })
-    @GetMapping("all")
+    @GetMapping(EndPoints.GET_ALL)
     public ResponseEntity<Iterable<LightDTO>> getAll(){
         return ResponseEntity.status(HttpStatus.OK).body(areaService.findAll());
     }

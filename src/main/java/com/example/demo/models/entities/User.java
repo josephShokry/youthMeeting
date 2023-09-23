@@ -18,22 +18,20 @@ import java.util.List;
 @AllArgsConstructor
 @Table(name = "users")
 public class User implements UserDetails {
-    //TODO: change username to be userName
-    //TODO: change the roles to be list of roles or set
-    //TODO: change the Person to be Servant ignoring the case that the user can be father
+    //what do you think? change the Person to be Servant ignoring the case that the user can be father
     @Id
     private String username;
     private String password;
     private boolean enabled;
     @Enumerated(EnumType.STRING)
-    private Roles roles;
+    private Roles role;
     @OneToOne
     private Person person;
     private boolean authenticated;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(roles.name()));
+        return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
     @Override

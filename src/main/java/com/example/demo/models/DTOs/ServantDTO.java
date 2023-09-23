@@ -1,4 +1,4 @@
-package com.example.demo.models.DTOs;
+package com.example.demo.models.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,8 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ServantDTO {
-    public Long id;
-    public String firstName;
-    public Long familyId;
+public class ServantDTO extends BasicEntityDTO{
+    private String firstName;
+    private Long familyId;
 }

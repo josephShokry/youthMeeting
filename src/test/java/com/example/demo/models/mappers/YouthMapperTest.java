@@ -37,9 +37,6 @@ class YouthMapperTest {
 
     @Test
     void TestYouthDtoToYouth() {
-//        YouthDTO youthDTO = new YouthDTO(1L, "Joseph", "Shokry", "01284024832",
-//                "2002-09-04", "Alex", "eng", "3", 5, 3,
-//                "good person", 1L, 1L, 16,Gender.FEMALE);
         YouthDTO youthDTO = YouthDTO.builder()
                 .id(1L).firstName("Joseph").lastName("Shokry")
                 .dayOfBirth("2002-09-04")
@@ -49,9 +46,9 @@ class YouthMapperTest {
                 .gradLevel(5).meetingLevel(3).gender(Gender.FEMALE)
                 .build();
 
-        when(familyService.findFamilyById(1L)).thenReturn(new Family(1L,"mark",3, 2020,null));
-        when(streetService.findById(1L)).thenReturn(new Street(1L,"ishaky", null));
-
+        when(familyService.findFamilyById(1L)).thenReturn(Family.builder().id(1L).name("mark")
+                .joiningYear(2020).familyLevel(3).build());
+        when(streetService.findById(1L)).thenReturn(Street.builder().id(1L).name("ishaky").build());
         Youth targetYouth = youthMapper.mapYouthDTO(youthDTO, new Youth(),familyService, streetService, fatherService);
 
         assertThat(targetYouth.getFirstName()).isEqualTo("Joseph");
@@ -77,8 +74,8 @@ class YouthMapperTest {
 
     @Test
     void youthToYouthDto() {
-        Family family = new Family(1L,"mark",3,2020, null);
-        Street street = new Street(1L,"ishaky", null);
+        Family family = Family.builder().id(1L).name("mark").joiningYear(2020).familyLevel(3).build();
+        Street street = Street.builder().id(1L).name("ishaky").build();
         Youth youth = Youth.builder()
                 .id(1L).firstName("Joseph").lastName("Shokry")
                 .dayOfBirth(LocalDate.parse("2002-09-04"))
