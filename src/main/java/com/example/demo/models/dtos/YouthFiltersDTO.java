@@ -11,16 +11,22 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @SuperBuilder
 public class YouthFiltersDTO extends PaginationDTO{
+
     @JsonProperty("familyId")
     private Long familyId;
+
     @JsonProperty("streetId")
     private Long streetId;
+
     @JsonProperty("namePart")
     private String namePart;
+
     @JsonProperty("month")
     private Integer month;
+
     @JsonProperty("year")
     private Integer year;
+
     @JsonProperty("gender")
     private Gender gender;
 }

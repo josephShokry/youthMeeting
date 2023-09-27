@@ -8,7 +8,10 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder
 public class FatherDTO extends BasicEntityDTO{
+
     private String firstName;
+
     private String lastName;
+
     private String church;
 }

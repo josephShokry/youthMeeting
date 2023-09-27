@@ -15,6 +15,7 @@ import java.util.Locale;
 @RestController
 @RequestMapping(EndPoints.SETTINGS)
 public class SettingsController {
+
     @Operation(
             summary = "Use this api to change the language of response messages",
             description = "To change the language of response messages the available languages are ar, en")

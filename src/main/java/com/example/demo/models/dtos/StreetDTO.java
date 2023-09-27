@@ -8,6 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class StreetDTO extends LightDTO{
+
     @JsonProperty("areaId")
     @Min(value = 1, message = "validation.error.areaId.min")
     private Long areaId;

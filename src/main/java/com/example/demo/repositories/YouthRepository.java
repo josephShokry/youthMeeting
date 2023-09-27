@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface YouthRepository extends JpaRepository<Youth,Long>, JpaSpecificationExecutor<Youth> {
+
     @Override
     Page<Youth> findAll(Specification<Youth> specification, Pageable pageable);
 }

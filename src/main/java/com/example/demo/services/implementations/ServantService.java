@@ -9,12 +9,17 @@ import com.example.demo.services.IServantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class ServantService implements IServantService {
+
     @Autowired
     private ServantRepository servantRepository;
+
     @Autowired
     private FamilyService familyService;
+
     @Autowired
     private ServantMapper servantMapper;
 
@@ -24,8 +29,9 @@ public class ServantService implements IServantService {
         return servant.getId();
     }
 
-    public Servant getServantById(Long id) {
-        return servantRepository.findById(id).orElseThrow(
-                () -> new DataNotFoundException("the required servant is not present"));
+    public Servant getServantById(Long servantId) {
+        servantId = Optional.ofNullable(servantId).orElseThrow(() -> new DataNotFoundException("validation.error.servantId"));
+        return servantRepository.findById(servantId).orElseThrow(
+                () -> new DataNotFoundException("validation.error.servant"));
     }
 }

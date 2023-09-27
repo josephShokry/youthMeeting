@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(EndPoints.STREET)
 public class StreetController {
+
     @Autowired
     private StreetService streetService;
+
     @Operation(
             summary = "Use this api to add new street to the database",
             description = "To add new street to the database")
@@ -27,6 +29,7 @@ public class StreetController {
     public ResponseEntity<Long> addStreet(@RequestBody StreetDTO streetDTO){
         return ResponseEntity.status(HttpStatus.CREATED).body(streetService.addStreet(streetDTO));
     }
+
     @Operation(
             summary = "Use this api to list all street in the dropdown list",
             description = "To list all the street in the database")

@@ -15,6 +15,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @MappedSuperclass
 public class BasicEntityDTO {
+
     @JsonProperty("Id")
     private Long id;
 }

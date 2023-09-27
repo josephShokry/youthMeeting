@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(EndPoints.AREA)
 public class AreaController {
+
     @Autowired
     private AreaService areaService;
 
@@ -27,6 +28,7 @@ public class AreaController {
     public ResponseEntity<Long> addArea(@RequestBody LightDTO areaLightDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(areaService.addArea(areaLightDTO));
     }
+
     @Operation(
             summary = "Use this api to list all areas in the dropdown list",
             description = "To list all the areas in the database")

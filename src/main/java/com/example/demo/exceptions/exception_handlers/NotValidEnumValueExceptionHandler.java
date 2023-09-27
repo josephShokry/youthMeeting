@@ -17,6 +17,7 @@ import java.util.Map;
 public class NotValidEnumValueExceptionHandler {
     @Autowired
     private MessageSource messageSource;
+
     @ExceptionHandler(HttpMessageNotReadableException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody

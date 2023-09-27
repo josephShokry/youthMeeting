@@ -12,8 +12,10 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder
 public class Street extends BasicEntity{
+
     @Column(name = "name")
     private String name;
+
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "area_id", referencedColumnName = "id")
     private Area area;

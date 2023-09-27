@@ -18,8 +18,10 @@ import java.util.stream.Collectors;
 
 @ControllerAdvice
 class ErrorHandlingControllerAdvice {
+
     @Autowired
     private MessageSource messageSource;
+
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
@@ -30,6 +32,7 @@ class ErrorHandlingControllerAdvice {
                         fieldError -> messageSource.getMessage(fieldError.getMessage(), null, LocaleContextHolder.getLocale())
                 ));
     }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody

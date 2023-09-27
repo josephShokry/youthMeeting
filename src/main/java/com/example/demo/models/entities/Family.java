@@ -14,10 +14,13 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder
 public class Family extends BasicEntity{
+
     @Column(name = "name")
     private String name;
+
     @Column(name = "family_level")
     private Integer familyLevel;
+
     @Column(name = "joining_year")
     private Integer joiningYear;
 }

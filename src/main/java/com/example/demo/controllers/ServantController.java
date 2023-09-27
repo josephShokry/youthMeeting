@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(EndPoints.SERVANT)
 public class ServantController {
+
     @Autowired
     private ServantService servantService;
 

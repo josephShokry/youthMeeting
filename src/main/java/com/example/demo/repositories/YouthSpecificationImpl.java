@@ -10,6 +10,7 @@ import java.util.List;
 
 @AllArgsConstructor
 public class YouthSpecificationImpl implements YouthSpecification{
+
     private YouthFiltersDTO youthFiltersDTO;
 
     @Override

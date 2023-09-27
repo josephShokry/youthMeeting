@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(EndPoints.FATHER)
 public class FatherController {
+
     @Autowired
     private FatherService fatherService;
 
@@ -30,6 +31,7 @@ public class FatherController {
     public ResponseEntity<Long> addFather(@RequestBody FatherDTO fatherDTO){
         return ResponseEntity.status(HttpStatus.CREATED).body(fatherService.addFather(fatherDTO));
     }
+
     @Operation(
             summary = "Use this api to list all fathers in the dropdown list",
             description = "To list all the fathers in the database")

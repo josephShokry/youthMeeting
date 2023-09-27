@@ -13,14 +13,19 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserService implements UserDetailsService {
+
     @Autowired
     private UserRepository userRepository;
+
     @Autowired
     private ServantService servantService;
+
     @Autowired
     private PasswordEncoder passwordEncoder;
+
     @Autowired
     private UserMapper userMapper;
+
     public Boolean addUser(UserDTO userDTO) {
         User user = new User();
         userRepository.save(userMapper.mapToUser(userDTO, user, servantService));

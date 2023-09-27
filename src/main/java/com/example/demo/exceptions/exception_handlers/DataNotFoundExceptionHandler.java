@@ -15,8 +15,10 @@ import java.util.Map;
 
 @ControllerAdvice
 public class DataNotFoundExceptionHandler {
+
     @Autowired
     private MessageSource messageSource;
+
     @ExceptionHandler(DataNotFoundException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody

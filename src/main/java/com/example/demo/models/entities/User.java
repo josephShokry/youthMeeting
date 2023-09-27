@@ -21,12 +21,17 @@ public class User implements UserDetails {
     //what do you think? change the Person to be Servant ignoring the case that the user can be father
     @Id
     private String username;
+
     private String password;
+
     private boolean enabled;
+
     @Enumerated(EnumType.STRING)
     private Roles role;
+
     @OneToOne
     private Person person;
+
     private boolean authenticated;
 
     @Override

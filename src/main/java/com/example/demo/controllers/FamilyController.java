@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(EndPoints.FAMILY)
 public class FamilyController {
+
     @Autowired
     private FamilyService familyService;
 
@@ -30,6 +31,7 @@ public class FamilyController {
     public ResponseEntity<Long> addFamily(@RequestBody FamilyDTO familyDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(familyService.addFamily(familyDTO));
     }
+
     @Operation(
             summary = "Use this api to list all families in the dropdown list",
             description = "To list all the families in the database")

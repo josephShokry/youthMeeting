@@ -10,6 +10,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ServantDTO extends BasicEntityDTO{
+
     private String firstName;
+
     private Long familyId;
 }

@@ -15,10 +15,13 @@ import java.util.Optional;
 
 @Service
 public class AreaService implements IAreaService {
+
     @Autowired
     private AreaRepository areaRepository;
+
     @Autowired
     private AreaMapper areaMapper;
+
     @Autowired
     private LightDTOMapper lightDTOMapper;
 
@@ -27,6 +30,7 @@ public class AreaService implements IAreaService {
         areaRepository.save(areaMapper.mapLightDTO(areaLightDTO, area));
         return area.getId();
     }
+
     public Area findById(Long areaId) {
         areaId = Optional.ofNullable(areaId).orElseThrow(() -> new DataNotFoundException("validation.error.areaId"));
         return areaRepository.findById(areaId).orElseThrow(

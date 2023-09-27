@@ -6,6 +6,7 @@ import org.mapstruct.*;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface FamilyMapper {
+
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     Family mapFamilyDTO(FamilyDTO familyDTO, @MappingTarget Family family);
 }

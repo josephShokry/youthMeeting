@@ -10,12 +10,16 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 public class YouthMidLevelDTO extends BasicEntityDTO{
+
     @JsonProperty("firstName")
     private String firstName;
+
     @JsonProperty("lastName")
     private String lastName;
+
     @JsonProperty("meetingLevel")
     private Integer meetingLevel;
+
     @JsonProperty("familyId")
     private Long familyId;
 }

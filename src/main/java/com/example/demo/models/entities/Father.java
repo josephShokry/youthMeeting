@@ -17,5 +17,6 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder
 public class Father extends BasicPerson{
+
     private String church;
 }

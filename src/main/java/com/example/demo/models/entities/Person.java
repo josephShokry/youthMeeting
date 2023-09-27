@@ -20,16 +20,21 @@ import java.time.LocalDate;
 @Table(name = "persons")
 @SuperBuilder
 public class Person extends BasicPerson{
+
     @Column(name = "day_of_birth")
     private LocalDate dayOfBirth;
+
     @Column(name = "building_number")
     private Integer buildingNumber;
+
     @Column(name = "floor")
     private String floor;
+
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "street_id", referencedColumnName = "id")
     @JsonIgnore
     private Street street;
+
     @Column(name = "gender")
     @Enumerated(EnumType.STRING)
     private Gender gender;
