@@ -1,7 +1,12 @@
 package com.example.demo.models.dtos;
 
 import com.example.demo.models.enums.Roles;
-import lombok.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
@@ -9,8 +14,16 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDTO {
+
+    @JsonProperty("username")
     private String username;
+
+    @JsonProperty("password")
     private String password;
+
+    @JsonProperty("role")
     private Roles role;
+
+    @JsonProperty("personId")
     private Long personId;
 }

@@ -12,6 +12,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder
 public class Area extends BasicEntity{
+
     @Column(name = "name")
     private String name;
 }

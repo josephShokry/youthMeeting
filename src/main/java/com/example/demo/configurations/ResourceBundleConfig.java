@@ -11,6 +11,7 @@ import java.util.Locale;
 
 @Configuration
 public class ResourceBundleConfig {
+
     @Bean
     public MessageSource messageSource() {
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();

@@ -14,9 +14,11 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @SuperBuilder
 public class PaginationDTO {
+
     @JsonProperty("size")
     @Min(value = 1, message = "validation.error.pageSize.min")
     private Integer size;
+
     @JsonProperty("page")
     @Min(value = 1, message = "validation.error.pageNumber.min")
     private Integer page;

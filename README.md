@@ -25,13 +25,15 @@
 ---
 # Today Tasks
 - [ ] add the tambola
-- [ ] add security to the meeting
+- [x] add security to the meeting
 - [ ] add Unit test cases of the meeting repo, service, controller
 - [ ] modify the specifications for more optimized OOP
 - [ ] add the exceptions and error 
 - [x] why the instructor in the meeting must be unique
 - [x] why the encoder doesn't work
 - [ ] why when no login the back end panic
+- [ ] in tambola you need to specify some criteria of the selected winners as gender.
+- [ ] add edit meeting api
   
   
 ----

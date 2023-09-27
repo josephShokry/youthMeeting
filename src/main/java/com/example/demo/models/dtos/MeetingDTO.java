@@ -1,12 +1,11 @@
 package com.example.demo.models.dtos;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-
-import java.util.Set;
 
 @Getter
 @Setter
@@ -14,9 +13,16 @@ import java.util.Set;
 @NoArgsConstructor
 @SuperBuilder
 public class MeetingDTO extends BasicEntityDTO{
+
+    @JsonProperty("name")
     private String name;
+
+    @JsonProperty("topic")
     private String topic;
+
+    @JsonProperty("date")
     private String date;
+
+    @JsonProperty("instructorId")
     private Long instructorId;
-    private Set<Long> attendanceIds;
 }

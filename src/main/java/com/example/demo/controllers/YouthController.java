@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(EndPoints.YOUTH)
 @CrossOrigin
 public class YouthController {
+
     @Autowired
     private YouthService youthService;
 

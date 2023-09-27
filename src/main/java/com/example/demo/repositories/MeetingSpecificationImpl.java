@@ -15,6 +15,7 @@ import java.util.List;
 
 @AllArgsConstructor
 public class MeetingSpecificationImpl implements MeetingSpecification{
+
     private MeetingFiltersDTO meetingFiltersDTO;
 
     @Override

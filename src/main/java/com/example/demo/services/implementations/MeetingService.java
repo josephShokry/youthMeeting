@@ -3,12 +3,6 @@ package com.example.demo.services.implementations;
 import com.example.demo.exceptions.exceptions.DataNotFoundException;
 import com.example.demo.models.dtos.MeetingDTO;
 import com.example.demo.models.dtos.MeetingFiltersDTO;
-//import com.example.demo.models.entities.BasicPerson;
-//import com.example.demo.models.entities.Meeting;
-//import com.example.demo.models.entities.Meeting;
-//import com.example.demo.models.entities.Meeting;
-//import com.example.demo.models.mappers.MeetingMapper;
-import com.example.demo.models.dtos.YouthMidLevelDTO;
 import com.example.demo.models.entities.Meeting;
 import com.example.demo.models.entities.Youth;
 import com.example.demo.models.mappers.MeetingMapper;
@@ -23,27 +17,30 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
 @Service
 public class MeetingService implements IMeetingService {
+
     @Autowired
     private MeetingRepository meetingRepository;
+
     @Autowired
     private MeetingMapper meetingMapper;
+
     @Autowired
     private YouthService youthService;
+
     @Autowired
     private ServantService servantService;
+
     @Override
     public Long addMeeting(MeetingDTO meetingDTO) {
         Meeting meeting = new Meeting();
         meetingRepository.save(meetingMapper.mapMeetingDTO(meetingDTO, meeting, servantService));
         return meeting.getId();
     }
-
 
     @Override
     public Meeting findMeetingById(Long meetingId) {
@@ -62,7 +59,8 @@ public class MeetingService implements IMeetingService {
         Page<Meeting> meetings = findAll(meetingFiltersDTO);
         return meetingMapper.mapPageOfMeetings(meetings);
     }
-//    @Override
+
+    @Override
     public Page<Meeting> findAll(MeetingFiltersDTO meetingFiltersDTO) {
         meetingFiltersDTO.setPage(Optional.ofNullable(meetingFiltersDTO.getPage()).map(page -> page - 1).orElse(0));
         meetingFiltersDTO.setSize(Optional.ofNullable(meetingFiltersDTO.getSize()).orElse(10));
@@ -78,12 +76,6 @@ public class MeetingService implements IMeetingService {
         return true;
     }
 
-//    @Override
-//    public List<BasicPerson> getTambola(Integer numberOfPrizes) {
-//        //TODO: get the random people
-//        return null;
-//    }
-//
     @Override
     public Boolean addAttendance(Long meetingId, Long youthId) {
         Meeting meeting = findMeetingById(meetingId);
@@ -99,7 +91,6 @@ public class MeetingService implements IMeetingService {
         for(int i = 1;i<meeting.getContent().size();i++){
             common.retainAll(meeting.getContent().get(i).getAttendance());
         }
-        // TODO: get set of the intersection of all the sets inside this page
         return common;
     }
 }

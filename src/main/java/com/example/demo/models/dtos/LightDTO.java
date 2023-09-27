@@ -14,6 +14,7 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 public class LightDTO extends BasicEntityDTO{
+
     @JsonProperty("name")
     @NotBlank(message = "validation.error.name")
     private String name;

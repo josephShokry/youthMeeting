@@ -5,10 +5,11 @@ import com.example.demo.models.dtos.LightDTO;
 import com.example.demo.models.entities.Father;
 
 public interface IFatherService {
-    public Long addFather(FatherDTO fatherDTO);
 
-    public Iterable<LightDTO> getAll();
+    Long addFather(FatherDTO fatherDTO);
 
-    public Father getById(Long fatherId);
+    Iterable<LightDTO> getAll();
+
+    Father getById(Long fatherId);
 
 }

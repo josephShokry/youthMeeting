@@ -20,13 +20,24 @@ import java.util.List;
 public class User implements UserDetails {
     //what do you think? change the Person to be Servant ignoring the case that the user can be father
     @Id
+    @Column(name = "username")
     private String username;
+
+    @Column(name = "password")
     private String password;
+
+    @Column(name = "enabled")
     private boolean enabled;
+
+    @Column(name = "role")
     @Enumerated(EnumType.STRING)
     private Roles role;
+
     @OneToOne
+    @JoinColumn(name = "person_id", referencedColumnName = "id")
     private Person person;
+
+    @Column(name = "authenticated")
     private boolean authenticated;
 
     @Override

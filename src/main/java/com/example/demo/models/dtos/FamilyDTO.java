@@ -15,9 +15,11 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder
 public class FamilyDTO extends LightDTO {
+
     @JsonProperty("familyLevel")
     @Min(value = 1, message = "validation.error.familyId.min")
     private Integer familyLevel;
+
     @JsonProperty("joiningYear")
     @NotNull(message = "validation.error.joiningYear")
     private Integer joiningYear;

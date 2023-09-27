@@ -10,5 +10,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public interface YouthSpecification extends Specification<Youth> {
+
     Predicate toPredicate(Root<Youth> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder);
 }

@@ -13,6 +13,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder
 public class Servant extends Person {
+
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(referencedColumnName = "id", name = "family_id",unique = false)
     private Family family;

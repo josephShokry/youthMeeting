@@ -1,14 +1,8 @@
 package com.example.demo.models.mappers;
 
 import com.example.demo.models.dtos.MeetingDTO;
-import com.example.demo.models.dtos.YouthDTO;
-import com.example.demo.models.dtos.YouthMidLevelDTO;
 import com.example.demo.models.entities.Meeting;
-import com.example.demo.models.entities.Youth;
-import com.example.demo.services.implementations.FamilyService;
-import com.example.demo.services.implementations.FatherService;
 import com.example.demo.services.implementations.ServantService;
-import com.example.demo.services.implementations.StreetService;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
@@ -24,6 +18,7 @@ import java.util.Optional;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface MeetingMapper {
+
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "date", expression = "java(meetingDTO.getDate() != null ?" +
             " java.time.LocalDate.parse(meetingDTO.getDate()) : null)")

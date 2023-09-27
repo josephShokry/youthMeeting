@@ -21,14 +21,19 @@ import java.util.Optional;
 
 @Service
 public class YouthService implements IYouthService {
+
     @Autowired
     private YouthRepository youthRepository;
+
     @Autowired
     private FamilyService familyService;
+
     @Autowired
     private StreetService streetService;
+
     @Autowired
     private FatherService fatherService;
+
     @Autowired
     private YouthMapper youthMapper;
 
@@ -37,11 +42,13 @@ public class YouthService implements IYouthService {
         youthRepository.save(youthMapper.mapYouthDTO(youthDTO, youth, familyService, streetService, fatherService));
         return true;
     }
+
     public Youth findYouthById(Long youthId){
         youthId = Optional.ofNullable(youthId).orElseThrow(() -> new DataNotFoundException("validation.error.youthId"));
         return youthRepository.findById(youthId).orElseThrow(
                 () -> new DataNotFoundException("validation.error.youth"));
     }
+
     public YouthDTO findYouthDtoById(Long youthId){
         return youthMapper.mapYouth(findYouthById(youthId), new YouthDTO());
     }

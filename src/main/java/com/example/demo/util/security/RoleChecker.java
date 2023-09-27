@@ -14,10 +14,13 @@ import java.util.Objects;
 
 @Service
 public class RoleChecker {
+
     @Autowired
     private YouthService youthService;
+
     @Autowired
     private ServantService servantService;
+
     public Boolean sameFamily(Authentication authentication, Long youthId){
         User principal = (User) authentication.getPrincipal();
         Servant servant = (Servant)principal.getPerson();

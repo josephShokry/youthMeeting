@@ -16,12 +16,16 @@ import java.util.Optional;
 @Service
 
 public class StreetService implements IStreetService {
+
     @Autowired
     private StreetRepository streetRepository;
+
     @Autowired
     private AreaService areaService;
+
     @Autowired
     private StreetMapper streetMapper;
+
     @Autowired
     private LightDTOMapper lightDTOMapper;
 

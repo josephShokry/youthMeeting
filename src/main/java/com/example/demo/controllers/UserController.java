@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping(EndPoints.USER)
 public class UserController {
+
     @Autowired
     private UserService userService;
+
     @Operation(
             summary = "Use this api to register new use to the system",
             description = "To get add new user to the database")
