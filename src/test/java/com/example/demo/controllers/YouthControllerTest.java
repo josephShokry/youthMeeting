@@ -7,6 +7,7 @@ import com.example.demo.models.entities.Family;
 import com.example.demo.models.entities.User;
 import com.example.demo.models.entities.Youth;
 import com.example.demo.services.implementations.YouthService;
+import com.example.demo.util.security.EndPoints;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -46,7 +47,7 @@ class YouthControllerTest {
     void addYouthWithAuthorizedServantHead() throws Exception {
         //TODO: find a way to mock the body validator
     when(youthService.addYouth(any(YouthDTO.class))).thenReturn(true);
-        mockMvc.perform(post("/youth")
+        mockMvc.perform(post(EndPoints.YOUTH)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {"firstName":"joseph",
@@ -62,7 +63,7 @@ class YouthControllerTest {
     @Test
     void addYouthWithAuthorizedServant() throws Exception {
     when(youthService.addYouth(any(YouthDTO.class))).thenReturn(true);
-        mockMvc.perform(post("/youth")
+        mockMvc.perform(post(EndPoints.YOUTH)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {  "firstName":"joseph",
@@ -78,7 +79,7 @@ class YouthControllerTest {
     @Test
     void addYouthWithUnAuthorizedServant() throws Exception {
         when(youthService.addYouth(any(YouthDTO.class))).thenReturn(true);
-        mockMvc.perform(post("/youth")
+        mockMvc.perform(post(EndPoints.YOUTH)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {  "firstName":"joseph",
@@ -93,7 +94,7 @@ class YouthControllerTest {
     @Test
     @WithAnonymousUser
     void addYouthWithUnAuthenticatedUser() throws Exception {
-        mockMvc.perform(post("/youth")
+        mockMvc.perform(post(EndPoints.YOUTH)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{}"))
                 .andExpect(status().isUnauthorized());
@@ -102,7 +103,7 @@ class YouthControllerTest {
     @Test
     void getAllWithHeadServant() throws Exception {
         when(youthService.findAll(any(YouthFiltersDTO.class))).thenReturn(null);
-        mockMvc.perform(post("/youth/all")
+        mockMvc.perform(post(EndPoints.YOUTH + EndPoints.GET_ALL)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{}")
                         .with(user(users.get(0))))
@@ -112,7 +113,7 @@ class YouthControllerTest {
 
     @Test
     void getAllWithUnauthorizedServant() throws Exception {
-        mockMvc.perform(post("/youth/all")
+        mockMvc.perform(post(EndPoints.YOUTH + EndPoints.GET_ALL)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{}")
                         .with(user(users.get(1))))
@@ -122,7 +123,7 @@ class YouthControllerTest {
     @Test
     @WithAnonymousUser
     void getAllWithUnauthenticatedUser() throws Exception {
-        mockMvc.perform(post("/youth/all"))
+        mockMvc.perform(post(EndPoints.YOUTH + EndPoints.GET_ALL))
                 .andExpect(status().isUnauthorized());
     }
 /////////////////test the get youth
@@ -130,7 +131,7 @@ class YouthControllerTest {
     @Test
     void getYouthWithAuthorizedServantHead() throws Exception {
         when(youthService.findYouthDtoById(1L)).thenReturn(null);
-        mockMvc.perform(get("/youth")
+        mockMvc.perform(get(EndPoints.YOUTH)
                         .param("youthId","1")
                         .with(user(users.get(0))))
                 .andExpect(status().isOk());
@@ -143,7 +144,7 @@ class YouthControllerTest {
         youth.setFamily(families.get(0));
         when(youthService.findYouthDtoById(1L)).thenReturn(null);
         when(youthService.findYouthById(1L)).thenReturn(youth);
-        mockMvc.perform(get("/youth")
+        mockMvc.perform(get(EndPoints.YOUTH)
                         .param("youthId", "1")
                         .with(user(users.get(1))))
                 .andExpect(status().isOk());
@@ -157,7 +158,7 @@ class YouthControllerTest {
         youth.setFamily(families.get(0));
         when(youthService.findYouthById(1L)).thenReturn(youth);
         when(youthService.findYouthDtoById(1L)).thenReturn(null);
-        mockMvc.perform(get("/youth")
+        mockMvc.perform(get(EndPoints.YOUTH)
                         .param("youthId", "1")
                         .with(user(users.get(2))))
                 .andExpect(status().isForbidden());
@@ -167,7 +168,7 @@ class YouthControllerTest {
     @Test
     @WithAnonymousUser
     void getYouthWithUnAuthenticatedUser() throws Exception {
-        mockMvc.perform(get("/youth")
+        mockMvc.perform(get(EndPoints.YOUTH)
                         .param("youthId","1"))
                 .andExpect(status().isUnauthorized());
     }
@@ -176,7 +177,7 @@ class YouthControllerTest {
     @Test
     void editYouthWithAuthorizedServantHead() throws Exception {
         when(youthService.editYouth(any(YouthDTO.class))).thenReturn(true);
-        mockMvc.perform(patch("/youth")
+        mockMvc.perform(patch(EndPoints.YOUTH)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {  "firstName":"joseph",
@@ -192,7 +193,7 @@ class YouthControllerTest {
     @Test
     void editYouthWithAuthorizedServant() throws Exception {
         when(youthService.editYouth(any(YouthDTO.class))).thenReturn(true);
-        mockMvc.perform(patch("/youth")
+        mockMvc.perform(patch(EndPoints.YOUTH)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {  "firstName":"joseph",
@@ -208,7 +209,7 @@ class YouthControllerTest {
     @Test
     void editYouthWithUnAuthorizedServant() throws Exception {
         when(youthService.editYouth(any(YouthDTO.class))).thenReturn(true);
-        mockMvc.perform(patch("/youth")
+        mockMvc.perform(patch(EndPoints.YOUTH)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {  "firstName":"joseph",
@@ -224,7 +225,7 @@ class YouthControllerTest {
     @Test
     @WithAnonymousUser
     void editYouthWithUnAuthenticatedUser() throws Exception {
-        mockMvc.perform(post("/youth")
+        mockMvc.perform(post(EndPoints.YOUTH)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {  "firstName":"joseph",
@@ -238,7 +239,7 @@ class YouthControllerTest {
     @Test
     void editYouthWithNonHeadServantWithNoFamilyId() throws Exception {
         when(youthService.editYouth(any(YouthDTO.class))).thenReturn(true);
-        mockMvc.perform(patch("/youth")
+        mockMvc.perform(patch(EndPoints.YOUTH)
                         .contentType(MediaType.APPLICATION_JSON)
                         .with(user(users.get(1)))
                         .content("""
@@ -253,7 +254,7 @@ class YouthControllerTest {
     @Test
     void editYouthWithHeadServantWithNoFamilyId() throws Exception {
         when(youthService.editYouth(any(YouthDTO.class))).thenReturn(true);
-        mockMvc.perform(patch("/youth")
+        mockMvc.perform(patch(EndPoints.YOUTH)
                         .contentType(MediaType.APPLICATION_JSON)
                         .with(user(users.get(0)))
                         .content("""
@@ -268,7 +269,7 @@ class YouthControllerTest {
     @Test
     void editYouthWithNonHeadServantWithNoFirstName() throws Exception {
         when(youthService.editYouth(any(YouthDTO.class))).thenReturn(true);
-        mockMvc.perform(patch("/youth")
+        mockMvc.perform(patch(EndPoints.YOUTH)
                         .contentType(MediaType.APPLICATION_JSON)
                         .with(user(users.get(1)))
                         .content("""
@@ -280,7 +281,7 @@ class YouthControllerTest {
     @Test
     void editYouthWithNonHeadServantWithNoLastName() throws Exception {
         when(youthService.editYouth(any(YouthDTO.class))).thenReturn(true);
-        mockMvc.perform(patch("/youth")
+        mockMvc.perform(patch(EndPoints.YOUTH)
                         .contentType(MediaType.APPLICATION_JSON)
                         .with(user(users.get(1)))
                         .content("""
@@ -292,7 +293,7 @@ class YouthControllerTest {
     @Test
     void editYouthWithNonHeadServantWithNoPhoneNumber() throws Exception {
         when(youthService.editYouth(any(YouthDTO.class))).thenReturn(true);
-        mockMvc.perform(patch("/youth")
+        mockMvc.perform(patch(EndPoints.YOUTH)
                         .contentType(MediaType.APPLICATION_JSON)
                         .with(user(users.get(1)))
                         .content("""
@@ -304,7 +305,7 @@ class YouthControllerTest {
     @Test
     void editYouthWithNonHeadServantWithNoBody() throws Exception {
         when(youthService.editYouth(any(YouthDTO.class))).thenReturn(true);
-        mockMvc.perform(patch("/youth")
+        mockMvc.perform(patch(EndPoints.YOUTH)
                         .with(user(users.get(1))))
                 .andExpect(status().isBadRequest());
         verify(youthService, times(0)).editYouth(any(YouthDTO.class));

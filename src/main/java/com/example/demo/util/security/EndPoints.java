@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 public class EndPoints {
     public static final String YOUTH = "/youth";
     public static final String ADD_YOUTH = "";
-    public static final String GET_ALL = "all";
+    public static final String GET_ALL = "/all";
     public static final String GET_YOUTH = "";
     public static final String EDIT_YOUTH = "";
     public static final String ADD_AREA = "";
@@ -23,7 +23,12 @@ public class EndPoints {
     public static final String SETTINGS = "/settings";
     public static final String STREET = "/street";
     public static final String USER = "/user";
-
+    public static final String MEETING = "meeting";
+    public static final String ADD_MEETING = "";
+    public static final String ADD_ATTENDANCE = "attendance";
+    public static final String GET_MEETING = "";
+    public static final String GET_ATTENDANCE = "attendance";
+    public static final String GET_TAMBOLA = "";
 
 
     private EndPoints() { }
