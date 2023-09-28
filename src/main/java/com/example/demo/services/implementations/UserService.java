@@ -28,6 +28,7 @@ public class UserService implements UserDetailsService {
 
     public Boolean addUser(UserDTO userDTO) {
         User user = new User();
+        userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         userRepository.save(userMapper.mapToUser(userDTO, user, servantService));
         return true;
     }

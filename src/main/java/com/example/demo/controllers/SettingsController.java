@@ -16,6 +16,8 @@ import java.util.Locale;
 @RequestMapping(EndPoints.SETTINGS)
 public class SettingsController {
 
+    private static final String LOCALE = "org.springframework.web.servlet.i18n.SessionLocaleResolver.LOCALE";
+
     @Operation(
             summary = "Use this api to change the language of response messages",
             description = "To change the language of response messages the available languages are ar, en")
@@ -24,7 +26,6 @@ public class SettingsController {
     })
     @PostMapping(EndPoints.SET_LANGUAGE)
     public void changeLanguage(HttpServletRequest request, @RequestParam String language) {
-        request.getSession().setAttribute("org.springframework.web.servlet.i18n.SessionLocaleResolver.LOCALE",
-                Locale.forLanguageTag(language));
+        request.getSession().setAttribute(LOCALE, Locale.forLanguageTag(language));
     }
 }
