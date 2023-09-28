@@ -32,15 +32,13 @@
 
 ---
 # Today Tasks
-- [x] add edit meeting api
-- [ ] add to the util list filtration methods that filter list of youths or list of meetings depending on the filterDTO
 - [ ] make the meeting dto check the date if the date is friday or any user specified day it's of otherwise throw exception
 - [ ] add the exceptions and error
 - [ ] add Unit test cases of the meeting repo, service, controller
 - [ ] modify the specifications for more optimized OOP
 - [ ] check if no login the back end panic
-- [ ] add the tambola
-- [ ] in tambola you need to specify some criteria of the selected winners as gender.
+- [ ] capture the time while adding the attendance and filter with it
+- [ ] make sure no repeated name or youth or anything in the lists like the attendance
   
   
 ----
@@ -94,6 +92,10 @@
 - [x] why the instructor in the meeting must be unique
 - [x] why the encoder doesn't work
 - [x] add security to the meeting
+- [x] add edit meeting api
+- [x] add to the util list filtration methods that filter list of youths or list of meetings depending on the filterDTO
+- [x] add the tambola
+- [x] in tambola you need to specify some criteria of the selected winners as gender.
 </details>
 
 ---
