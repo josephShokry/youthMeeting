@@ -2,7 +2,6 @@ package com.example.demo.controllers;
 
 import com.example.demo.models.dtos.MeetingDTO;
 import com.example.demo.models.dtos.MeetingFiltersDTO;
-import com.example.demo.models.entities.BasicPerson;
 import com.example.demo.models.entities.Youth;
 import com.example.demo.services.implementations.MeetingService;
 import com.example.demo.util.security.EndPoints;
@@ -16,13 +15,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -42,6 +41,18 @@ public class MeetingController {
     @PreAuthorize("hasRole('ROLE_SERVANT_HEAD')")
     ResponseEntity<Long> addMeeting(@RequestBody MeetingDTO meetingDTO){
         return ResponseEntity.status(HttpStatus.CREATED).body(meetingService.addMeeting(meetingDTO));
+    }
+
+    @Operation(
+            summary = "Use this api to edit old meeting to the database",
+            description = "To edit old meeting to the database")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "The meeting is added successfully")
+    })
+    @PatchMapping(EndPoints.Edit_MEETING)
+    @PreAuthorize("hasRole('ROLE_SERVANT_HEAD')")
+    ResponseEntity<Boolean> editMeeting(@RequestBody MeetingDTO meetingDTO){
+        return ResponseEntity.status(HttpStatus.OK).body(meetingService.editMeeting(meetingDTO));
     }
 
     @Operation(

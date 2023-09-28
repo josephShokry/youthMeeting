@@ -1,6 +1,7 @@
 package com.example.demo.models.dtos;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,5 +25,6 @@ public class MeetingDTO extends BasicEntityDTO{
     private String date;
 
     @JsonProperty("instructorId")
+    @Min(value = 1, message = "validation.error.instructorId.min")
     private Long instructorId;
 }

@@ -31,7 +31,7 @@ public class Meeting extends BasicEntity{
     @Column(name = "topic")
     private String topic;
 
-    @Column(name = "date")
+    @Column(name = "date", unique = true, nullable = false)
     private LocalDate date;
 
     //TODO: this should be basic person to include the fathers but basicPerson class is not entity so we can't now

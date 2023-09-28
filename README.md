@@ -15,25 +15,32 @@
 <summary>learnt</summary>
 
 - filtering with specification form the DB
+- security using spring security
 - Basic Auth 
 - mappers using MapStruct
 - DataBase migration with flyway
 - clean code with sonarLint
 - resource Bundle
+- documenting apis with swagger
+- parametrized tests
+- mvc integration testing
+- mock testing
+- Lombok : `@Superbuilder` that solves the inheritance builder
 </details>
+
+
 
 ---
 # Today Tasks
-- [ ] add the tambola
-- [x] add security to the meeting
+- [x] add edit meeting api
+- [ ] add to the util list filtration methods that filter list of youths or list of meetings depending on the filterDTO
+- [ ] make the meeting dto check the date if the date is friday or any user specified day it's of otherwise throw exception
+- [ ] add the exceptions and error
 - [ ] add Unit test cases of the meeting repo, service, controller
 - [ ] modify the specifications for more optimized OOP
-- [ ] add the exceptions and error 
-- [x] why the instructor in the meeting must be unique
-- [x] why the encoder doesn't work
-- [ ] why when no login the back end panic
+- [ ] check if no login the back end panic
+- [ ] add the tambola
 - [ ] in tambola you need to specify some criteria of the selected winners as gender.
-- [ ] add edit meeting api
   
   
 ----
@@ -74,14 +81,19 @@
   - [x] merge with swagger branch
   - [x] finish the pull request and squash and merge to the develop branch
 </details>
+
 <details>
 <summary>Second PR</summary>
 </details>
+
 <details>
 <summary>Third PR</summary>
 
-- [x] add all needed end points
+- [x] add all needed end points of meeting controller
 - [x] add all needed entities, dtos, mappers, services, ...
+- [x] why the instructor in the meeting must be unique
+- [x] why the encoder doesn't work
+- [x] add security to the meeting
 </details>
 
 ---

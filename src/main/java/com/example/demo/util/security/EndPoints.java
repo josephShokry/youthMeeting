@@ -55,6 +55,8 @@ public class EndPoints {
 
     public static final String GET_TAMBOLA = "";
 
+    public static final String Edit_MEETING = "";
+
 
     private EndPoints() { }
 }
