@@ -43,7 +43,7 @@ public class YouthController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "The youths retrieved successfully")
     })
-    @PostMapping(EndPoints.GET_ALL)
+    @PostMapping(EndPoints.YOUTH_GET_ALL)
     @PreAuthorize("hasRole('ROLE_SERVANT_HEAD')")
     public ResponseEntity<Page<YouthMidLevelDTO>> getAll(@Valid @RequestBody YouthFiltersDTO youthFiltersDTO) {
         return ResponseEntity.status(HttpStatus.OK).body(youthService.findAll(youthFiltersDTO));
@@ -57,7 +57,7 @@ public class YouthController {
     })
     @GetMapping(EndPoints.GET_YOUTH)
     @PreAuthorize("hasRole('ROLE_SERVANT_HEAD') or @roleChecker.sameFamily(authentication, #youthId)")
-    public ResponseEntity<YouthDTO> getYouth(@RequestParam Long youthId) {
+    public ResponseEntity<YouthDTO> getYouth(@PathVariable Long youthId) {
         return ResponseEntity.status(HttpStatus.OK).body(youthService.findYouthDtoById(youthId));
     }
 
