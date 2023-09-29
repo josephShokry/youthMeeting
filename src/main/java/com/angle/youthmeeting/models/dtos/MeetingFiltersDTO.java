@@ -32,5 +32,5 @@ public class MeetingFiltersDTO extends PaginationDTO{
 
     @JsonProperty("instructorId")
     @Min(value = 1,message = "validation.error.instructorId.min")
-    private Integer instructorId;
+    private Long instructorId;
 }

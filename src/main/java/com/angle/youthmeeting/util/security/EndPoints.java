@@ -56,6 +56,7 @@ public class EndPoints {
     public static final String GET_RAFFLE = "/raffle";
 
     public static final String EDIT_MEETING = "";
+    public static final String ATTENDANCE = "";
 
 
     private EndPoints() { }

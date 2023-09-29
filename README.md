@@ -32,13 +32,18 @@
 
 ---
 # Today Tasks
+- [ ] meeting instructor should be basic youth
+- [ ] attendance filter with 2 request body
 - [ ] make the meeting dto check the date if the date is friday or any user specified day it's of otherwise throw exception
 - [ ] add the exceptions and error
 - [ ] add Unit test cases of the meeting repo, service, controller
-- [ ] modify the specifications for more optimized OOP
 - [ ] check if no login the back end panic
-- [ ] capture the time while adding the attendance and filter with it
-- [ ] make sure no repeated name or youth or anything in the lists like the attendance
+- 
+- [x] add constrain on the attendance table that youthId concat with date must be unique
+- [x] make sure no repeated name or youth or anything in the lists like the attendance
+- [x] modify the specifications for more optimized OOP
+- [x] capture the time while adding the attendance and filter with it
+- [x] if the number of prizes bigger than list size it panics
   
   
 ----

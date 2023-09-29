@@ -1,7 +1,13 @@
 package com.angle.youthmeeting.models.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -43,4 +49,13 @@ public class Youth extends Person{
 
     @Column(name = "notes")
     private String notes;
+
+//    public Boolean matches(YouthFiltersDTO youthFiltersDTO){
+//        return (youthFiltersDTO.getFamilyId() == null || youthFiltersDTO.getFamilyId().equals(this.getFamily().getId()))
+//                && (youthFiltersDTO.getStreetId() == null || youthFiltersDTO.getStreetId().equals(this.getStreet().getId()))
+//                && (youthFiltersDTO.getNamePart() == null || (this.getFirstName() + " " + this.getLastName()).contains(youthFiltersDTO.getNamePart()))
+//                && (youthFiltersDTO.getMonth() == null || youthFiltersDTO.getMonth().equals(this.getDayOfBirth().getMonthValue()))
+//                && (youthFiltersDTO.getYear() == null || youthFiltersDTO.getYear().equals(this.getDayOfBirth().getYear()))
+//                && (youthFiltersDTO.getGender() == null || youthFiltersDTO.getGender().equals(this.getGender()));
+//    }
 }
