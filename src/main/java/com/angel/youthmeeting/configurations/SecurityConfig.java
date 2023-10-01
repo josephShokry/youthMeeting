@@ -1,5 +1,6 @@
 package com.angel.youthmeeting.configurations;
 
+import com.angel.youthmeeting.util.security.EndPoints;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -15,7 +16,6 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
-    //we need to think which end points are allowed and which are not
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -27,8 +27,8 @@ public class SecurityConfig {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .requestMatchers("/user/register").permitAll()
-                .requestMatchers("/servants").permitAll()
+                .requestMatchers(EndPoints.USER + EndPoints.USER_REGISTER).permitAll()
+                .requestMatchers(EndPoints.SERVANT + EndPoints.GET_ALL).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic(Customizer.withDefaults());

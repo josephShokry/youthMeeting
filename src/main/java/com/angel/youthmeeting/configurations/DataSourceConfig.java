@@ -20,15 +20,4 @@ public class DataSourceConfig {
         dataSource.setPassword(UserConfig.APP_DATABASE_PASSWORD);
         return dataSource;
     }
-
-//    @Bean
-//    @Profile("test")
-//    public DataSource dataSources() {
-//        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-//        dataSource.setDriverClassName(UserConfig.TEST_DATABASE_DRIVER_CLASS);
-//        dataSource.setUrl(UserConfig.TEST_DATABASE_URL);
-//        dataSource.setUsername(UserConfig.TEST_DATABASE_USER_NAME);
-//        dataSource.setPassword(UserConfig.TEST_DATABASE_PASSWORD);
-//        return dataSource;
-//    }
 }

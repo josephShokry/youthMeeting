@@ -4,7 +4,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UserConfig {
-
     public static final String APP_DATABASE_USER_NAME = "root";
 
     public static final String APP_DATABASE_PASSWORD = "joseph";
