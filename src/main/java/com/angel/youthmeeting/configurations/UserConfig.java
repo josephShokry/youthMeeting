@@ -8,13 +8,13 @@ public class UserConfig {
     // use these vars in
     // this file will be filled from the user of the system to add his config that will make the system boot
 
-    public static final String DATABASE_USER_NAME = "root";
+    public static final String APP_DATABASE_USER_NAME = "root";
 
-    public static final String DATABASE_PASSWORD = "joseph";
+    public static final String APP_DATABASE_PASSWORD = "joseph";
 
-    public static final String DATABASE_URL = "jdbc:mysql://localhost:3306/church";
+    public static final String APP_DATABASE_URL = "jdbc:mysql://localhost:3306/church";
 
-    public static final String DATABASE_DRIVER_CLASS = "com.mysql.cj.jdbc.Driver";
+    public static final String APP_DATABASE_DRIVER_CLASS = "com.mysql.cj.jdbc.Driver";
 
     private UserConfig() {
     }

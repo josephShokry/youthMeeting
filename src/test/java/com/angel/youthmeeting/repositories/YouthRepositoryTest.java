@@ -1,5 +1,13 @@
 package com.angel.youthmeeting.repositories;
 
+import com.angel.youthmeeting.dataProviders.YouthRepositoryDataProvider;
+import com.angel.youthmeeting.models.dtos.YouthFiltersDTO;
+import com.angel.youthmeeting.models.entities.Area;
+import com.angel.youthmeeting.models.entities.Family;
+import com.angel.youthmeeting.models.entities.Father;
+import com.angel.youthmeeting.models.entities.Street;
+import com.angel.youthmeeting.models.entities.Youth;
+import com.angel.youthmeeting.models.enums.Gender;
 import com.angel.youthmeeting.models.dtos.YouthFiltersDTO;
 import com.angel.youthmeeting.models.entities.Area;
 import com.angel.youthmeeting.models.entities.Family;

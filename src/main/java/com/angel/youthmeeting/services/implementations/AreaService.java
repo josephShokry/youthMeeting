@@ -1,11 +1,11 @@
 package com.angel.youthmeeting.services.implementations;
 
+import com.angel.youthmeeting.exceptions.exceptions.DataNotFoundException;
 import com.angel.youthmeeting.models.dtos.LightDTO;
 import com.angel.youthmeeting.models.entities.Area;
 import com.angel.youthmeeting.models.mappers.AreaMapper;
 import com.angel.youthmeeting.models.mappers.LightDTOMapper;
 import com.angel.youthmeeting.repositories.AreaRepository;
-import com.angel.youthmeeting.exceptions.exceptions.DataNotFoundException;
 import com.angel.youthmeeting.services.IAreaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

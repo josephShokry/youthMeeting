@@ -1,5 +1,6 @@
 package com.angel.youthmeeting.controllers;
 
+import com.angel.youthmeeting.dataProviders.YouthControllerDataProvider;
 import com.angel.youthmeeting.models.dtos.YouthDTO;
 import com.angel.youthmeeting.models.dtos.YouthFiltersDTO;
 import com.angel.youthmeeting.models.entities.Family;
@@ -7,7 +8,6 @@ import com.angel.youthmeeting.models.entities.User;
 import com.angel.youthmeeting.models.entities.Youth;
 import com.angel.youthmeeting.services.implementations.YouthService;
 import com.angel.youthmeeting.util.security.EndPoints;
-import com.angel.youthmeeting.dataProviders.YouthControllerDataProvider;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -16,14 +16,17 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
@@ -48,7 +51,7 @@ class YouthControllerTest {
     void addYouthWithAuthorizedServantHead() throws Exception {
         //TODO: find a way to mock the body validator
     when(youthService.addYouth(any(YouthDTO.class))).thenReturn(true);
-        mockMvc.perform(MockMvcRequestBuilders.post(EndPoints.YOUTH)
+        mockMvc.perform(post(EndPoints.YOUTH)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {"firstName":"joseph",
@@ -104,7 +107,7 @@ class YouthControllerTest {
     @Test
     void getAllWithHeadServant() throws Exception {
         when(youthService.findAll(any(YouthFiltersDTO.class))).thenReturn(null);
-        mockMvc.perform(post(EndPoints.YOUTH + EndPoints.GET_ALL)
+        mockMvc.perform(post(EndPoints.YOUTH + EndPoints.YOUTH_GET_ALL)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{}")
                         .with(user(users.get(0))))
@@ -114,7 +117,7 @@ class YouthControllerTest {
 
     @Test
     void getAllWithUnauthorizedServant() throws Exception {
-        mockMvc.perform(post(EndPoints.YOUTH + EndPoints.GET_ALL)
+        mockMvc.perform(post(EndPoints.YOUTH + EndPoints.YOUTH_GET_ALL)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{}")
                         .with(user(users.get(1))))
@@ -124,7 +127,7 @@ class YouthControllerTest {
     @Test
     @WithAnonymousUser
     void getAllWithUnauthenticatedUser() throws Exception {
-        mockMvc.perform(post(EndPoints.YOUTH + EndPoints.GET_ALL))
+        mockMvc.perform(post(EndPoints.YOUTH + EndPoints.YOUTH_GET_ALL))
                 .andExpect(status().isUnauthorized());
     }
 /////////////////test the get youth
@@ -132,8 +135,7 @@ class YouthControllerTest {
     @Test
     void getYouthWithAuthorizedServantHead() throws Exception {
         when(youthService.findYouthDtoById(1L)).thenReturn(null);
-        mockMvc.perform(get(EndPoints.YOUTH)
-                        .param("youthId","1")
+        mockMvc.perform(get(EndPoints.YOUTH + EndPoints.GET_YOUTH, 1L)
                         .with(user(users.get(0))))
                 .andExpect(status().isOk());
         verify(youthService, times(1)).findYouthDtoById(1L);
@@ -145,8 +147,7 @@ class YouthControllerTest {
         youth.setFamily(families.get(0));
         when(youthService.findYouthDtoById(1L)).thenReturn(null);
         when(youthService.findYouthById(1L)).thenReturn(youth);
-        mockMvc.perform(get(EndPoints.YOUTH)
-                        .param("youthId", "1")
+        mockMvc.perform(get(EndPoints.YOUTH + EndPoints.GET_YOUTH, 1L)
                         .with(user(users.get(1))))
                 .andExpect(status().isOk());
         verify(youthService, times(1)).findYouthDtoById(1L);
@@ -159,8 +160,7 @@ class YouthControllerTest {
         youth.setFamily(families.get(0));
         when(youthService.findYouthById(1L)).thenReturn(youth);
         when(youthService.findYouthDtoById(1L)).thenReturn(null);
-        mockMvc.perform(get(EndPoints.YOUTH)
-                        .param("youthId", "1")
+        mockMvc.perform(get(EndPoints.YOUTH + EndPoints.GET_YOUTH, 1L)
                         .with(user(users.get(2))))
                 .andExpect(status().isForbidden());
         verify(youthService, times(0)).findYouthDtoById(1L);
@@ -311,6 +311,4 @@ class YouthControllerTest {
                 .andExpect(status().isBadRequest());
         verify(youthService, times(0)).editYouth(any(YouthDTO.class));
     }
-
-
 }

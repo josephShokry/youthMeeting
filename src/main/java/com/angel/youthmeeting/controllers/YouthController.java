@@ -14,7 +14,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
@@ -43,7 +50,7 @@ public class YouthController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "The youths retrieved successfully")
     })
-    @PostMapping(EndPoints.GET_ALL)
+    @PostMapping(EndPoints.YOUTH_GET_ALL)
     @PreAuthorize("hasRole('ROLE_SERVANT_HEAD')")
     public ResponseEntity<Page<YouthMidLevelDTO>> getAll(@Valid @RequestBody YouthFiltersDTO youthFiltersDTO) {
         return ResponseEntity.status(HttpStatus.OK).body(youthService.findAll(youthFiltersDTO));
@@ -57,7 +64,7 @@ public class YouthController {
     })
     @GetMapping(EndPoints.GET_YOUTH)
     @PreAuthorize("hasRole('ROLE_SERVANT_HEAD') or @roleChecker.sameFamily(authentication, #youthId)")
-    public ResponseEntity<YouthDTO> getYouth(@RequestParam Long youthId) {
+    public ResponseEntity<YouthDTO> getYouth(@PathVariable Long youthId) {
         return ResponseEntity.status(HttpStatus.OK).body(youthService.findYouthDtoById(youthId));
     }
 

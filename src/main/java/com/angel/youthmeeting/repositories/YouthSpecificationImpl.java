@@ -31,10 +31,11 @@ public class YouthSpecificationImpl implements YouthSpecification {
                     specifications.addFamilyFilter(filters.getFamilyId(), root, criteriaBuilder, predicates);
                     specifications.addStreetFilter(filters.getStreetId(), root, criteriaBuilder, predicates);
                     specifications.addNamePartFilter(filters.getNamePart(), root, criteriaBuilder, predicates);
-                    specifications.addYearFilter(filters.getYear(), root, criteriaBuilder, predicates, "dayOfBirth");
+                    specifications.addYearFilter(filters.getYear(), root, criteriaBuilder, predicates,"dayOfBirth");
                     specifications.addMonthFilter(filters.getMonth(), root, criteriaBuilder, predicates,"dayOfBirth");
                     specifications.addGenderFilter(filters.getGender(), root, criteriaBuilder, predicates);
                 });
         return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
     }
+
 }

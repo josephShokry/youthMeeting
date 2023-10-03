@@ -1,12 +1,18 @@
 package com.angel.youthmeeting.models.mappers;
 
-import com.angel.youthmeeting.services.implementations.StreetService;
 import com.angel.youthmeeting.models.dtos.YouthDTO;
 import com.angel.youthmeeting.models.dtos.YouthMidLevelDTO;
 import com.angel.youthmeeting.models.entities.Youth;
 import com.angel.youthmeeting.services.implementations.FamilyService;
 import com.angel.youthmeeting.services.implementations.FatherService;
-import org.mapstruct.*;
+import com.angel.youthmeeting.services.implementations.StreetService;
+import org.mapstruct.AfterMapping;
+import org.mapstruct.BeanMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.NullValuePropertyMappingStrategy;
+import org.mapstruct.ReportingPolicy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 

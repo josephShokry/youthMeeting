@@ -72,7 +72,7 @@ public class MeetingController {
             @ApiResponse(responseCode = "200", description = "The meetings retrieved successfully"),
             @ApiResponse(responseCode = "401", description = "The user is unAuthenticated to request this endpoint")
     })
-    @GetMapping(EndPoints.GET_ALL)
+    @PostMapping(EndPoints.MEETING_GET_ALL)
     @PreAuthorize("hasRole('ROLE_SERVANT_HEAD')")
     public ResponseEntity<Page<MeetingDTO>> getAll(@Valid @RequestBody MeetingFiltersDTO meetingFiltersDTO) {
         return ResponseEntity.status(HttpStatus.OK).body(meetingService.findAllMeetingDTO(meetingFiltersDTO));

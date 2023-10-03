@@ -20,7 +20,7 @@ import java.util.List;
 public class User implements UserDetails {
     //what do you think? change the Person to be Servant ignoring the case that the user can be father
     @Id
-    @Column(name = "username")
+    @Column(name = "username", unique = true)
     private String username;
 
     @Column(name = "password")

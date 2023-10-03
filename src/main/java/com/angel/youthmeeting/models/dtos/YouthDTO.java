@@ -55,6 +55,7 @@ public class YouthDTO extends BasicEntityDTO{
     @Min(value = 1, message = "validation.error.familyId.min")
     @NotNull(message = "validation.error.familyId")
     private Long familyId;
+
     @Min(value = 1, message = "validation.error.fatherId.min")
     private Long fatherId;
 

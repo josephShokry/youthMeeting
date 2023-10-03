@@ -11,9 +11,9 @@ import lombok.experimental.SuperBuilder;
 
 @Getter
 @Setter
+@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
-@SuperBuilder
 public class FamilyDTO extends LightDTO {
 
     @JsonProperty("familyLevel")

@@ -7,5 +7,5 @@ public interface IServantService {
 
     Long addServant(ServantDTO servantDTO);
 
-    Servant getServantById(Long servantId);
+    Servant getServantById(Long id);
 }

@@ -8,7 +8,6 @@ import com.angel.youthmeeting.models.enums.Gender;
 import com.angel.youthmeeting.services.implementations.FamilyService;
 import com.angel.youthmeeting.services.implementations.FatherService;
 import com.angel.youthmeeting.services.implementations.StreetService;
-import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mapstruct.factory.Mappers;
@@ -69,7 +68,7 @@ class YouthMapperTest {
         assertThat(targetYouth.getStreet()).isNotNull();
         assertThat(targetYouth.getFamily().getName()).isEqualTo("mark");
         assertThat(targetYouth.getStreet().getName()).isEqualTo("ishaky");
-        AssertionsForClassTypes.assertThat(targetYouth.getGender()).isEqualTo(Gender.FEMALE);
+        assertThat(targetYouth.getGender()).isEqualTo(Gender.FEMALE);
     }
 
 
@@ -99,6 +98,6 @@ class YouthMapperTest {
         assertThat(targetYouthDTO.getBuildingNumber()).isEqualTo(16);
         assertThat(targetYouthDTO.getFamilyId()).isEqualTo(1);
         assertThat(targetYouthDTO.getStreetId()).isEqualTo(1);
-        AssertionsForClassTypes.assertThat(targetYouthDTO.getGender()).isEqualTo(Gender.MALE);
+        assertThat(targetYouthDTO.getGender()).isEqualTo(Gender.MALE);
     }
 }
