@@ -6,7 +6,7 @@
 - Add attendance
 - meeting filtering
 - getting attendance 
-- tambola
+- raffle 
 
 </details>
 
@@ -32,12 +32,13 @@
 
 ---
 # Today Tasks
-- [ ] meeting instructor should be basic youth
-- [ ] attendance filter with 2 request body
+- [x] meeting instructor should be basic youth
+- [x] attendance filter with 2 request body
 - [ ] make the meeting dto check the date if the date is friday or any user specified day it's of otherwise throw exception
 - [ ] add the exceptions and error
 - [ ] add Unit test cases of the meeting repo, service, controller
 - [ ] check if no login the back end panic
+- [ ] add church to the servant (add church to the dto and when it is null then use the default "el malak mekhail" )
 - 
 - [x] add constrain on the attendance table that youthId concat with date must be unique
 - [x] make sure no repeated name or youth or anything in the lists like the attendance
@@ -104,4 +105,34 @@
 </details>
 
 ---
+<details>
+<summary>commented code</summary>
 
+  ```roomsql
+  -- this code is the sql query of get attendance method in attendance service
+      SELECT a.youth_id
+      FROM attendances a
+      JOIN (
+          SELECT m.id
+          FROM meeting m
+          WHERE MONTH(m.date) = 9
+      ) filtered_meetings ON a.meeting_id = filtered_meetings.id
+      JOIN persons y ON a.youth_id = y.id -- Add JOIN with the Youth table
+      WHERE y.gender = 'FEMALE' -- Add conditions on Youth entities here
+      GROUP BY a.youth_id
+      HAVING COUNT(DISTINCT a.meeting_id) = (SELECT COUNT(*) FROM meeting WHERE MONTH(date) = 9);
+  
+  ```
+***
+```java
+//this is used to filter the meetings usein meetingDTO
+//    public Boolean matches(MeetingFiltersDTO meetingFiltersDTO){
+//        return (meetingFiltersDTO.getDay() == null || meetingFiltersDTO.getDay().equals(this.getDate().getDayOfMonth()))
+//                && (meetingFiltersDTO.getMonth() == null || meetingFiltersDTO.getMonth().equals(this.getDate().getMonthValue()))
+//                && (meetingFiltersDTO.getYear() == null || meetingFiltersDTO.getYear().equals(this.getDate().getYear()))
+//                && (meetingFiltersDTO.getInstructorId() == null || meetingFiltersDTO.getInstructorId().equals(this.getInstructor().getId()))
+//                && (meetingFiltersDTO.getTopic() == null || this.getTopic().contains(meetingFiltersDTO.getTopic()));
+//    }
+
+```
+</details>

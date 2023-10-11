@@ -2,6 +2,7 @@ package com.angel.youthmeeting.models.mappers;
 
 import com.angel.youthmeeting.models.dtos.MeetingDTO;
 import com.angel.youthmeeting.models.entities.Meeting;
+import com.angel.youthmeeting.services.implementations.InstructorService;
 import com.angel.youthmeeting.services.implementations.ServantService;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.BeanMapping;
@@ -25,9 +26,9 @@ public interface MeetingMapper {
     Meeting mapMeetingDTO(MeetingDTO meetingDTO, @MappingTarget Meeting meeting, ServantService servantService);
 
     @AfterMapping
-    default void attachEntities(MeetingDTO meetingDTO, @MappingTarget Meeting meeting, ServantService servantService){
+    default void attachEntities(MeetingDTO meetingDTO, @MappingTarget Meeting meeting, InstructorService instructorService){
         Optional.ofNullable(meetingDTO.getInstructorId()).ifPresent(
-                instructorId -> meeting.setInstructor(servantService.getServantById(instructorId)));
+                instructorId -> meeting.setInstructor(instructorService.findById(instructorId)));
     }
 
     @Mapping(target = "instructorId", source = "instructor.id")

@@ -35,7 +35,7 @@ public class FatherService implements IFatherService {
         return lightDTOMapper.mapListOfFathers(fatherRepository.findAll());
     }
 
-    public Father getById(Long fatherId) {
+    public Father findById(Long fatherId) {
         fatherId = Optional.ofNullable(fatherId).orElseThrow(() -> new DataNotFoundException("validation.error.fatherId"));
         return fatherRepository.findById(fatherId).orElseThrow(
                 ()-> new DataNotFoundException("validation.error.father"));

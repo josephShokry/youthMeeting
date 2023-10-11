@@ -10,6 +10,6 @@ public interface IFatherService {
 
     Iterable<LightDTO> getAll();
 
-    Father getById(Long fatherId);
+    Father findById(Long fatherId);
 
 }

@@ -29,7 +29,7 @@ public class ServantService implements IServantService {
         return servant.getId();
     }
 
-    public Servant getServantById(Long servantId) {
+    public Servant findServantById(Long servantId) {
         servantId = Optional.ofNullable(servantId).orElseThrow(() -> new DataNotFoundException("validation.error.servantId"));
         return servantRepository.findById(servantId).orElseThrow(
                 () -> new DataNotFoundException("validation.error.servant"));

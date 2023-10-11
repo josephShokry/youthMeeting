@@ -16,15 +16,13 @@ public class YouthSpecificationImpl implements YouthSpecification {
 
     private YouthFiltersDTO youthFiltersDTO;
 
-    private Specifications<Youth> specifications;
-
     public YouthSpecificationImpl(YouthFiltersDTO youthFiltersDTO) {
         this.youthFiltersDTO = youthFiltersDTO;
     }
 
     @Override
     public Predicate toPredicate(Root<Youth> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-        specifications = new Specifications<>(root, criteriaBuilder);
+        Specifications<Youth> specifications = new Specifications<>(root, criteriaBuilder);
         List<Predicate> predicates = new ArrayList<>();
         Optional.ofNullable(youthFiltersDTO)
                 .ifPresent(filters -> {

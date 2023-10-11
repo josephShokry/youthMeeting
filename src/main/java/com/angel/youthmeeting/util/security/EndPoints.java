@@ -49,19 +49,21 @@ public class EndPoints {
     public static final String MEETING = "/meeting";
 
     public static final String ADD_MEETING = "";
+    public static final String ATTENDANCE = "/attendance";
 
-    public static final String ADD_ATTENDANCE = "/attendance";
+    public static final String ADD_ATTENDANCE = "";
 
     public static final String GET_MEETING = "/all";
 
-    public static final String GET_ATTENDANCE = "/attendance";
+    public static final String GET_ATTENDANCE = "/all";
 
     public static final String GET_RAFFLE = "/raffle";
 
     public static final String EDIT_MEETING = "";
-    public static final String ATTENDANCE = "";
 
     public static final String MEETING_GET_ALL = "/all";
+    public static final String GET_ATTENDANCE_REPORT = "/report";
+    public static final String INSTRUCTOR = "instructors";
 
     private EndPoints() { }
 }

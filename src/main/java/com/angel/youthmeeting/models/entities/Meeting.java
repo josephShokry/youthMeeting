@@ -34,20 +34,13 @@ public class Meeting extends BasicEntity{
     @Column(name = "date", unique = true, nullable = false)
     private LocalDate date;
 
-    //TODO: this should be basic person to include the fathers but basicPerson class is not entity so we can't now
     @ManyToOne
     @JoinColumn(name = "instructor_id", referencedColumnName = "id")
-    private Servant instructor;
+    private Instructor instructor;
 
     @OneToMany
     @JoinColumn(name = "meeting_id" , referencedColumnName = "id")
     private List<Attendance> attendance;
 
-//    public Boolean matches(MeetingFiltersDTO meetingFiltersDTO){
-//        return (meetingFiltersDTO.getDay() == null || meetingFiltersDTO.getDay().equals(this.getDate().getDayOfMonth()))
-//                && (meetingFiltersDTO.getMonth() == null || meetingFiltersDTO.getMonth().equals(this.getDate().getMonthValue()))
-//                && (meetingFiltersDTO.getYear() == null || meetingFiltersDTO.getYear().equals(this.getDate().getYear()))
-//                && (meetingFiltersDTO.getInstructorId() == null || meetingFiltersDTO.getInstructorId().equals(this.getInstructor().getId()))
-//                && (meetingFiltersDTO.getTopic() == null || this.getTopic().contains(meetingFiltersDTO.getTopic()));
-//    }
+
 }

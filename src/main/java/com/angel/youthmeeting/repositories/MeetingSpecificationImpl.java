@@ -16,15 +16,13 @@ public class MeetingSpecificationImpl implements MeetingSpecification{
 
     private MeetingFiltersDTO meetingFiltersDTO;
 
-    private Specifications<Meeting> specifications;
-
     public MeetingSpecificationImpl(MeetingFiltersDTO meetingFiltersDTO) {
         this.meetingFiltersDTO = meetingFiltersDTO;
     }
 
     @Override
     public Predicate toPredicate(Root<Meeting> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-        specifications = new Specifications<>(root, criteriaBuilder);
+        Specifications<Meeting> specifications = new Specifications<>(root, criteriaBuilder);
         List<Predicate> predicates = new ArrayList<>();
         Optional.ofNullable(meetingFiltersDTO)
                 .ifPresent(filters -> {
