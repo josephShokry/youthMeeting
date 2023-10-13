@@ -32,20 +32,19 @@
 
 ---
 # Today Tasks
-- [x] meeting instructor should be basic youth
-- [x] attendance filter with 2 request body
-- [ ] make the meeting dto check the date if the date is friday or any user specified day it's of otherwise throw exception
-- [ ] add the exceptions and error
+- [ ] add DB Migrations
+- [ ] add the exceptions and error (search if there is any missing)
 - [ ] add Unit test cases of the meeting repo, service, controller
-- [ ] check if no login the back end panic
 - [ ] add church to the servant (add church to the dto and when it is null then use the default "el malak mekhail" )
+- [ ] make the meeting dto check the date if the date is friday or any user specified day it's of otherwise throw exception
 - 
 - [x] add constrain on the attendance table that youthId concat with date must be unique
 - [x] make sure no repeated name or youth or anything in the lists like the attendance
 - [x] modify the specifications for more optimized OOP
 - [x] capture the time while adding the attendance and filter with it
 - [x] if the number of prizes bigger than list size it panics
-  
+- [x] meeting instructor should be basic youth
+- [x] attendance filter with 2 request body
   
 ----
 # done tasks

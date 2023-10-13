@@ -16,7 +16,7 @@ import lombok.experimental.SuperBuilder;
 import java.time.LocalDate;
 import java.util.List;
 
-@Entity
+@Entity(name = "meetings")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Setter
 @Getter

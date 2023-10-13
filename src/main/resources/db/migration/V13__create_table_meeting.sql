@@ -3,5 +3,6 @@ CREATE TABLE meetings(
     name VARCHAR(255),
     topic VARCHAR(255),
     date date,
-
-)
+    instructor_id bigint,
+    PRIMARY key (id)
+);
