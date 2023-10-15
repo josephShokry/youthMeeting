@@ -10,10 +10,10 @@ import java.util.Optional;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface ServantMapper {
 
-    Servant mapToServant(ServantDTO servantDTO, @MappingTarget Servant servant, @Context FamilyService familyService);
+    Servant mapToServant(ServantDTO servantDTO, @MappingTarget Servant servant, FamilyService familyService);
 
     @AfterMapping
-    default void attachObjects(ServantDTO servantDTO, @MappingTarget Servant servant, @Context FamilyService familyService){
+    default void attachObjects(ServantDTO servantDTO, @MappingTarget Servant servant, FamilyService familyService){
         Optional.ofNullable(servantDTO.getFamilyId()).ifPresent(
                 familyId -> servant.setFamily(familyService.findFamilyById(familyId)));
     }

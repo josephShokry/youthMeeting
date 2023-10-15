@@ -37,7 +37,7 @@ public interface YouthMapper {
         Optional.ofNullable(youthDTO.getStreetId()).ifPresent(
                 streetId -> youth.setStreet(streetService.findById(streetId)));
         Optional.ofNullable(youthDTO.getFatherId()).ifPresent(
-                fatherId -> youth.setFather(fatherService.getById(fatherId)));
+                fatherId -> youth.setFather(fatherService.findById(fatherId)));
     }
 
     @Mapping(target = "familyId", source = "family.id")

@@ -1,14 +1,13 @@
 package com.angel.youthmeeting.models.mappers;
 
 import com.angel.youthmeeting.models.dtos.YouthDTO;
+import com.angel.youthmeeting.models.entities.Family;
+import com.angel.youthmeeting.models.entities.Street;
+import com.angel.youthmeeting.models.entities.Youth;
 import com.angel.youthmeeting.models.enums.Gender;
 import com.angel.youthmeeting.services.implementations.FamilyService;
 import com.angel.youthmeeting.services.implementations.FatherService;
 import com.angel.youthmeeting.services.implementations.StreetService;
-import com.angel.youthmeeting.models.entities.Family;
-import com.angel.youthmeeting.models.entities.Street;
-import com.angel.youthmeeting.models.entities.Youth;
-import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mapstruct.factory.Mappers;
@@ -99,6 +98,6 @@ class YouthMapperTest {
         assertThat(targetYouthDTO.getBuildingNumber()).isEqualTo(16);
         assertThat(targetYouthDTO.getFamilyId()).isEqualTo(1);
         assertThat(targetYouthDTO.getStreetId()).isEqualTo(1);
-        AssertionsForClassTypes.assertThat(targetYouthDTO.getGender()).isEqualTo(Gender.MALE);
+        assertThat(targetYouthDTO.getGender()).isEqualTo(Gender.MALE);
     }
 }

@@ -1,11 +1,11 @@
 package com.angel.youthmeeting.services.implementations;
 
 import com.angel.youthmeeting.exceptions.exceptions.DataNotFoundException;
-import com.angel.youthmeeting.models.mappers.ServantMapper;
-import com.angel.youthmeeting.services.IServantService;
 import com.angel.youthmeeting.models.dtos.ServantDTO;
 import com.angel.youthmeeting.models.entities.Servant;
+import com.angel.youthmeeting.models.mappers.ServantMapper;
 import com.angel.youthmeeting.repositories.ServantRepository;
+import com.angel.youthmeeting.services.IServantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +29,7 @@ public class ServantService implements IServantService {
         return servant.getId();
     }
 
-    public Servant getServantById(Long servantId) {
+    public Servant findServantById(Long servantId) {
         servantId = Optional.ofNullable(servantId).orElseThrow(() -> new DataNotFoundException("validation.error.servantId"));
         return servantRepository.findById(servantId).orElseThrow(
                 () -> new DataNotFoundException("validation.error.servant"));

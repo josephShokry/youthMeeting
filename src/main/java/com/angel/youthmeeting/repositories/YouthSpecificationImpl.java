@@ -2,40 +2,38 @@ package com.angel.youthmeeting.repositories;
 
 import com.angel.youthmeeting.models.dtos.YouthFiltersDTO;
 import com.angel.youthmeeting.models.entities.Youth;
-import jakarta.persistence.criteria.*;
-import lombok.AllArgsConstructor;
+import com.angel.youthmeeting.util.security.Specifications;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-@AllArgsConstructor
-public class YouthSpecificationImpl implements YouthSpecification{
+public class YouthSpecificationImpl implements YouthSpecification {
 
     private YouthFiltersDTO youthFiltersDTO;
 
+    public YouthSpecificationImpl(YouthFiltersDTO youthFiltersDTO) {
+        this.youthFiltersDTO = youthFiltersDTO;
+    }
+
     @Override
     public Predicate toPredicate(Root<Youth> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+        Specifications<Youth> specifications = new Specifications<>(root, criteriaBuilder);
         List<Predicate> predicates = new ArrayList<>();
-        if(youthFiltersDTO != null){
-            if(youthFiltersDTO.getFamilyId() != null)
-                predicates.add(criteriaBuilder.equal(root.join("family", JoinType.LEFT).get("id"), youthFiltersDTO.getFamilyId()));
-            if(youthFiltersDTO.getStreetId() != null)
-                predicates.add(criteriaBuilder.equal(root.join("street", JoinType.LEFT).get("id"), youthFiltersDTO.getStreetId()));
-            if(youthFiltersDTO.getNamePart() != null)
-                predicates.add(criteriaBuilder.like(criteriaBuilder.concat(criteriaBuilder.concat(
-                        root.get("firstName"), " "), root.get("lastName")), "%" + youthFiltersDTO.getNamePart() + "%"));
-            if(youthFiltersDTO.getYear() != null){
-                Expression<Integer> yearExpression = criteriaBuilder.function("YEAR", Integer.class, root.get("dayOfBirth"));
-                predicates.add(criteriaBuilder.equal(yearExpression, youthFiltersDTO.getYear()));
-            }
-            if(youthFiltersDTO.getMonth() != null){
-                Expression<Integer> monthExpression = criteriaBuilder.function("MONTH", Integer.class, root.get("dayOfBirth"));
-                predicates.add(criteriaBuilder.equal(monthExpression, youthFiltersDTO.getMonth()));
-            }
-            if(youthFiltersDTO.getGender() != null){
-                predicates.add(criteriaBuilder.equal(root.get("gender"), youthFiltersDTO.getGender()));
-            }
-        }
+        Optional.ofNullable(youthFiltersDTO)
+                .ifPresent(filters -> {
+                    specifications.addFamilyFilter(filters.getFamilyId(), root, criteriaBuilder, predicates);
+                    specifications.addStreetFilter(filters.getStreetId(), root, criteriaBuilder, predicates);
+                    specifications.addNamePartFilter(filters.getNamePart(), root, criteriaBuilder, predicates);
+                    specifications.addYearFilter(filters.getYear(), root, criteriaBuilder, predicates,"dayOfBirth");
+                    specifications.addMonthFilter(filters.getMonth(), root, criteriaBuilder, predicates,"dayOfBirth");
+                    specifications.addGenderFilter(filters.getGender(), root, criteriaBuilder, predicates);
+                });
         return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
     }
+
 }

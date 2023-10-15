@@ -1,8 +1,8 @@
 package com.angel.youthmeeting.controllers;
 
 import com.angel.youthmeeting.models.dtos.UserDTO;
-import com.angel.youthmeeting.util.security.EndPoints;
 import com.angel.youthmeeting.services.implementations.UserService;
+import com.angel.youthmeeting.util.security.EndPoints;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;

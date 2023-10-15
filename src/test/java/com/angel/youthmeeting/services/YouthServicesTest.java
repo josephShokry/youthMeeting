@@ -14,7 +14,6 @@ import com.angel.youthmeeting.services.implementations.FamilyService;
 import com.angel.youthmeeting.services.implementations.FatherService;
 import com.angel.youthmeeting.services.implementations.StreetService;
 import com.angel.youthmeeting.services.implementations.YouthService;
-import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -92,7 +91,7 @@ class YouthServicesTest {
                 .build();
         when(youthRepository.findById(1L)).thenReturn(Optional.of(youthsTable.get(0)));
         when(youthMapper.mapYouth(eq(youthsTable.get(0)), any(YouthDTO.class))).thenReturn(fullYouthDto);
-        AssertionsForClassTypes.assertThat(youthService.findYouthDtoById(1L)).isEqualTo(fullYouthDto);
+        assertThat(youthService.findYouthDtoById(1L)).isEqualTo(fullYouthDto);
         verify(youthRepository,times(1)).findById(1L);
         verify(youthMapper,times(1)).mapYouth(eq(youthsTable.get(0)),any(YouthDTO.class));
     }

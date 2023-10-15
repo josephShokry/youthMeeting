@@ -1,5 +1,6 @@
 package com.angel.youthmeeting.models.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
@@ -18,5 +19,6 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 public class Father extends BasicPerson{
 
+    @Column(name = "church")
     private String church;
 }

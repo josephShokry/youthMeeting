@@ -3,10 +3,10 @@ package com.angel.youthmeeting.controllers;
 import com.angel.youthmeeting.dataProviders.YouthControllerDataProvider;
 import com.angel.youthmeeting.models.dtos.YouthDTO;
 import com.angel.youthmeeting.models.dtos.YouthFiltersDTO;
-import com.angel.youthmeeting.services.implementations.YouthService;
 import com.angel.youthmeeting.models.entities.Family;
 import com.angel.youthmeeting.models.entities.User;
 import com.angel.youthmeeting.models.entities.Youth;
+import com.angel.youthmeeting.services.implementations.YouthService;
 import com.angel.youthmeeting.util.security.EndPoints;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +20,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
@@ -307,6 +311,4 @@ class YouthControllerTest {
                 .andExpect(status().isBadRequest());
         verify(youthService, times(0)).editYouth(any(YouthDTO.class));
     }
-
-
 }

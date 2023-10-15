@@ -15,6 +15,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FamilyDTO extends LightDTO {
+
     @JsonProperty("familyLevel")
     @Min(value = 1, message = "validation.error.familyId.min")
     private Integer familyLevel;

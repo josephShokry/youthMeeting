@@ -22,6 +22,7 @@ public class RoleChecker {
     private ServantService servantService;
 
     public Boolean sameFamily(Authentication authentication, Long youthId){
+
         User principal = (User) authentication.getPrincipal();
         Servant servant = (Servant)principal.getPerson();
         Youth youth = youthService.findYouthById(youthId);

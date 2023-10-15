@@ -15,7 +15,7 @@ public interface UserMapper {
     @AfterMapping
     default void attachObjects(UserDTO userDTO, @MappingTarget User user, @Context ServantService servantService){
         Optional.ofNullable(userDTO.getPersonId()).ifPresent(
-                servantId -> user.setPerson(servantService.getServantById(servantId)));
+                servantId -> user.setPerson(servantService.findServantById(servantId)));
     }
 
     UserDTO mapToUserDTO(User user, @MappingTarget UserDTO userDTO);
